@@ -10,7 +10,7 @@ output:
 
 <br>
 
-```{r}
+```{r, setup, include=FALSE}
 library(flexdashboard)
 # library(vaccc19de)
 library(tidyverse)
@@ -20,9 +20,6 @@ library(highcharter)
 knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
 rki_dat <- readRDS("data/rki_dat.RDS")
-
-
-
 
 latest_dat <- rki_dat %>% 
   dplyr::filter(day==max(day))
