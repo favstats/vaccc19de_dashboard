@@ -5,6 +5,8 @@ while(T){
 
   rmarkdown::render_site()
 
+  Sys.sleep(2)
+
   file.rename("_site", "docs")
 
   system("git add -A")
