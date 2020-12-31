@@ -89,7 +89,7 @@ total_plot <- hcmap(
   data = latest_dat,
   value = "impfungen_kumulativ",
   joinBy = c("name", "bundesland"),
-  name = "Impfungen",
+  name = "Anzahl der Impfungen",
   dataLabels = list(enabled = TRUE, format = "{point.name}")
   ) %>%
   hc_exporting(
@@ -101,7 +101,7 @@ total_plot <- hcmap(
     style = list(fontSize = "12px")
   ) %>%
   hc_title(
-    text = " Absolute Anzahl der geimpften Personen"
+    text = " Anzahl der Impfungen"
   ) %>% 
   hc_legend(
     layout = "horizontal",
@@ -167,7 +167,7 @@ rki_dat %>%
   hchart("line", hcaes(day, impfungen_kumulativ, group = bundesland)) %>%
   # Axis
   hc_yAxis(
-    title = list(text = "Impfungen (kumulativ)")
+    title = list(text = "Anzahl der Impfungen (kumulativ)")
   ) %>% 
   hc_xAxis(
     title = list(text = "Datum (täglich)")
@@ -189,7 +189,7 @@ rki_dat %>%
 Row
 -----------------------------------------------------------------------
 
-### Absolute Anzahl der geimpften Personen {.value-box}
+### Anzahl der Anzahl der Impfungen {.value-box}
 
 ```{r}
 
@@ -205,7 +205,7 @@ geimpft <- latest_dat %>%
 ```
 
 
-### Prozent der Bevölkerung geimpft (deutschlandweit) {.value-box}
+### Prozent der Bevölkerung geimpft {.value-box}
 
 ```{r}
 
