@@ -1,14 +1,9 @@
 ---
+title: "Prozent der Bevölkerung geimpft"
 output: 
   html_document:
     theme: yeti
 ---
-
-<br>
-
-## Prozent der Bevölkerung geimpft
-
-<br>
 
 ```{r, setup, include=FALSE}
 library(flexdashboard)
