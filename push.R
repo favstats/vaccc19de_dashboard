@@ -5,9 +5,7 @@ while(T){
 
   rmarkdown::render_site()
 
-  Sys.sleep(10)
-
-  file.rename("_site", "docs")
+  system("mv _site docs")
 
   system("git add -A")
   system(glue::glue('git commit -m "{Sys.time()}: Update Dashboard"'))

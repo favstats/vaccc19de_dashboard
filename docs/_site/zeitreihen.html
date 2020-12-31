@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>zeitreihen.utf8</title>
+
+<script src="site_libs/jquery-3.5.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="site_libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="site_libs/proj4js-2.3.15/proj4.js"></script>
+<link href="site_libs/highcharts-8.1.2/css/motion.css" rel="stylesheet" />
+<script src="site_libs/highcharts-8.1.2/highcharts.js"></script>
+<script src="site_libs/highcharts-8.1.2/highcharts-3d.js"></script>
+<script src="site_libs/highcharts-8.1.2/highcharts-more.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/stock.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/map.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/annotations.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/data.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/drilldown.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/item-series.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/offline-exporting.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/overlapping-datalabels.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/exporting.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/export-data.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/funnel.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/heatmap.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/treemap.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/sankey.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/dependency-wheel.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/organization.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/solid-gauge.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/streamgraph.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/sunburst.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/vector.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/wordcloud.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/xrange.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/tilemap.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/venn.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/gantt.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/timeline.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/parallel-coordinates.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/bullet.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/coloraxis.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/dumbbell.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/lollipop.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/series-label.js"></script>
+<script src="site_libs/highcharts-8.1.2/plugins/motion.js"></script>
+<script src="site_libs/highcharts-8.1.2/custom/reset.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/boost.js"></script>
+<script src="site_libs/highchart-binding-0.8.2/highchart.js"></script>
+<link href="site_libs/htmlwdgtgrid-0.0.9/htmlwdgtgrid.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h2 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h3 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h4 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h5 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">COVID-19 Impfungsdaten des RKI</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Info</a>
+</li>
+<li>
+  <a href="karten.html">Karten</a>
+</li>
+<li>
+  <a href="zeitreihen.html">Zeitreihen</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://twitter.com/favstats/">
+    <span class="fa fa-twitter fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/favstats/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p><br></p>
+<div id="prozent-der-bevölkerung-geimpft" class="section level2">
+<h2>Prozent der Bevölkerung geimpft</h2>
+<p><br></p>
+<div class="grid grid-pad">
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-e610f3340dbb755a2955" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e610f3340dbb755a2955">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Deutschland"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Deutschland","colors":"#000000","ts_datenstand":null,"ts_download":null,"bundesland_iso":null,"impfungen_kumulativ":41962,"differenz_zum_vortag":null,"indikation_nach_alter":null,"berufliche_indikation":null,"medizinische_indikation":null,"pflegeheim_bewohner_in":null,"notes":null,"day":"2020-12-29","insgesamt":83166711,"prozent_geimpft":0.0504552837252395,"prozent_geimpft_label":0.05,"impfungen_kumulativ_label":"41 962","x":1609200000000,"y":0.0504552837252395},{"bundesland":"Deutschland","colors":"#000000","ts_datenstand":null,"ts_download":null,"bundesland_iso":null,"impfungen_kumulativ":78109,"differenz_zum_vortag":null,"indikation_nach_alter":null,"berufliche_indikation":null,"medizinische_indikation":null,"pflegeheim_bewohner_in":null,"notes":null,"day":"2020-12-30","insgesamt":83166711,"prozent_geimpft":0.0939185872097311,"prozent_geimpft_label":0.09,"impfungen_kumulativ_label":"78 109","x":1609286400000,"y":0.0939185872097311},{"bundesland":"Deutschland","colors":"#000000","ts_datenstand":null,"ts_download":null,"bundesland_iso":null,"impfungen_kumulativ":131626,"differenz_zum_vortag":null,"indikation_nach_alter":null,"berufliche_indikation":null,"medizinische_indikation":null,"pflegeheim_bewohner_in":null,"notes":null,"day":"2020-12-31","insgesamt":83166711,"prozent_geimpft":0.158267651103817,"prozent_geimpft_label":0.16,"impfungen_kumulativ_label":"131 626","x":1609372800000,"y":0.158267651103817}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#000000"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-41bb1b984172b86beea8" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-41bb1b984172b86beea8">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Baden-Württemberg"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Baden-Württemberg","colors":"#E264AB","ts_datenstand":"2020-12-29T07:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"BW","impfungen_kumulativ":4721,"differenz_zum_vortag":2560,"indikation_nach_alter":1720,"berufliche_indikation":1877,"medizinische_indikation":326,"pflegeheim_bewohner_in":192,"notes":"einschl. Korrekturmeldung vom 27.12.20","day":"2020-12-29","insgesamt":11100394,"prozent_geimpft":0.0425300219073305,"prozent_geimpft_label":0.04,"impfungen_kumulativ_label":"4 721","x":1609200000000,"y":0.0425300219073305},{"bundesland":"Baden-Württemberg","colors":"#E264AB","ts_datenstand":"2020-12-30T10:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"BW","impfungen_kumulativ":8242,"differenz_zum_vortag":3509,"indikation_nach_alter":3243,"berufliche_indikation":2994,"medizinische_indikation":517,"pflegeheim_bewohner_in":933,"notes":null,"day":"2020-12-30","insgesamt":11100394,"prozent_geimpft":0.0742496167253162,"prozent_geimpft_label":0.07,"impfungen_kumulativ_label":"8 242","x":1609286400000,"y":0.0742496167253162},{"bundesland":"Baden-Württemberg","colors":"#E264AB","ts_datenstand":"2020-12-31T07:30:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"BW","impfungen_kumulativ":12649,"differenz_zum_vortag":4407,"indikation_nach_alter":5347,"berufliche_indikation":4196,"medizinische_indikation":763,"pflegeheim_bewohner_in":1831,"notes":null,"day":"2020-12-31","insgesamt":11100394,"prozent_geimpft":0.113950910210935,"prozent_geimpft_label":0.11,"impfungen_kumulativ_label":"12 649","x":1609372800000,"y":0.113950910210935}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#E264AB"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-d03078963a8486d112ee" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d03078963a8486d112ee">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Bayern"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Bayern","colors":"#D766C9","ts_datenstand":"2020-12-29T07:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"BY","impfungen_kumulativ":5219,"differenz_zum_vortag":1830,"indikation_nach_alter":1457,"berufliche_indikation":1830,"medizinische_indikation":91,"pflegeheim_bewohner_in":2423,"notes":null,"day":"2020-12-29","insgesamt":13124737,"prozent_geimpft":0.0397646063307783,"prozent_geimpft_label":0.04,"impfungen_kumulativ_label":"5 219","x":1609200000000,"y":0.0397646063307783},{"bundesland":"Bayern","colors":"#D766C9","ts_datenstand":"2020-12-30T10:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"BY","impfungen_kumulativ":12935,"differenz_zum_vortag":7716,"indikation_nach_alter":3010,"berufliche_indikation":5573,"medizinische_indikation":214,"pflegeheim_bewohner_in":5314,"notes":null,"day":"2020-12-30","insgesamt":13124737,"prozent_geimpft":0.0985543557939485,"prozent_geimpft_label":0.1,"impfungen_kumulativ_label":"12 935","x":1609286400000,"y":0.0985543557939485},{"bundesland":"Bayern","colors":"#D766C9","ts_datenstand":"2020-12-31T07:30:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"BY","impfungen_kumulativ":28206,"differenz_zum_vortag":15104,"indikation_nach_alter":5831,"berufliche_indikation":13981,"medizinische_indikation":424,"pflegeheim_bewohner_in":10347,"notes":null,"day":"2020-12-31","insgesamt":13124737,"prozent_geimpft":0.214907163473066,"prozent_geimpft_label":0.21,"impfungen_kumulativ_label":"28 206","x":1609372800000,"y":0.214907163473066}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#D766C9"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-d327f5fc6c96afd981b3" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d327f5fc6c96afd981b3">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Berlin"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Berlin","colors":"#BD72DD","ts_datenstand":"2020-12-29T07:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"BE","impfungen_kumulativ":3839,"differenz_zum_vortag":2213,"indikation_nach_alter":3340,"berufliche_indikation":517,"medizinische_indikation":105,"pflegeheim_bewohner_in":3322,"notes":null,"day":"2020-12-29","insgesamt":3669491,"prozent_geimpft":0.104619414518253,"prozent_geimpft_label":0.1,"impfungen_kumulativ_label":"3 839","x":1609200000000,"y":0.104619414518253},{"bundesland":"Berlin","colors":"#BD72DD","ts_datenstand":"2020-12-30T10:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"BE","impfungen_kumulativ":6296,"differenz_zum_vortag":2457,"indikation_nach_alter":4918,"berufliche_indikation":1396,"medizinische_indikation":105,"pflegeheim_bewohner_in":4899,"notes":null,"day":"2020-12-30","insgesamt":3669491,"prozent_geimpft":0.171576929879376,"prozent_geimpft_label":0.17,"impfungen_kumulativ_label":"6 296","x":1609286400000,"y":0.171576929879376},{"bundesland":"Berlin","colors":"#BD72DD","ts_datenstand":"2020-12-31T07:30:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"BE","impfungen_kumulativ":9084,"differenz_zum_vortag":2788,"indikation_nach_alter":6554,"berufliche_indikation":2733,"medizinische_indikation":105,"pflegeheim_bewohner_in":6350,"notes":null,"day":"2020-12-31","insgesamt":3669491,"prozent_geimpft":0.247554769857727,"prozent_geimpft_label":0.25,"impfungen_kumulativ_label":"9 084","x":1609372800000,"y":0.247554769857727}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#BD72DD"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-752e8487780561bc09ba" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-752e8487780561bc09ba">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Brandenburg"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Brandenburg","colors":"#9183E6","ts_datenstand":"2020-12-29T07:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"BB","impfungen_kumulativ":107,"differenz_zum_vortag":75,"indikation_nach_alter":60,"berufliche_indikation":47,"medizinische_indikation":null,"pflegeheim_bewohner_in":60,"notes":"einschl. Korrekturmeldung vom 27.12.20","day":"2020-12-29","insgesamt":2521893,"prozent_geimpft":0.00424284456160511,"prozent_geimpft_label":0,"impfungen_kumulativ_label":"107","x":1609200000000,"y":0.00424284456160511},{"bundesland":"Brandenburg","colors":"#9183E6","ts_datenstand":"2020-12-30T10:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"BB","impfungen_kumulativ":1553,"differenz_zum_vortag":1442,"indikation_nach_alter":110,"berufliche_indikation":1430,"medizinische_indikation":13,"pflegeheim_bewohner_in":123,"notes":null,"day":"2020-12-30","insgesamt":2521893,"prozent_geimpft":0.0615807252726424,"prozent_geimpft_label":0.06,"impfungen_kumulativ_label":"1 553","x":1609286400000,"y":0.0615807252726424},{"bundesland":"Brandenburg","colors":"#9183E6","ts_datenstand":"2020-12-31T07:30:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"BB","impfungen_kumulativ":3036,"differenz_zum_vortag":1483,"indikation_nach_alter":204,"berufliche_indikation":2812,"medizinische_indikation":20,"pflegeheim_bewohner_in":224,"notes":null,"day":"2020-12-31","insgesamt":2521893,"prozent_geimpft":0.120385757841431,"prozent_geimpft_label":0.12,"impfungen_kumulativ_label":"3 036","x":1609372800000,"y":0.120385757841431}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#9183E6"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-3cf81e4ea2c831a0c0be" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3cf81e4ea2c831a0c0be">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Bremen"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Bremen","colors":"#4495E2","ts_datenstand":"2020-12-29T07:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"HB","impfungen_kumulativ":592,"differenz_zum_vortag":174,"indikation_nach_alter":276,"berufliche_indikation":133,"medizinische_indikation":null,"pflegeheim_bewohner_in":278,"notes":"einschl. Korrekturmeldung vom 27.12.20","day":"2020-12-29","insgesamt":681202,"prozent_geimpft":0.0869052057979865,"prozent_geimpft_label":0.09,"impfungen_kumulativ_label":"592","x":1609200000000,"y":0.0869052057979865},{"bundesland":"Bremen","colors":"#4495E2","ts_datenstand":"2020-12-30T10:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"HB","impfungen_kumulativ":1059,"differenz_zum_vortag":467,"indikation_nach_alter":528,"berufliche_indikation":201,"medizinische_indikation":3,"pflegeheim_bewohner_in":579,"notes":null,"day":"2020-12-30","insgesamt":681202,"prozent_geimpft":0.155460494831195,"prozent_geimpft_label":0.16,"impfungen_kumulativ_label":"1 059","x":1609286400000,"y":0.155460494831195},{"bundesland":"Bremen","colors":"#4495E2","ts_datenstand":"2020-12-31T07:30:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"HB","impfungen_kumulativ":1691,"differenz_zum_vortag":601,"indikation_nach_alter":821,"berufliche_indikation":408,"medizinische_indikation":5,"pflegeheim_bewohner_in":510,"notes":null,"day":"2020-12-31","insgesamt":681202,"prozent_geimpft":0.248237673993911,"prozent_geimpft_label":0.25,"impfungen_kumulativ_label":"1 691","x":1609372800000,"y":0.248237673993911}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#4495E2"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-ef58289f2843d8bf2156" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ef58289f2843d8bf2156">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Hamburg"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Hamburg","colors":"#00A2D3","ts_datenstand":"2020-12-29T07:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"HH","impfungen_kumulativ":1071,"differenz_zum_vortag":626,"indikation_nach_alter":507,"berufliche_indikation":471,"medizinische_indikation":null,"pflegeheim_bewohner_in":600,"notes":null,"day":"2020-12-29","insgesamt":1847253,"prozent_geimpft":0.0579779813593482,"prozent_geimpft_label":0.06,"impfungen_kumulativ_label":"1 071","x":1609200000000,"y":0.0579779813593482},{"bundesland":"Hamburg","colors":"#00A2D3","ts_datenstand":"2020-12-30T10:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"HH","impfungen_kumulativ":1499,"differenz_zum_vortag":428,"indikation_nach_alter":704,"berufliche_indikation":661,"medizinische_indikation":0,"pflegeheim_bewohner_in":839,"notes":null,"day":"2020-12-30","insgesamt":1847253,"prozent_geimpft":0.0811475201285368,"prozent_geimpft_label":0.08,"impfungen_kumulativ_label":"1 499","x":1609286400000,"y":0.0811475201285368},{"bundesland":"Hamburg","colors":"#00A2D3","ts_datenstand":"2020-12-31T07:30:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"HH","impfungen_kumulativ":2040,"differenz_zum_vortag":541,"indikation_nach_alter":832,"berufliche_indikation":1042,"medizinische_indikation":null,"pflegeheim_bewohner_in":999,"notes":null,"day":"2020-12-31","insgesamt":1847253,"prozent_geimpft":0.110434250208282,"prozent_geimpft_label":0.11,"impfungen_kumulativ_label":"2 040","x":1609372800000,"y":0.110434250208282}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#00A2D3"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-c7c665a6191f1f3d53d9" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c7c665a6191f1f3d53d9">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Hessen"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Hessen","colors":"#00AABA","ts_datenstand":"2020-12-29T07:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"HE","impfungen_kumulativ":4354,"differenz_zum_vortag":1242,"indikation_nach_alter":1480,"berufliche_indikation":2425,"medizinische_indikation":287,"pflegeheim_bewohner_in":1702,"notes":null,"day":"2020-12-29","insgesamt":6288080,"prozent_geimpft":0.0692421216015063,"prozent_geimpft_label":0.07,"impfungen_kumulativ_label":"4 354","x":1609200000000,"y":0.0692421216015063},{"bundesland":"Hessen","colors":"#00AABA","ts_datenstand":"2020-12-30T10:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"HE","impfungen_kumulativ":9448,"differenz_zum_vortag":5094,"indikation_nach_alter":3041,"berufliche_indikation":5092,"medizinische_indikation":500,"pflegeheim_bewohner_in":3825,"notes":null,"day":"2020-12-30","insgesamt":6288080,"prozent_geimpft":0.150252541316268,"prozent_geimpft_label":0.15,"impfungen_kumulativ_label":"9 448","x":1609286400000,"y":0.150252541316268},{"bundesland":"Hessen","colors":"#00AABA","ts_datenstand":"2020-12-31T07:30:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"HE","impfungen_kumulativ":15674,"differenz_zum_vortag":6226,"indikation_nach_alter":4677,"berufliche_indikation":8681,"medizinische_indikation":712,"pflegeheim_bewohner_in":6512,"notes":null,"day":"2020-12-31","insgesamt":6288080,"prozent_geimpft":0.249265276523199,"prozent_geimpft_label":0.25,"impfungen_kumulativ_label":"15 674","x":1609372800000,"y":0.249265276523199}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#00AABA"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-a0dbddbdaae2276f2ae1" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a0dbddbdaae2276f2ae1">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Mecklenburg-Vorpommern"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Mecklenburg-Vorpommern","colors":"#00AD9A","ts_datenstand":"2020-12-29T07:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"MV","impfungen_kumulativ":4170,"differenz_zum_vortag":3488,"indikation_nach_alter":100,"berufliche_indikation":1862,"medizinische_indikation":2,"pflegeheim_bewohner_in":2209,"notes":null,"day":"2020-12-29","insgesamt":1608138,"prozent_geimpft":0.259306104326868,"prozent_geimpft_label":0.26,"impfungen_kumulativ_label":"4 170","x":1609200000000,"y":0.259306104326868},{"bundesland":"Mecklenburg-Vorpommern","colors":"#00AD9A","ts_datenstand":"2020-12-30T10:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"MV","impfungen_kumulativ":7338,"differenz_zum_vortag":3711,"indikation_nach_alter":87,"berufliche_indikation":4011,"medizinische_indikation":4,"pflegeheim_bewohner_in":3231,"notes":null,"day":"2020-12-30","insgesamt":1608138,"prozent_geimpft":0.45630412315361,"prozent_geimpft_label":0.46,"impfungen_kumulativ_label":"7 338","x":1609286400000,"y":0.45630412315361},{"bundesland":"Mecklenburg-Vorpommern","colors":"#00AD9A","ts_datenstand":"2020-12-31T07:30:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"MV","impfungen_kumulativ":11101,"differenz_zum_vortag":3640,"indikation_nach_alter":173,"berufliche_indikation":6349,"medizinische_indikation":7,"pflegeheim_bewohner_in":4651,"notes":null,"day":"2020-12-31","insgesamt":1608138,"prozent_geimpft":0.690301454228431,"prozent_geimpft_label":0.69,"impfungen_kumulativ_label":"11 101","x":1609372800000,"y":0.690301454228431}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#00AD9A"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-a143976f4dc7c3a26d29" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a143976f4dc7c3a26d29">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Niedersachsen"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Niedersachsen","colors":"#00AC74","ts_datenstand":"2020-12-29T07:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"NI","impfungen_kumulativ":835,"differenz_zum_vortag":501,"indikation_nach_alter":79,"berufliche_indikation":370,"medizinische_indikation":141,"pflegeheim_bewohner_in":552,"notes":null,"day":"2020-12-29","insgesamt":7993608,"prozent_geimpft":0.0104458462311387,"prozent_geimpft_label":0.01,"impfungen_kumulativ_label":"835","x":1609200000000,"y":0.0104458462311387},{"bundesland":"Niedersachsen","colors":"#00AC74","ts_datenstand":"2020-12-30T10:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"NI","impfungen_kumulativ":1527,"differenz_zum_vortag":692,"indikation_nach_alter":83,"berufliche_indikation":824,"medizinische_indikation":145,"pflegeheim_bewohner_in":794,"notes":null,"day":"2020-12-30","insgesamt":7993608,"prozent_geimpft":0.0191027631077231,"prozent_geimpft_label":0.02,"impfungen_kumulativ_label":"1 527","x":1609286400000,"y":0.0191027631077231},{"bundesland":"Niedersachsen","colors":"#00AC74","ts_datenstand":"2020-12-31T07:30:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"NI","impfungen_kumulativ":2705,"differenz_zum_vortag":1178,"indikation_nach_alter":296,"berufliche_indikation":1512,"medizinische_indikation":315,"pflegeheim_bewohner_in":1423,"notes":null,"day":"2020-12-31","insgesamt":7993608,"prozent_geimpft":0.0338395377906948,"prozent_geimpft_label":0.03,"impfungen_kumulativ_label":"2 705","x":1609372800000,"y":0.0338395377906948}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#00AC74"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-fa7c31eaa5431526b706" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fa7c31eaa5431526b706">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Nordrhein-Westfalen"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Nordrhein-Westfalen","colors":"#00A846","ts_datenstand":"2020-12-29T07:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"NW","impfungen_kumulativ":7136,"differenz_zum_vortag":518,"indikation_nach_alter":null,"berufliche_indikation":1788,"medizinische_indikation":null,"pflegeheim_bewohner_in":5348,"notes":null,"day":"2020-12-29","insgesamt":17947221,"prozent_geimpft":0.0397610304124522,"prozent_geimpft_label":0.04,"impfungen_kumulativ_label":"7 136","x":1609200000000,"y":0.0397610304124522},{"bundesland":"Nordrhein-Westfalen","colors":"#00A846","ts_datenstand":"2020-12-30T10:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"NW","impfungen_kumulativ":11385,"differenz_zum_vortag":3857,"indikation_nach_alter":0,"berufliche_indikation":2771,"medizinische_indikation":0,"pflegeheim_bewohner_in":8622,"notes":null,"day":"2020-12-30","insgesamt":17947221,"prozent_geimpft":0.0634360049391491,"prozent_geimpft_label":0.06,"impfungen_kumulativ_label":"11 385","x":1609286400000,"y":0.0634360049391491},{"bundesland":"Nordrhein-Westfalen","colors":"#00A846","ts_datenstand":"2020-12-31T07:30:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"NW","impfungen_kumulativ":19930,"differenz_zum_vortag":7359,"indikation_nach_alter":null,"berufliche_indikation":6610,"medizinische_indikation":null,"pflegeheim_bewohner_in":13693,"notes":null,"day":"2020-12-31","insgesamt":17947221,"prozent_geimpft":0.111047832976481,"prozent_geimpft_label":0.11,"impfungen_kumulativ_label":"19 930","x":1609372800000,"y":0.111047832976481}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#00A846"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-2778b28e7663e8864088" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2778b28e7663e8864088">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Rheinland-Pfalz"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Rheinland-Pfalz","colors":"#65A100","ts_datenstand":"2020-12-29T07:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"RP","impfungen_kumulativ":1462,"differenz_zum_vortag":210,"indikation_nach_alter":null,"berufliche_indikation":715,"medizinische_indikation":null,"pflegeheim_bewohner_in":747,"notes":null,"day":"2020-12-29","insgesamt":4093903,"prozent_geimpft":0.0357116424106775,"prozent_geimpft_label":0.04,"impfungen_kumulativ_label":"1 462","x":1609200000000,"y":0.0357116424106775},{"bundesland":"Rheinland-Pfalz","colors":"#65A100","ts_datenstand":"2020-12-30T10:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"RP","impfungen_kumulativ":2284,"differenz_zum_vortag":822,"indikation_nach_alter":0,"berufliche_indikation":1011,"medizinische_indikation":0,"pflegeheim_bewohner_in":1273,"notes":null,"day":"2020-12-30","insgesamt":4093903,"prozent_geimpft":0.055790281303685,"prozent_geimpft_label":0.06,"impfungen_kumulativ_label":"2 284","x":1609286400000,"y":0.055790281303685},{"bundesland":"Rheinland-Pfalz","colors":"#65A100","ts_datenstand":"2020-12-31T07:30:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"RP","impfungen_kumulativ":4247,"differenz_zum_vortag":1673,"indikation_nach_alter":null,"berufliche_indikation":1941,"medizinische_indikation":null,"pflegeheim_bewohner_in":2306,"notes":null,"day":"2020-12-31","insgesamt":4093903,"prozent_geimpft":0.103739634280539,"prozent_geimpft_label":0.1,"impfungen_kumulativ_label":"4 247","x":1609372800000,"y":0.103739634280539}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#65A100"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-cdf7ee852b72344e9615" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cdf7ee852b72344e9615">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Saarland"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Saarland","colors":"#909800","ts_datenstand":"2020-12-29T07:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"SL","impfungen_kumulativ":862,"differenz_zum_vortag":647,"indikation_nach_alter":658,"berufliche_indikation":51,"medizinische_indikation":null,"pflegeheim_bewohner_in":466,"notes":null,"day":"2020-12-29","insgesamt":986887,"prozent_geimpft":0.0873453597017693,"prozent_geimpft_label":0.09,"impfungen_kumulativ_label":"862","x":1609200000000,"y":0.0873453597017693},{"bundesland":"Saarland","colors":"#909800","ts_datenstand":"2020-12-30T10:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"SL","impfungen_kumulativ":1518,"differenz_zum_vortag":656,"indikation_nach_alter":1177,"berufliche_indikation":101,"medizinische_indikation":0,"pflegeheim_bewohner_in":711,"notes":null,"day":"2020-12-30","insgesamt":986887,"prozent_geimpft":0.15381700235184,"prozent_geimpft_label":0.15,"impfungen_kumulativ_label":"1 518","x":1609286400000,"y":0.15381700235184},{"bundesland":"Saarland","colors":"#909800","ts_datenstand":"2020-12-31T07:30:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"SL","impfungen_kumulativ":2119,"differenz_zum_vortag":601,"indikation_nach_alter":1641,"berufliche_indikation":161,"medizinische_indikation":null,"pflegeheim_bewohner_in":899,"notes":null,"day":"2020-12-31","insgesamt":986887,"prozent_geimpft":0.214715565206554,"prozent_geimpft_label":0.21,"impfungen_kumulativ_label":"2 119","x":1609372800000,"y":0.214715565206554}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#909800"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-505dcac6483452e4c52d" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-505dcac6483452e4c52d">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Sachsen"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Sachsen","colors":"#AF8E00","ts_datenstand":"2020-12-29T07:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"SN","impfungen_kumulativ":857,"differenz_zum_vortag":675,"indikation_nach_alter":240,"berufliche_indikation":551,"medizinische_indikation":1,"pflegeheim_bewohner_in":305,"notes":null,"day":"2020-12-29","insgesamt":4071971,"prozent_geimpft":0.0210463188465733,"prozent_geimpft_label":0.02,"impfungen_kumulativ_label":"857","x":1609200000000,"y":0.0210463188465733},{"bundesland":"Sachsen","colors":"#AF8E00","ts_datenstand":"2020-12-30T10:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"SN","impfungen_kumulativ":1487,"differenz_zum_vortag":812,"indikation_nach_alter":150,"berufliche_indikation":1294,"medizinische_indikation":1,"pflegeheim_bewohner_in":192,"notes":null,"day":"2020-12-30","insgesamt":4071971,"prozent_geimpft":0.0365179418026307,"prozent_geimpft_label":0.04,"impfungen_kumulativ_label":"1 487","x":1609286400000,"y":0.0365179418026307},{"bundesland":"Sachsen","colors":"#AF8E00","ts_datenstand":"2020-12-31T07:30:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"SN","impfungen_kumulativ":2653,"differenz_zum_vortag":1166,"indikation_nach_alter":150,"berufliche_indikation":2460,"medizinische_indikation":1,"pflegeheim_bewohner_in":192,"notes":null,"day":"2020-12-31","insgesamt":4071971,"prozent_geimpft":0.065152723337175,"prozent_geimpft_label":0.07,"impfungen_kumulativ_label":"2 653","x":1609372800000,"y":0.065152723337175}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#AF8E00"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-6fa1687517e1f6fa2654" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6fa1687517e1f6fa2654">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Sachsen-Anhalt"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Sachsen-Anhalt","colors":"#C7821C","ts_datenstand":"2020-12-29T07:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"ST","impfungen_kumulativ":3985,"differenz_zum_vortag":2481,"indikation_nach_alter":1592,"berufliche_indikation":1678,"medizinische_indikation":124,"pflegeheim_bewohner_in":2292,"notes":null,"day":"2020-12-29","insgesamt":2194782,"prozent_geimpft":0.181567007566127,"prozent_geimpft_label":0.18,"impfungen_kumulativ_label":"3 985","x":1609200000000,"y":0.181567007566127},{"bundesland":"Sachsen-Anhalt","colors":"#C7821C","ts_datenstand":"2020-12-30T10:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"ST","impfungen_kumulativ":7287,"differenz_zum_vortag":3302,"indikation_nach_alter":2620,"berufliche_indikation":3209,"medizinische_indikation":262,"pflegeheim_bewohner_in":3942,"notes":null,"day":"2020-12-30","insgesamt":2194782,"prozent_geimpft":0.332014751351159,"prozent_geimpft_label":0.33,"impfungen_kumulativ_label":"7 287","x":1609286400000,"y":0.332014751351159},{"bundesland":"Sachsen-Anhalt","colors":"#C7821C","ts_datenstand":"2020-12-31T07:30:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"ST","impfungen_kumulativ":10100,"differenz_zum_vortag":2813,"indikation_nach_alter":3107,"berufliche_indikation":5068,"medizinische_indikation":300,"pflegeheim_bewohner_in":4815,"notes":null,"day":"2020-12-31","insgesamt":2194782,"prozent_geimpft":0.460182378022054,"prozent_geimpft_label":0.46,"impfungen_kumulativ_label":"10 100","x":1609372800000,"y":0.460182378022054}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#C7821C"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-0fe7ad76d304840175aa" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0fe7ad76d304840175aa">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Schleswig-Holstein"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Schleswig-Holstein","colors":"#D7765B","ts_datenstand":"2020-12-29T07:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"SH","impfungen_kumulativ":2495,"differenz_zum_vortag":1686,"indikation_nach_alter":588,"berufliche_indikation":528,"medizinische_indikation":584,"pflegeheim_bewohner_in":1136,"notes":null,"day":"2020-12-29","insgesamt":2903773,"prozent_geimpft":0.0859226943703933,"prozent_geimpft_label":0.09,"impfungen_kumulativ_label":"2 495","x":1609200000000,"y":0.0859226943703933},{"bundesland":"Schleswig-Holstein","colors":"#D7765B","ts_datenstand":"2020-12-30T10:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"SH","impfungen_kumulativ":3579,"differenz_zum_vortag":1893,"indikation_nach_alter":1016,"berufliche_indikation":1858,"medizinische_indikation":871,"pflegeheim_bewohner_in":1698,"notes":null,"day":"2020-12-30","insgesamt":2903773,"prozent_geimpft":0.123253436132921,"prozent_geimpft_label":0.12,"impfungen_kumulativ_label":"3 579","x":1609286400000,"y":0.123253436132921},{"bundesland":"Schleswig-Holstein","colors":"#D7765B","ts_datenstand":"2020-12-31T07:30:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"SH","impfungen_kumulativ":5581,"differenz_zum_vortag":1747,"indikation_nach_alter":1385,"berufliche_indikation":3361,"medizinische_indikation":1175,"pflegeheim_bewohner_in":2241,"notes":null,"day":"2020-12-31","insgesamt":2903773,"prozent_geimpft":0.192198219351168,"prozent_geimpft_label":0.19,"impfungen_kumulativ_label":"5 581","x":1609372800000,"y":0.192198219351168}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#D7765B"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-3 mobile-col-1-1">
+<div id="htmlwidget-ac0520cfd8c5c115bebb" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ac0520cfd8c5c115bebb">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Thüringen"},"yAxis":{"title":{"text":"Prozent der Bevölkerung geimpft"},"type":"linear","max":0.759331599651274},"credits":{"enabled":true,"text":"<br>Quelle: Robert Koch-Institut.","href":"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html","style":{"fontSize":"8px"}},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"bundesland":"Thüringen","colors":"#E16A86","ts_datenstand":"2020-12-29T07:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"TH","impfungen_kumulativ":257,"differenz_zum_vortag":158,"indikation_nach_alter":135,"berufliche_indikation":121,"medizinische_indikation":null,"pflegeheim_bewohner_in":135,"notes":null,"day":"2020-12-29","insgesamt":2133378,"prozent_geimpft":0.0120466227738357,"prozent_geimpft_label":0.01,"impfungen_kumulativ_label":"257","x":1609200000000,"y":0.0120466227738357},{"bundesland":"Thüringen","colors":"#E16A86","ts_datenstand":"2020-12-30T10:00:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"TH","impfungen_kumulativ":672,"differenz_zum_vortag":415,"indikation_nach_alter":226,"berufliche_indikation":252,"medizinische_indikation":0,"pflegeheim_bewohner_in":327,"notes":null,"day":"2020-12-30","insgesamt":2133378,"prozent_geimpft":0.0314993404825586,"prozent_geimpft_label":0.03,"impfungen_kumulativ_label":"672","x":1609286400000,"y":0.0314993404825586},{"bundesland":"Thüringen","colors":"#E16A86","ts_datenstand":"2020-12-31T07:30:00Z","ts_download":"2020-12-31T13:25:27Z","bundesland_iso":"TH","impfungen_kumulativ":810,"differenz_zum_vortag":138,"indikation_nach_alter":232,"berufliche_indikation":297,"medizinische_indikation":null,"pflegeheim_bewohner_in":413,"notes":null,"day":"2020-12-31","insgesamt":2133378,"prozent_geimpft":0.0379679550459412,"prozent_geimpft_label":0.04,"impfungen_kumulativ_label":"810","x":1609372800000,"y":0.0379679550459412}],"type":"line","tooltip":{"name":"Prozent geimpft","pointFormat":"<b>{point.bundesland}<\/b><br><b>Prozent geimpft:<\/b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:<\/b> {point.impfungen_kumulativ_label}"}}],"xAxis":{"type":"datetime","title":{"text":"Datum (täglich)"}},"colors":["#E16A86"]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
