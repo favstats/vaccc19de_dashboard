@@ -5,7 +5,7 @@ while(T){
 
   rmarkdown::render_site()
 
-  Sys.sleep(2)
+  Sys.sleep(10)
 
   file.rename("_site", "docs")
 
