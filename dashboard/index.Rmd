@@ -30,8 +30,31 @@ rki_dat <- rki_dat %>%
   left_join(pop_dat) %>% 
   mutate(prozent_geimpft = impfungen_kumulativ/insgesamt*100)
 
+
+de_dat <- rki_dat %>% 
+  group_by(day) %>% 
+  summarise(impfungen_kumulativ = sum(impfungen_kumulativ),
+            insgesamt = sum(insgesamt)) %>% 
+  mutate(prozent_geimpft = impfungen_kumulativ/insgesamt*100) %>% 
+  mutate(bundesland = "Deutschland")
+  
+bundesland_colors <- c(colorspace::qualitative_hcl(16, palette = "Dark 3", rev = T), "#000000")
+
+rki_dat <- rki_dat %>% 
+  bind_rows(de_dat)
+
+rki_dat <- rki_dat %>% 
+  distinct(bundesland) %>% 
+  mutate(colors = bundesland_colors) %>% 
+  right_join(rki_dat) %>% 
+  mutate(prozent_geimpft_label = round(prozent_geimpft, 2)) %>% 
+  mutate(impfungen_kumulativ_label = scales::label_number()(impfungen_kumulativ) %>% str_remove_all("\\.0"))
+
 saveRDS(rki_dat, file = "../data/rki_dat.RDS")
 
+
+rki_dat <- rki_dat %>% 
+  filter(bundesland != "Deutschland")
 
 latest_dat <- rki_dat %>% 
   dplyr::filter(day==max(day))
@@ -39,15 +62,17 @@ latest_dat <- rki_dat %>%
 
 <br>
 
-# Visualisierung der COVID-19 Impfungsdaten des RKI
+# COVID-19 Impfungsdaten des RKI
 
-Ziel dieses [Dashboards](https://favstats.github.io/vaccc19de_dashboard/) ist es den Impffortschritt in deutschen Bundesländern zu visualisieren. Die Daten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Seite](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html) bereitgestellt.
+Ziel dieses [Dashboards](https://favstats.github.io/vaccc19de_dashboard/) ist es den Fortschritt von COVID-19 Impfungen in Deutschland zu dokumentieren und visualisieren. 
 
-Zusätzlich werden die Daten mit Hilfe von dem R package [vaccc19de](https://github.com/friep/vaccc19de) täglich aufbereitet.
+Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Seite](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html) bereitgestellt. Die hier dargestellten Daten wurden mit Hilfe des R packages [vaccc19de](https://github.com/friep/vaccc19de) aufbereitet und können [hier](https://github.com/friep/vaccc19de_rki_data) heruntergeladen werden.
+
+Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
 
 <center>
 
-
+<br>
 
 ```{r, out.width="100%", fig.align="center", out.height="5%", fig.height=1}
 library(ggplot2)

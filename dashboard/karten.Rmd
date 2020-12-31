@@ -88,11 +88,11 @@ total_plot <- hcmap(
   )
 
 
-prozent_plot
+# prozent_plot
+# 
+# total_plot
 
-total_plot
-
-# hw_grid(prozent_plot, total_plot, ncol = 2)
+hw_grid(prozent_plot, total_plot, ncol = 2)
 
 ```
 

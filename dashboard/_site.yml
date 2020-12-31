@@ -2,7 +2,7 @@ name: "Dashboard: COVID-19 Impfungen"
 navbar:
   title: "COVID-19 Impfungsdaten des RKI"
   left:
-    - text: "Home"
+    - text: "Info"
       href: index.html
     - text: "Karten"
       href: karten.html
