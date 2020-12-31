@@ -15,4 +15,4 @@ navbar:
       href: http://github.com/favstats/
   output:
     html_document:
-      theme: darkly
+      theme: yeti

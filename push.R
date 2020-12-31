@@ -1,7 +1,11 @@
 
 
 while(T){
-  rmarkdown::render("dashboard.Rmd", output_file = "index.html")
+  unlink("docs")
+
+  rmarkdown::render_site()
+
+  file.rename("_site", "docs")
 
   system("git add -A")
   system(glue::glue('git commit -m "{Sys.time()}: Update Dashboard"'))
