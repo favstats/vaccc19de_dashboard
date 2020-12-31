@@ -27,9 +27,9 @@ frie_dat <- read_csv("https://raw.githubusercontent.com/friep/vaccc19de_rki_data
 rki_dat <- dir("data/", full.names = T) %>% 
   keep(~str_detect(.x, "csv")) %>% 
   purrr::map_dfr(read_csv) %>% 
-  mutate(day = lubridate::as_date(ts_datenstand)) %>%
   bind_rows(frie_dat) %>% 
-  distinct(ts_datenstand, bundesland, .keep_all = T)
+  distinct(ts_datenstand, bundesland, .keep_all = T) %>% 
+  mutate(day = lubridate::as_date(ts_datenstand)) 
 
 pop_dat <- readRDS("data/pop_dat.RDS")
 
