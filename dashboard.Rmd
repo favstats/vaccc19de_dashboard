@@ -15,7 +15,7 @@ output:
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
-library(vaccc19de)
+# library(vaccc19de)
 library(tidyverse)
 library(highcharter)
 

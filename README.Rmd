@@ -10,7 +10,6 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-# rmarkdown::render("dashboard.Rmd", output_file = "index.html")
 ```
 
 # Visualisierung der COVID-19 Impfungsdaten des RKI
