@@ -157,6 +157,8 @@ rki_dat %>%
     enabled = TRUE, text = "Quelle: Robert Koch-Institut. Einwohnerzahlen vom 31.12.2019 (Statistisches Bundesamt)",
     href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html",
     style = list(fontSize = "12px")
+  )%>%
+  hc_colors(colors =  colorspace::qualitative_hcl(16, palette = "Dynamic", rev = T)
   )
 
 
@@ -183,7 +185,9 @@ rki_dat %>%
   ) %>% 
     hc_exporting(
       enabled = TRUE
-    )
+    )%>%
+  hc_colors(colors =  colorspace::qualitative_hcl(16, palette = "Dynamic", rev = T)
+  )
 
 ```
 
