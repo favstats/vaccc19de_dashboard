@@ -71,7 +71,7 @@ prozent_plot <- hcmap(
     enabled = TRUE
 )  %>% 
   hc_credits(
-    enabled = TRUE, text = "Quelle: Robert Koch-Institut. Einwohnerzahlen Statistischen Bundesamt.",
+    enabled = TRUE, text = "Quelle: Robert Koch-Institut.",
     href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html",
     style = list(fontSize = "12px")
   ) %>%
