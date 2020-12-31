@@ -37,118 +37,58 @@ latest_dat <- rki_dat %>%
   dplyr::filter(day==max(day))
 ```
 
+Letzte Datenaktualisierung: `r Sys.time()`
 
-
-
-
-### Karten
-
-```{r, out.width="100%"}
-    
-prozent_plot <- hcmap(
-  "https://code.highcharts.com/mapdata/countries/de/de-all.js",
-  data = latest_dat,
-  value = "prozent_geimpft",
-  joinBy = c("name", "bundesland"),
-  name = "% der Bevölkerung geimpft",
-    dataLabels = list(enabled = TRUE, format = "{point.name}"),
-    tooltip = list(
-      valueDecimals = 2,
-      valueSuffix = "%"
-    )
-  ) %>%
-  hc_exporting(
-    enabled = TRUE
-)  %>% 
-  hc_credits(
-    enabled = TRUE, text = "Quelle: Robert Koch-Institut.",
-    href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html",
-    style = list(fontSize = "12px")
-  ) %>%
-  hc_title(
-    text = "Prozent der Bevölkerung geimpft"
-  ) %>% 
-  hc_legend(
-    layout = "horizontal",
-    verticalAlign = "top",
-    align = "center",
-    valueDecimals = 0
-  )%>%
-  hc_colorAxis(
-    stops = color_stops(colors = colorspace::sequential_hcl(7, palette = "Blues 3", rev = T))
-  )
-
-total_plot <- hcmap(
-  "https://code.highcharts.com/mapdata/countries/de/de-all.js",
-  data = latest_dat,
-  value = "impfungen_kumulativ",
-  joinBy = c("name", "bundesland"),
-  name = "Anzahl der Impfungen",
-  dataLabels = list(enabled = TRUE, format = "{point.name}")
-  ) %>%
-  hc_exporting(
-    enabled = TRUE
-  )  %>% 
-  hc_credits(
-    enabled = TRUE, text = "Quelle: Robert Koch-Institut",
-    href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html",
-    style = list(fontSize = "12px")
-  ) %>%
-  hc_title(
-    text = " Anzahl der Impfungen"
-  ) %>% 
-  hc_legend(
-    layout = "horizontal",
-    verticalAlign = "top",
-    align = "center",
-    valueDecimals = 0
-  ) %>%
-  hc_colorAxis(
-    stops = color_stops(colors = colorspace::sequential_hcl(7, palette = "Mint", rev = T))
-  )
-
-
-
-
-hw_grid(prozent_plot, total_plot, ncol = 2)
-
-```
-
-
-
-Row
------------------------------------------------------------------------
-
-### Anzahl der der Impfungen {.value-box}
-
-```{r}
+```{r, out.width="100%", fig.align="center", out.height="5%", fig.height=1}
+library(ggplot2)
+library(emojifont)
 
 
 geimpft <- latest_dat %>% 
   summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
 
-  valueBox(
-    value = geimpft,
-    icon = "fa-users",
-    color = "info"
-  )
-```
-
-
-### Prozent der Bevölkerung geimpft {.value-box}
-
-```{r}
-
 
 pop <- latest_dat %>% 
   summarize(insgesamt = sum(insgesamt)) %>% pull(insgesamt)
 
+prozent <- paste0(round(geimpft/pop*100, 2), "%")
+
+geimpft <- scales::label_number()(geimpft)
+
+df <- data.frame(
+    x = c(0.0, 0.0),
+    y = c(4.5, 4.5),
+    h = rep(2.25, 2),
+    w = rep(6.25, 2),
+    value = c(geimpft,
+             prozent),
+    info = c("Anzahl der der Impfungen",
+             "Prozent der Bevölkerung geimpft"),
+    shape = c(fontawesome("fa-users"),
+              fontawesome("fa-percent")),
+    font_family = c(rep("fontawesome-webfont", 2)),
+    color = factor(1:2)
+)
+
+ggplot(df, aes(x, y, height = h, width = w, label = info)) +
+    geom_tile(aes(fill = color)) +
+    geom_text(color = "white", fontface = "bold", size = 15,
+              aes(label = value, x = x - 2.9, y = y + 0.5), hjust = 0) +
+    geom_text(color = "white", fontface = "bold", size = 5,
+              aes(label = info, x = x - 2.9, y = y - 0.75), hjust = 0) +
+    coord_fixed() +
+    scale_fill_brewer(type = "qual", palette = "Dark2") +
+    geom_text(size = 30, aes(label = shape, family = font_family,
+                             x = x + 2, y = y + 0.1), alpha = 0.25) +
+    theme_void() +
+    guides(fill = FALSE) +
+  facet_wrap(~info, ncol = 2)  + 
+theme(
+  strip.background = element_blank(),
+  strip.text.x = element_blank()
+)
+
+# emojifont::search_fontawesome("ambulance")
 
 
-  valueBox(
-    value = paste0(round(geimpft/pop*100, 2), "%"),
-    icon = "fa-syringe",
-    color = "success"
-  )
 ```
-

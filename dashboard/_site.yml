@@ -1,8 +1,10 @@
-name: "my-website"
+name: "Dashboard: COVID-19 Impfungen"
 navbar:
-  title: "My Website"
+  title: "COVID-19 Impfungsdaten des RKI"
   left:
-    - text: "Karten"
+    - text: "Home"
       href: index.html
+    - text: "Karten"
+      href: karten.html
     - text: "Zeitreihen"
-      href: about.html
+      href: zeitreihen.html
