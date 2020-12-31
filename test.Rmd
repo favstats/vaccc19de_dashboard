@@ -1,0 +1,32 @@
+---
+title: "test"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+# vaccc19de::rki_extract_cumulative_data("data/RKI_COVID19_Impfquotenmonitoring_2020-12-30.xlsx", out_folder = "data")
+# 
+# mapdata <- get_data_from_map(download_map_data("https://code.highcharts.com/mapdata/countries/de/de-all.js")) %>%
+#   rename(bundesland = name) #%>% 
+#   left_join(latest_dat)
+
+# mapdata %>% 
+#   left_join(latest_dat)
+
+# library(rvest)
+# 
+# pop_dat <- read_html("https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html") %>% 
+#   html_table(fill = T) %>% 
+#   .[[1]] %>% 
+#   janitor::clean_names() %>% 
+#   slice(4:19) %>% 
+#   select(1:2) %>% 
+#   rowwise() %>% 
+#   mutate(insgesamt = str_extract_all(insgesamt, "\\d") %>% unlist %>% paste0(collapse = "") %>% as.numeric) %>% 
+#   rename(bundesland = lander)
+
+# tidytemplate::save_it(pop_dat)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

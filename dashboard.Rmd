@@ -1,9 +1,14 @@
 ---
-title: "COVID-19 Impfungsdaten des RKI"
+title: "COVID-19 Impfungsdaten des RKI - Letzte Datenaktualisierung: `r Sys.time()`"
 output: 
   flexdashboard::flex_dashboard:
-    orientation: columns
+    vertical_layout: fill
+    theme: readable
+    orientation: rows
     social: menu
+    navbar:
+      - { title: "Info", href: "https://github.com/favstats/vaccc19de_dashboard", align: right }
+    source_code: embed
 ---
 
 
@@ -14,61 +19,148 @@ library(vaccc19de)
 library(tidyverse)
 library(highcharter)
 
-# vaccc19de::rki_extract_cumulative_data("data/RKI_COVID19_Impfquotenmonitoring_2020-12-30.xlsx", out_folder = "data")
 
 source("utils.R")
 
 rki_dat <- dir("data/", full.names = T) %>% 
+  keep(~str_detect(.x, "csv")) %>% 
   purrr::map_dfr(read_csv) %>% 
   mutate(day = lubridate::as_date(ts_datenstand))
-# 
-# mapdata <- get_data_from_map(download_map_data("https://code.highcharts.com/mapdata/countries/de/de-all.js")) %>%
-#   rename(bundesland = name) #%>% 
-#   left_join(latest_dat)
 
-# mapdata %>% 
-#   left_join(latest_dat)
+pop_dat <- readRDS("data/pop_dat.RDS")
+
+rki_dat <- rki_dat %>% 
+  left_join(pop_dat) %>% 
+  mutate(prozent_geimpft = impfungen_kumulativ/insgesamt*100)
+
+
+latest_dat <- rki_dat %>% 
+  dplyr::filter(day==max(day))
 ```
 
 
 
 
 
-Column {.tabset data-width=300}
+
+Column {.tabset}
 -----------------------------------------------------------------------
 
 
-### Karte (Absolute Zahlen) 
+### Karten
 
-```{r}
-latest_dat <- rki_dat %>% 
-  dplyr::filter(day==max(day))
-
+```{r, out.width="100%"}
     
-hcmap(
+prozent_plot <- hcmap(
+  "https://code.highcharts.com/mapdata/countries/de/de-all.js",
+  data = latest_dat,
+  value = "prozent_geimpft",
+  joinBy = c("name", "bundesland"),
+  name = "% der Bevölkerung geimpft",
+    dataLabels = list(enabled = TRUE, format = "{point.name}"),
+    tooltip = list(
+      valueDecimals = 2,
+      valueSuffix = "%"
+    )
+  ) %>%
+  hc_exporting(
+    enabled = TRUE
+)  %>% 
+  hc_credits(
+    enabled = TRUE, text = "Quelle: Robert Koch-Institut. Einwohnerzahlen vom 31.12.2019 (Statistisches Bundesamt)",
+    href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html",
+    style = list(fontSize = "12px")
+  ) %>%
+  hc_title(
+    text = "Prozent der Bevölkerung geimpft"
+  ) %>% 
+  hc_legend(
+    layout = "horizontal",
+    verticalAlign = "top",
+    align = "center",
+    valueDecimals = 0
+  )%>%
+  hc_colorAxis(
+    stops = color_stops(colors = colorspace::sequential_hcl(7, palette = "Blues 3", rev = T))
+  )
+
+total_plot <- hcmap(
   "https://code.highcharts.com/mapdata/countries/de/de-all.js",
   data = latest_dat,
   value = "impfungen_kumulativ",
   joinBy = c("name", "bundesland"),
   name = "Impfungen",
   dataLabels = list(enabled = TRUE, format = "{point.name}")
-) %>%
+  ) %>%
   hc_exporting(
     enabled = TRUE
-) 
+  )  %>% 
+  hc_credits(
+    enabled = TRUE, text = "Quelle: Robert Koch-Institut",
+    href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html",
+    style = list(fontSize = "12px")
+  ) %>%
+  hc_title(
+    text = " Absolute Anzahl der geimpften Personen"
+  ) %>% 
+  hc_legend(
+    layout = "horizontal",
+    verticalAlign = "top",
+    align = "center",
+    valueDecimals = 0
+  ) %>%
+  hc_colorAxis(
+    stops = color_stops(colors = colorspace::sequential_hcl(7, palette = "Mint", rev = T))
+  )
+
+
+
+
+hw_grid(prozent_plot, total_plot, ncol = 2)
+
+```
+
+
+
+<!-- {data-width=600} -->
+
+
+
+### Zeitreihe (% der Bevölkerung)
+
+```{r}
+rki_dat %>% 
+  hchart("line", hcaes(day, prozent_geimpft, group = bundesland),
+      tooltip = list(
+      valueDecimals = 2,
+      valueSuffix = "%")) %>%
+  # Axis
+  hc_yAxis(
+    title = list(text = "Prozent der Bevölkerung geimpft")
+  ) %>% 
+  hc_xAxis(
+    title = list(text = "Datum (täglich)")
+    )  %>% 
+  hc_credits(
+    enabled = TRUE, text = "Quelle: Robert Koch-Institut",
+    href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html",
+    style = list(fontSize = "12px")
+  ) %>% 
+    hc_exporting(
+      enabled = TRUE
+    )  %>% 
+  hc_credits(
+    enabled = TRUE, text = "Quelle: Robert Koch-Institut. Einwohnerzahlen vom 31.12.2019 (Statistisches Bundesamt)",
+    href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html",
+    style = list(fontSize = "12px")
+  )
 
 
 ```
 
-### Karte (% der Bevölkerung)
-
-<!-- {data-width=600} -->
-Column {.tabset .tabset-fade data-width=600}
------------------------------------------------------------------------
 
 
 ### Zeitreihe (Absolute Zahlen)
-
 
 ```{r}
 rki_dat %>% 
@@ -78,7 +170,7 @@ rki_dat %>%
     title = list(text = "Impfungen (kumulativ)")
   ) %>% 
   hc_xAxis(
-    title = list(text = "Tag des Datenrelease")
+    title = list(text = "Datum (täglich)")
     )  %>% 
   hc_credits(
     enabled = TRUE, text = "Quelle: Robert Koch-Institut",
@@ -94,29 +186,38 @@ rki_dat %>%
 
 
 
+Row
+-----------------------------------------------------------------------
 
-### Zeitreihe (% der Bevölkerung)
- 
-<!-- Row -->
-<!-- ----------------------------------------------------------------------- -->
+### Absolute Anzahl der geimpften Personen {.value-box}
 
-<!-- ### Downloads per sec (last 5 min) {.value-box} -->
+```{r}
 
-<!-- ```{r} -->
-<!-- # downloadRate is a reactive expression that computes the download -->
-<!-- # rate during this dashboard's lifetime. -->
-<!-- startTime <- as.numeric(Sys.time()) -->
-<!-- # downloadRate <- reactive({ -->
-<!-- #   elapsed <- as.numeric(Sys.time()) - startTime -->
-<!-- #   nrow(pkgData()) / min(maxAgeSecs, elapsed) -->
-<!-- # }) -->
-<!-- # Emit the download rate -->
-<!-- # renderValueBox({ -->
-<!--   # rate <- formatC(downloadRate(), digits = 1, format = "f") -->
-<!--   valueBox( -->
-<!--     value = 3434, -->
-<!--     icon = "fa-syringe", -->
-<!--     color = "primary" -->
-<!--   ) -->
-<!-- # }) -->
-<!-- ``` -->
+
+geimpft <- latest_dat %>% 
+  summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
+
+  valueBox(
+    value = geimpft,
+    icon = "fa-users",
+    color = "info"
+  )
+```
+
+
+### Prozent der Bevölkerung geimpft (deutschlandweit) {.value-box}
+
+```{r}
+
+
+pop <- latest_dat %>% 
+  summarize(insgesamt = sum(insgesamt)) %>% pull(insgesamt)
+
+
+
+  valueBox(
+    value = paste0(round(geimpft/pop*100, 2), "%"),
+    icon = "fa-syringe",
+    color = "success"
+  )
+```
