@@ -158,7 +158,7 @@ rki_dat %>%
     href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html",
     style = list(fontSize = "12px")
   )%>%
-  hc_colors(colors =  colorspace::qualitative_hcl(16, palette = "Dynamic", rev = T)
+  hc_colors(colors =  colorspace::qualitative_hcl(16, palette = "Dark 3", rev = T)
   )
 
 
@@ -186,7 +186,7 @@ rki_dat %>%
     hc_exporting(
       enabled = TRUE
     )%>%
-  hc_colors(colors =  colorspace::qualitative_hcl(16, palette = "Dynamic", rev = T)
+  hc_colors(colors =  colorspace::qualitative_hcl(16, palette = "Dark 3", rev = T)
   )
 
 ```
