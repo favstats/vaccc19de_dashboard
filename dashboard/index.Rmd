@@ -37,6 +37,8 @@ latest_dat <- rki_dat %>%
   dplyr::filter(day==max(day))
 ```
 
+<br>
+
 # Visualisierung der COVID-19 Impfungsdaten des RKI
 
 Ziel dieses [Dashboards](https://favstats.github.io/vaccc19de_dashboard/) ist es den Impffortschritt in deutschen Bundesländern zu visualisieren. Die Daten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Seite](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html) bereitgestellt.
