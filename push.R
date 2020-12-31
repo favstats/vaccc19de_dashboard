@@ -5,6 +5,8 @@ while(T){
 
   rmarkdown::render_site()
 
+  Sys.sleep(1)
+
   system("mv _site docs")
 
   system("git add -A")
