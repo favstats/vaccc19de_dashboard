@@ -1,0 +1,8 @@
+name: "my-website"
+navbar:
+  title: "My Website"
+  left:
+    - text: "Karten"
+      href: index.html
+    - text: "Zeitreihen"
+      href: about.html

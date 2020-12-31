@@ -1,0 +1,58 @@
+---
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+# library(vaccc19de)
+library(tidyverse)
+library(highcharter)
+
+knitr::opts_chunk$set(echo = F, message = F, warning = F)
+
+rki_dat <- readRDS("../data/rki_dat.RDS")
+
+
+latest_dat <- rki_dat %>% 
+  dplyr::filter(day==max(day))
+```
+
+
+
+
+```{r}
+rki_dat %>% 
+  group_split(bundesland) %>% 
+  map(~  hchart(.x, "line", hcaes(day, prozent_geimpft, group = bundesland),
+      tooltip = list(
+      valueDecimals = 2,
+      valueSuffix = "%")) %>%
+  # Axis
+  hc_yAxis(
+    title = list(text = "Prozent der Bevölkerung geimpft")
+  ) %>% 
+  hc_xAxis(
+    title = list(text = "Datum (täglich)")
+    )  %>% 
+  hc_credits(
+    enabled = TRUE, text = "Quelle: Robert Koch-Institut",
+    href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html",
+    style = list(fontSize = "12px")
+  ) %>% 
+    hc_exporting(
+      enabled = TRUE
+    )  %>% 
+  hc_credits(
+    enabled = TRUE, text = "Quelle: Robert Koch-Institut. Einwohnerzahlen vom 31.12.2019 (Statistisches Bundesamt)",
+    href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html",
+    style = list(fontSize = "12px")
+  )%>%
+  hc_colors(colors =  colorspace::qualitative_hcl(16, palette = "Dark 3", rev = T)
+  )
+) %>% 
+  hw_grid(ncol = 4)
+
+
+```
