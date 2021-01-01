@@ -205,7 +205,7 @@ infobox2
 
 ```{r}
 
-if(updated_data){
+if(!updated_data){
   
   library(twitteR)
   
