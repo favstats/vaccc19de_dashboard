@@ -1,24 +1,16 @@
 
-# Sys.sleep(60*60*18)
+unlink("docs", recursive = T, force = T)
 
-print(getwd())
-# rmarkdown::render("site/test.Rmd", output_file = "test.html")
+rmarkdown::render_site("site")
+rmarkdown::render("README.Rmd", output_file = "README.md")
 
-# while(T){
-  unlink("docs", recursive = T, force = T)
+dir.create("docs")
+R.utils::copyDirectory("site/_site/", "docs")
 
-  rmarkdown::render_site("site")
-  rmarkdown::render("README.Rmd", output_file = "README.md")
+unlink("site/_site", recursive = T, force = T)
 
-  dir.create("docs")
-  R.utils::copyDirectory("site/_site/", "docs")
-  unlink("site/_site", recursive = T, force = T)
-
-  # system("git add -A")
-  # system(glue::glue('git commit -m "{Sys.time()}: Update Dashboard"'))
-  # system("git push")
-
-  # Sys.sleep(60*60*24)
-# }
+# system("git add -A")
+# system(glue::glue('git commit -m "{Sys.time()}: Update Dashboard"'))
+# system("git push")
 
 

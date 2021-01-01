@@ -137,7 +137,7 @@ infobox1 <- df %>%
     geom_tile(aes(fill = color)) +
     geom_text(color = "white", fontface = "bold", size = 8,
               aes(label = value, x = x - 3.9, y = y + 0.5), hjust = 0) +
-    geom_text(color = "white", fontface = "bold", size = 3,
+    geom_text(color = "white", fontface = "bold", size = 1,
               aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
     coord_fixed() +
     scale_fill_manual(values = colors[c(1,5)]) +
@@ -164,7 +164,7 @@ infobox2 <-df %>%
     geom_tile(aes(fill = color)) +
     geom_text(color = "white", fontface = "bold", size = 8,
               aes(label = value, x = x - 3.9, y = y + 0.5), hjust = 0) +
-    geom_text(color = "white", fontface = "bold", size = 3,
+    geom_text(color = "white", fontface = "bold", size = 1,
               aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
     coord_fixed() +
     scale_fill_manual(values = colors[3:4]) +
