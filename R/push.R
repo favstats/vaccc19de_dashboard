@@ -5,7 +5,7 @@ while(T){
   unlink("docs", recursive = T, force = T)
   unlink("site/_site", recursive = T, force = T)
 
-  rmarkdown::render_site()
+  rmarkdown::render_site("site")
 
   dir.create("docs")
   R.utils::copyDirectory("site/_site/", "docs")
