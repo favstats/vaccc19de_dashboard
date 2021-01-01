@@ -8,7 +8,6 @@ output:
 
 
 ```{r setup, include=FALSE}
-library(flexdashboard)
 # library(vaccc19de)
 library(tidyverse)
 library(highcharter)
@@ -147,15 +146,18 @@ df %>%
     guides(fill = FALSE) +
   facet_wrap(~info, ncol = 2)  + 
 theme(
+  panel.background = element_rect(fill = "transparent", color = NA), # bg of the panel
+  plot.background = element_rect(fill = "transparent", color = NA),
   strip.background = element_blank(),
   strip.text.x = element_blank()
 )
 
+ggsave(filename = "../img/infobox1.png", height = 1, width = 5,  bg = "transparent")
 
 df %>% 
   slice(3:4) %>% 
   mutate(info = fct_relevel(info, glue::glue("Zusätzliche Impfungen (seit {latest_day})"), 
-                            glue::glue("Prozent Wachstum (seit {latest_day})"))) %>% 
+                            glue::glue("Prozent Wachstum Impfungen (seit {latest_day})"))) %>% 
   ggplot(aes(x, y, height = h, width = w, label = info)) +
     geom_tile(aes(fill = color)) +
     geom_text(color = "white", fontface = "bold", size = 20,
@@ -170,10 +172,13 @@ df %>%
     guides(fill = FALSE) +
     facet_wrap(~info, ncol = 2)  + 
     theme(
+      panel.background = element_rect(fill = "transparent", color = NA), # bg of the panel
+      plot.background = element_rect(fill = "transparent", color = NA),
       strip.background = element_blank(),
       strip.text.x = element_blank()
     )
-# emojifont::search_fontawesome("ambulance")
+
+ggsave(filename = "../img/infobox2.png", height = 1, width = 5,  bg = "transparent")
 
 
 ```

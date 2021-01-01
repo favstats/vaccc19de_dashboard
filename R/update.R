@@ -6,6 +6,7 @@
   unlink("site/_site", recursive = T, force = T)
 
   rmarkdown::render_site("site")
+  rmarkdown::render("README.Rmd")
 
   dir.create("docs")
   R.utils::copyDirectory("site/_site/", "docs")
@@ -14,7 +15,7 @@
   system(glue::glue('git commit -m "{Sys.time()}: Update Dashboard"'))
   system("git push")
 
-  Sys.sleep(60*60*24)
+  # Sys.sleep(60*60*24)
 # }
 
 
