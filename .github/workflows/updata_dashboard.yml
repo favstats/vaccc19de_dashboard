@@ -17,6 +17,7 @@ jobs:
           install.packages('tidyverse')
           install.packages('highcharter')
           install.packages('emojifont')
+          install.packages('R.utils')
         shell: Rscript {0}
       - name: Checkout repo
         uses: actions/checkout@v2
