@@ -61,6 +61,14 @@ rki_dat <- rki_dat %>%
 
 latest_dat <- rki_dat %>% 
   dplyr::filter(day==max(day))
+
+latest_day <- latest_dat %>% 
+  distinct(day) %>%
+  pull()
+
+prelatest_dat <- rki_dat %>% 
+  dplyr::filter(day<max(day)) %>% 
+  dplyr::filter(day==max(day))
 ```
 
 
@@ -83,43 +91,66 @@ Autor: [Fabio Votta](https://github.com/favstats)
 library(ggplot2)
 library(emojifont)
 
+geimpft_lasttime <- prelatest_dat %>% 
+  summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
+
+latest_day <- unique(prelatest_dat$day)
 
 geimpft <- latest_dat %>% 
   summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
+
+
+geimpft_lasttime <- geimpft-geimpft_lasttime
 
 
 pop <- latest_dat %>% 
   summarize(insgesamt = sum(insgesamt)) %>% pull(insgesamt)
 
 prozent <- paste0(round(geimpft/pop*100, 2), "%")
+prozent_lasttime <- paste0("+", round((geimpft_lasttime)/geimpft*100, 2), "%")
+
+
 
 geimpft <- scales::label_number()(geimpft)
+geimpft_lasttime <- scales::label_number()(geimpft_lasttime) %>% paste0("+", .)
+
+
 
 df <- data.frame(
-    x = c(0.0, 0.0),
-    y = c(4.5, 4.5),
+    x = rep(0, 4),
+    y = rep(4.5, 4),
     h = rep(2.25, 2),
-    w = rep(6.25, 2),
+    w = rep(8.25, 2),
     value = c(geimpft,
-             prozent),
+             prozent, 
+             geimpft_lasttime,
+             prozent_lasttime),
     info = c("Anzahl der Impfungen",
-             "Prozent der Bevölkerung geimpft"),
+             "Prozent der Bevölkerung geimpft",
+             glue::glue("Zusätzliche Impfungen (seit {latest_day})"),
+             glue::glue("Prozent Wachstum (seit {latest_day})")),
     shape = c(fontawesome("fa-users"),
-              fontawesome("fa-percent")),
-    font_family = c(rep("fontawesome-webfont", 2)),
-    color = factor(1:2)
+              fontawesome("fa-percent"),
+              fontawesome("fa-plus"),
+              fontawesome("fa-line-chart")),
+    font_family = c(rep("fontawesome-webfont", 4)),
+    color = factor(1:4)
 )
 
-ggplot(df, aes(x, y, height = h, width = w, label = info)) +
+colors <- colorspace::qualitative_hcl(palette = "Dark 3", 6)
+
+df %>% 
+  slice(1:2) %>% 
+  ggplot(aes(x, y, height = h, width = w, label = info)) +
     geom_tile(aes(fill = color)) +
-    geom_text(color = "white", fontface = "bold", size = 15,
-              aes(label = value, x = x - 2.9, y = y + 0.5), hjust = 0) +
-    geom_text(color = "white", fontface = "bold", size = 5,
-              aes(label = info, x = x - 2.9, y = y - 0.75), hjust = 0) +
+    geom_text(color = "white", fontface = "bold", size = 20,
+              aes(label = value, x = x - 3.9, y = y + 0.5), hjust = 0) +
+    geom_text(color = "white", fontface = "bold", size = 6,
+              aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
     coord_fixed() +
-    scale_fill_brewer(type = "qual", palette = "Dark2") +
+    scale_fill_manual(values = colors[c(1,5)]) +
     geom_text(size = 30, aes(label = shape, family = font_family,
-                             x = x + 2, y = y + 0.1), alpha = 0.25) +
+                             x = x + 3, y = y + 0.1), alpha = 0.25) +
     theme_void() +
     guides(fill = FALSE) +
   facet_wrap(~info, ncol = 2)  + 
@@ -128,6 +159,28 @@ theme(
   strip.text.x = element_blank()
 )
 
+
+df %>% 
+  slice(3:4) %>% 
+  mutate(info = fct_relevel(info, glue::glue("Zusätzliche Impfungen (seit {latest_day})"), 
+                            glue::glue("Prozent Wachstum (seit {latest_day})"))) %>% 
+  ggplot(aes(x, y, height = h, width = w, label = info)) +
+    geom_tile(aes(fill = color)) +
+    geom_text(color = "white", fontface = "bold", size = 20,
+              aes(label = value, x = x - 3.9, y = y + 0.5), hjust = 0) +
+    geom_text(color = "white", fontface = "bold", size = 6,
+              aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
+    coord_fixed() +
+    scale_fill_manual(values = colors[3:4]) +
+    geom_text(size = 30, aes(label = shape, family = font_family,
+                             x = x + 3, y = y + 0.1), alpha = 0.25) +
+    theme_void() +
+    guides(fill = FALSE) +
+    facet_wrap(~info, ncol = 2)  + 
+    theme(
+      strip.background = element_blank(),
+      strip.text.x = element_blank()
+    )
 # emojifont::search_fontawesome("ambulance")
 
 
