@@ -33,7 +33,7 @@ jobs:
           author_name: favstats
           author_email: fabio.votta@gmail.come
           message: "update dashboard"
-          add: "docs/ --force"
+          add: "-A"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
