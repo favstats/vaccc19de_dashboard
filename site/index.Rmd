@@ -84,7 +84,7 @@ Autor: [Fabio Votta](https://github.com/favstats)
 
 <br>
 
-```{r infobox, out.width="100%", fig.align="center", out.height="5%", fig.height=1}
+```{r infobox, fig.align="center", fig.height=1}
 
 
 geimpft_lasttime <- prelatest_dat %>% 
@@ -153,8 +153,8 @@ theme(
   strip.text.x = element_blank()
 )
 
-ggsave(filename = "../img/infobox1.png", plot = infobox1, 
-       height = 1, width = 5,  bg = "transparent")
+# ggsave(filename = "../img/infobox1.png", plot = infobox1, 
+#        height = 1, width = 5,  bg = "transparent")
 
 infobox2 <-df %>% 
   slice(3:4) %>% 
@@ -180,8 +180,8 @@ infobox2 <-df %>%
       strip.text.x = element_blank()
     )
 
-ggsave(filename = "../img/infobox2.png", plot = infobox2, 
-       height = 1, width = 5,  bg = "transparent")
+# ggsave(filename = "../img/infobox2.png", plot = infobox2, 
+#        height = 1, width = 5,  bg = "transparent")
 
 infobox1
 infobox2
