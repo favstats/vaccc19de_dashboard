@@ -84,7 +84,7 @@ Autor: [Fabio Votta](https://github.com/favstats)
 
 <br>
 
-```{r, out.width="100%", fig.align="center", out.height="5%", fig.height=1}
+```{r infobox, out.width="100%", fig.align="center", out.height="5%", fig.height=1}
 
 
 geimpft_lasttime <- prelatest_dat %>% 
