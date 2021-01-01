@@ -288,10 +288,10 @@ gg_bv <- de_dat %>%
   geom_point() +
   theme_minimal() +
   scale_y_continuous(limits = c(0, NA), labels = scales::label_number()) +
-  labs(y = "Anzahl Impfungen (kumulativ)",
-       x = 'Datum (täglich)', 
-       title = "Anzahl der Bevölkerung die COVID-19 Impfung erhalten haben",
-       caption = "Quelle: Robert-Koch Institut. Daten Aufbereitung: Fabio Votta (@favstats).") +
+  labs(y = "Anzahl Impfungen (kumulativ)\n",
+       x = '\nDatum (täglich)', 
+       title = "Anzahl der Bevölkerung die COVID-19 Impfung erhalten haben\n",
+       caption = "\nQuelle: Robert-Koch Institut. Daten Aufbereitung: Fabio Votta (@favstats).") +
   theme(plot.title = element_text(size = 15, hjust = 0.5))
 
 gg_prz <- de_dat %>% 
@@ -300,17 +300,17 @@ gg_prz <- de_dat %>%
   geom_point() +
   theme_minimal() +
   scale_y_continuous(labels = scales::unit_format(suffix = "%", accuracy = 0.01), limits = c(0, NA)) +
-  labs(y = "Prozent der Bevölkerung geimpft",
-       x = 'Datum (täglich)', 
-       title = "Prozent der Bevölkerung die COVID-19 Impfung erhalten haben",
+  labs(y = "Prozent der Bevölkerung geimpft\n",
+       x = '\nDatum (täglich)', 
+       title = "Prozent der Bevölkerung die COVID-19 Impfung erhalten haben\n",
        caption = "\nQuelle: Robert-Koch Institut. Daten Aufbereitung: Fabio Votta (@favstats).") +
   theme(plot.title = element_text(size = 15, hjust = 0.5))
 
 ggsave(filename = "../img/prozent-zeit.png", plot = gg_prz,
-       width = 3.5, height = 2.5)
+       width = 6, height = 4)
 
 ggsave(filename = "../img/total-zeit.png", plot = gg_bv,
-       width = 3.5, height = 2.5)
+       width = 6, height = 4)
 
 
 
