@@ -203,9 +203,8 @@ infobox1
 infobox2
 ```
 
-```{r}
-
-if(updated_data){
+```{r, results = 'hide'}
+if(!updated_data){
   
   library(twitteR)
   
@@ -256,12 +255,12 @@ tweet_dat <- latest_dat %>%
   tweet3 <- tweet_dat %>% 
     summarise(tweet3 = paste0(tweet_raw3, collapse = "\n")) %>% 
     pull(tweet3) %>% 
-    paste0(glue::glue("Differenz zum Vortag ({current_day}):\n\n"), .)
+    paste0(glue::glue("Differenz zum Vortag ({latest_day}):\n\n"), .)
   
   tweet4 <- tweet_dat %>% 
     summarise(tweet4 = paste0(tweet_raw4, collapse = "\n")) %>% 
     pull(tweet4) %>% 
-    paste0(glue::glue("Prozent Wachstum seit Vortag ({current_day}):\n\n"), .)
+    paste0(glue::glue("Prozent Wachstum seit Vortag ({latest_day}):\n\n"), .)
 
   twitteR::tweet(text = tweet1, mediaPath = tempfile1, bypassCharLimit = T)
   
@@ -279,6 +278,41 @@ tweet_dat <- latest_dat %>%
   twitteR::tweet(text = tweet4, mediaPath = tempfile2, bypassCharLimit = T)
 
 }
+```
+
+
+```{r, results = 'hide'}
+gg_bv <- de_dat %>% 
+  ggplot(aes(day, impfungen_kumulativ)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  scale_y_continuous(limits = c(0, NA), labels = scales::label_number()) +
+  labs(y = "Anzahl Impfungen (kumulativ)",
+       x = 'Datum (täglich)', 
+       title = "Anzahl der Bevölkerung die COVID-19 Impfung erhalten haben",
+       caption = "Quelle: Robert-Koch Institut. Daten Aufbereitung: Fabio Votta (@favstats).") +
+  theme(plot.title = element_text(size = 15, hjust = 0.5))
+
+gg_prz <- de_dat %>% 
+  ggplot(aes(day, prozent_geimpft)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::unit_format(suffix = "%", accuracy = 0.01), limits = c(0, NA)) +
+  labs(y = "Prozent der Bevölkerung geimpft",
+       x = 'Datum (täglich)', 
+       title = "Prozent der Bevölkerung die COVID-19 Impfung erhalten haben",
+       caption = "\nQuelle: Robert-Koch Institut. Daten Aufbereitung: Fabio Votta (@favstats).") +
+  theme(plot.title = element_text(size = 15, hjust = 0.5))
+
+ggsave(filename = "../img/prozent-zeit.png", plot = gg_prz,
+       width = 3.5, height = 2.5)
+
+ggsave(filename = "../img/total-zeit.png", plot = gg_bv,
+       width = 3.5, height = 2.5)
+
+
 
 ```
 
