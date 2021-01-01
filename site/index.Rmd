@@ -19,6 +19,9 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
 source("../R/utils.R")
 
+specify_decimal <- function(x, k) trimws(format(round(x, k), nsmall=k))
+
+
 frie_dat <- read_csv("https://raw.githubusercontent.com/friep/vaccc19de_rki_data/main/data/cumulative_time_series.csv")
 
 rki_dat <- dir("../data/", full.names = T) %>% 
@@ -51,8 +54,14 @@ rki_dat <- rki_dat %>%
   distinct(bundesland) %>% 
   mutate(colors = bundesland_colors) %>% 
   right_join(rki_dat) %>% 
-  mutate(prozent_geimpft_label = round(prozent_geimpft, 2)) %>% 
+  mutate(prozent_geimpft_label = specify_decimal(prozent_geimpft, 2)) %>% 
   mutate(impfungen_kumulativ_label = scales::label_number()(impfungen_kumulativ) %>% str_remove_all("\\.0"))
+
+updated_data <- F
+
+if(!(rki_dat %>% nrow == readRDS("../data/rki_dat.RDS") %>% nrow)){
+  updated_data <- T
+}
 
 saveRDS(rki_dat, file = "../data/rki_dat.RDS")
 
@@ -90,7 +99,13 @@ Autor: [Fabio Votta](https://github.com/favstats)
 geimpft_lasttime <- prelatest_dat %>% 
   summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
 
-latest_day <- unique(prelatest_dat$day)
+
+
+geimpft <- latest_dat %>% 
+  summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
+
+latest_day <- unique(prelatest_dat$day) %>% format.Date("%d.%m.%Y")
+current_day <- unique(latest_dat$day) %>% format.Date("%d.%m.%Y")
 
 geimpft <- latest_dat %>% 
   summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
@@ -100,8 +115,8 @@ geimpft_lasttime <- geimpft-geimpft_lasttime
 pop <- latest_dat %>% 
   summarize(insgesamt = sum(insgesamt)) %>% pull(insgesamt)
 
-prozent <- paste0(round(geimpft/pop*100, 2), "%")
-prozent_lasttime <- paste0("+", round((geimpft_lasttime)/geimpft*100, 2), "%")
+prozent <- paste0(specify_decimal(geimpft/pop*100, 2), "%")
+prozent_lasttime <- paste0("+", specify_decimal((geimpft_lasttime)/geimpft*100, 2), "%")
 
 geimpft <- scales::label_number()(geimpft)
 geimpft_lasttime <- scales::label_number()(geimpft_lasttime) %>% paste0("+", .)
@@ -158,8 +173,6 @@ ggsave(filename = "../img/infobox1.png", plot = infobox1,
 
 infobox2 <-df %>% 
   slice(3:4) %>% 
-  mutate(info = fct_relevel(info, glue::glue("Zusätzliche Impfungen (seit {latest_day})"), 
-                            glue::glue("Prozent Wachstum Impfungen (seit {latest_day})"))) %>% 
   ggplot(aes(x, y, height = h, width = w, label = info)) +
     geom_tile(aes(fill = color)) +
     geom_text(color = "white", fontface = "bold", size = 10,
@@ -185,6 +198,98 @@ ggsave(filename = "../img/infobox2.png", plot = infobox2,
 
 infobox1
 infobox2
+```
+
+```{r}
+
+if(!updated_data){
+  
+  library(rtweet)
+  
+  name <- "MyTotallyAwesomeUniqueApp"
+  
+  consumer_key <- Sys.getenv("consumer_key")
+  
+  consumer_secret <- Sys.getenv("consumer_secret")
+  
+  access_token <- Sys.getenv("token")
+  
+  access_secret <- Sys.getenv("secret")
+  
+  twitter_token <-
+  
+    create_token(
+  
+      app = name,
+  
+      consumer_key = consumer_key,
+  
+      consumer_secret = consumer_secret,
+  
+      access_token = access_token,
+  
+      access_secret = access_secret,
+  
+      set_renv = F
+  
+    )
+  
+  tempfile1 <- tempfile()
+  tempfile2 <- tempfile()
+  
+  
+  download.file("https://github.com/favstats/vaccc19de_dashboard/raw/main/img/infobox1.png", destfile = tempfile1)
+  download.file("https://github.com/favstats/vaccc19de_dashboard/raw/main/img/infobox2.png", destfile = tempfile2)
+  
+
+tweet_dat <- latest_dat %>% 
+  mutate(differenz_zum_vortag_label = scales::label_number()(differenz_zum_vortag) %>% str_remove_all("\\.0")) %>% 
+  mutate(prozent_zum_vortag =  (differenz_zum_vortag)/(impfungen_kumulativ-differenz_zum_vortag)*100) %>% 
+  mutate(prozent_zum_vortag_label = specify_decimal(prozent_zum_vortag, 1)) %>% 
+  mutate(prozent_geimpft_label = specify_decimal(prozent_geimpft, 1)) %>% 
+  mutate(tweet_raw1 = glue::glue("{bundesland_iso}: {prozent_geimpft_label}%")) %>% 
+  mutate(tweet_raw2 = glue::glue("{bundesland_iso}: {impfungen_kumulativ}")) %>% 
+
+  mutate(tweet_raw3 = glue::glue("{bundesland_iso}: +{differenz_zum_vortag_label}"))  %>% 
+  mutate(tweet_raw4 = glue::glue("{bundesland_iso}: +{prozent_zum_vortag_label}%"))
+
+  tweet1 <- tweet_dat %>% 
+    summarise(tweet1 = paste0(tweet_raw1, collapse = "\n")) %>% 
+    pull(tweet1) %>% 
+    paste0(glue::glue("Prozent der Bevölkerung geimpft ({current_day}):\n\n"), .)
+  
+  tweet2 <- tweet_dat %>% 
+    summarise(tweet2 = paste0(tweet_raw2, collapse = "\n")) %>% 
+    pull(tweet2) %>% 
+    paste0(glue::glue("Bevölkerung geimpft ({current_day}):\n\n"), .)
+  
+  tweet3 <- tweet_dat %>% 
+    summarise(tweet3 = paste0(tweet_raw3, collapse = "\n")) %>% 
+    pull(tweet3) %>% 
+    paste0(glue::glue("Differenz zum Vortag ({current_day}):\n\n"), .)
+  
+  tweet4 <- tweet_dat %>% 
+    summarise(tweet4 = paste0(tweet_raw4, collapse = "\n")) %>% 
+    pull(tweet4) %>% 
+    paste0(glue::glue("Prozent Wachstum zum Vortag ({current_day}):\n\n"), .)
+
+  
+  
+  post_tweet(status = tweet1, media = tempfile1)
+  
+  Sys.sleep(10)
+  
+  post_tweet(status = tweet2, media = tempfile1)
+  
+  Sys.sleep(10)
+  
+  post_tweet(status = tweet3, media = tempfile3)
+  
+  Sys.sleep(10)
+  
+  post_tweet(status = tweet4, media = tempfile4)
+}
+
 ```
 
 

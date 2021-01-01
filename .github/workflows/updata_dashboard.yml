@@ -18,15 +18,19 @@ jobs:
           install.packages('highcharter')
           install.packages('emojifont')
           install.packages('R.utils')
+          install.packages('rtweet')
         shell: Rscript {0}
       - name: Checkout repo
         uses: actions/checkout@v2
       - name: Install pandoc
         run: brew install pandoc
       - name: "Run Update Script"
-        run: |
-          source('R/update.R')
-        shell: Rscript {0}
+        run: Rscript 'R/update.R'
+        env:
+          consumer_key: ${{ secrets.CONSUMER_KEY }}
+          consumer_secret: ${{ secrets.CONSUMER_SECRET }}
+          token: ${{ secrets.TOKEN }}
+          secret: ${{ secrets.SECRET }}
       - name: Commit changes
         uses: EndBug/add-and-commit@v5
         with:
