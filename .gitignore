@@ -2,8 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
-test.Rmd
-*.RDS
-*.csv
-data/
-*.xlsx
+##test.Rmd
+##*.RDS
+##*.csv
+##data/
+##*.xlsx
