@@ -3,6 +3,7 @@ unlink("docs", recursive = T, force = T)
 
 rmarkdown::render_site("site")
 rmarkdown::render("README.Rmd")
+file.remove("README.html")
 
 dir.create("docs")
 R.utils::copyDirectory("site/_site/", "docs")
