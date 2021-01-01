@@ -205,7 +205,7 @@ infobox2
 ```
 
 ```{r, results = 'hide'}
-if(!updated_data){
+if(updated_data){
   
   source("../R/bot.R")
   
@@ -240,6 +240,7 @@ gg_prz <- de_dat %>%
        title = "Prozent der Bevölkerung die COVID-19 Impfung erhalten haben\n",
        caption = "\nQuelle: Robert-Koch Institut. Daten Aufbereitung: Fabio Votta (@favstats).") +
   theme(plot.title = element_text(size = 15, hjust = 0.5))
+
 
 ggsave(filename = "../img/prozent-zeit.png", plot = gg_prz,
        width = 8, height = 6)
