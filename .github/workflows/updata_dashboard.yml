@@ -17,10 +17,10 @@ jobs:
           install.packages('tidyverse')
           install.packages('highcharter')
         shell: Rscript {0}
-      - name: Install pandoc
-      - run: brew install pandoc
       - name: Checkout repo
         uses: actions/checkout@v2
+      - name: Install pandoc
+        run: brew install pandoc
       - name: "Run Update Script"
         run: |
           source('R/update.R')
