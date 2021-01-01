@@ -1,8 +1,8 @@
 name: Update Dashboard
 on:
   push:
-#  schedule:
-#      - cron: '0 */1 * * *'
+  schedule:
+      - cron: '10 */1 * * *'
 
 jobs:
   update-dashboard:

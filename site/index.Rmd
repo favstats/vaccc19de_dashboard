@@ -205,7 +205,7 @@ infobox2
 
 ```{r}
 
-if(!updated_data){
+if(updated_data){
   
   library(twitteR)
   
@@ -238,7 +238,7 @@ tweet_dat <- latest_dat %>%
   mutate(prozent_zum_vortag_label = specify_decimal(prozent_zum_vortag, 1)) %>% 
   mutate(prozent_geimpft_label = specify_decimal(prozent_geimpft, 1)) %>% 
   mutate(tweet_raw1 = glue::glue("{bundesland_iso}: {prozent_geimpft_label}%")) %>% 
-  mutate(tweet_raw2 = glue::glue("{bundesland_iso}: {impfungen_kumulativ}")) %>% 
+  mutate(tweet_raw2 = glue::glue("{bundesland_iso}: {impfungen_kumulativ_label}")) %>% 
 
   mutate(tweet_raw3 = glue::glue("{bundesland_iso}: +{differenz_zum_vortag_label}"))  %>% 
   mutate(tweet_raw4 = glue::glue("{bundesland_iso}: +{prozent_zum_vortag_label}%"))
@@ -261,7 +261,7 @@ tweet_dat <- latest_dat %>%
   tweet4 <- tweet_dat %>% 
     summarise(tweet4 = paste0(tweet_raw4, collapse = "\n")) %>% 
     pull(tweet4) %>% 
-    paste0(glue::glue("Prozent Wachstum zum Vortag ({current_day}):\n\n"), .)
+    paste0(glue::glue("Prozent Wachstum seit Vortag ({current_day}):\n\n"), .)
 
   twitteR::tweet(text = tweet1, mediaPath = tempfile1, bypassCharLimit = T)
   
