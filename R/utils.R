@@ -1,4 +1,6 @@
 
+specify_decimal <- function(x, k) trimws(format(round(x, k), nsmall=k))
+
 
 hcmap2 <- function(map = "custom/world",
                    data = NULL, joinBy = "hc-key", value = NULL,

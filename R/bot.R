@@ -2,10 +2,14 @@
 library(tidyverse)
 library(twitteR)
 
+source("R/utils.R")
+
 last_update <- read_lines("last_update.txt")
 current <- read_lines("current.txt")
 
 if(last_update == current){
+
+  cat(current_day, file = "current.txt")
 
   rki_dat <- readRDS("data/rki_dat.RDS")
 
@@ -81,22 +85,22 @@ if(last_update == current){
     pull(tweet4) %>%
     paste0(glue::glue("Prozent Wachstum seit Vortag ({latest_day}):\n\n"), .)
 
-  # twitteR::tweet(text = tweet1, mediaPath = tempfile1, bypassCharLimit = T)
-  #
-  # Sys.sleep(10)
-  #
-  # twitteR::tweet(text = tweet2, mediaPath = tempfile1, bypassCharLimit = T)
-  #
-  #
-  # Sys.sleep(10)
-  #
-  # twitteR::tweet(text = tweet3, mediaPath = tempfile2, bypassCharLimit = T)
-  #
-  # Sys.sleep(10)
-  #
-  # twitteR::tweet(text = tweet4, mediaPath = tempfile2, bypassCharLimit = T)
-  #
-  # Sys.sleep(10)
+  twitteR::tweet(text = tweet1, mediaPath = tempfile1, bypassCharLimit = T)
+
+  Sys.sleep(10)
+
+  twitteR::tweet(text = tweet2, mediaPath = tempfile1, bypassCharLimit = T)
+
+
+  Sys.sleep(10)
+
+  twitteR::tweet(text = tweet3, mediaPath = tempfile2, bypassCharLimit = T)
+
+  Sys.sleep(10)
+
+  twitteR::tweet(text = tweet4, mediaPath = tempfile2, bypassCharLimit = T)
+
+  Sys.sleep(10)
 
   twitteR::tweet(text = glue::glue("Bevölkerung geimpft ({current_day}):\n"),
                  mediaPath = tempfile3, bypassCharLimit = T)

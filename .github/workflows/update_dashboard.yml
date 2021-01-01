@@ -42,3 +42,12 @@ jobs:
           consumer_secret: ${{ secrets.CONSUMER_SECRET }}
           token: ${{ secrets.TOKEN }}
           secret: ${{ secrets.SECRET }}
+      - name: Commit changes again
+        uses: EndBug/add-and-commit@v5
+        with:
+          author_name: favstats
+          author_email: fabio.votta@gmail.come
+          message: "Update Bot"
+          add: "-A"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
