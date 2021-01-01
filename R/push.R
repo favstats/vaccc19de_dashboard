@@ -1,7 +1,7 @@
 
 # Sys.sleep(60*60*18)
 
-while(T){
+# while(T){
   unlink("docs", recursive = T, force = T)
   unlink("site/_site", recursive = T, force = T)
 
@@ -15,6 +15,6 @@ while(T){
   system("git push")
 
   Sys.sleep(60*60*24)
-}
+# }
 
 
