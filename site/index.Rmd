@@ -108,6 +108,9 @@ geimpft <- latest_dat %>%
 latest_day <- unique(prelatest_dat$day) %>% format.Date("%d.%m.%Y")
 current_day <- unique(latest_dat$day) %>% format.Date("%d.%m.%Y")
 
+cat(current_day, file = "../last_update.txt")
+# cat(current_day, file = "../current.txt")
+
 geimpft <- latest_dat %>% 
   summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
 
@@ -204,16 +207,6 @@ infobox1
 infobox2
 ```
 
-```{r, results = 'hide'}
-if(updated_data){
-  
-  source("../R/bot.R")
-  
-  latest_dat %>% 
-    unleash_tweets(latest_day, current_day)
-
-}
-```
 
 
 ```{r, results = 'hide'}

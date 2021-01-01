@@ -1,5 +1,27 @@
 
-unleash_tweets <- function(latest_dat, latest_day, current_day) {
+library(tidyverse)
+library(twitteR)
+
+last_update <- read_lines("last_update.txt")
+current <- read_lines("current.txt")
+
+if(last_update == current){
+
+  rki_dat <- readRDS("data/rki_dat.RDS")
+
+  rki_dat <- rki_dat %>%
+    filter(bundesland != "Deutschland")
+
+  de_dat <- rki_dat %>%
+    filter(bundesland == "Deutschland") %>%
+    dplyr::filter(day==max(day))
+
+  latest_dat <- rki_dat %>%
+    dplyr::filter(day==max(day))
+
+  prelatest_dat <- rki_dat %>%
+    dplyr::filter(day<max(day)) %>%
+    dplyr::filter(day==max(day))
 
   name <- "MyTotallyAwesomeUniqueApp"
 
@@ -14,6 +36,8 @@ unleash_tweets <- function(latest_dat, latest_day, current_day) {
 
   tempfile1 <- tempfile()
   tempfile2 <- tempfile()
+  tempfile3 <- tempfile()
+  tempfile4 <- tempfile()
 
 
 
@@ -22,6 +46,8 @@ unleash_tweets <- function(latest_dat, latest_day, current_day) {
 
   download.file("https://github.com/favstats/vaccc19de_dashboard/raw/main/img/infobox1.png", destfile = tempfile1)
   download.file("https://github.com/favstats/vaccc19de_dashboard/raw/main/img/infobox2.png", destfile = tempfile2)
+  download.file("https://github.com/favstats/vaccc19de_dashboard/blob/main/img/total-zeit.png?raw=true", destfile = tempfile3)
+  download.file("https://github.com/favstats/vaccc19de_dashboard/blob/main/img/prozent-zeit.png?raw=true", destfile = tempfile4)
 
 
   tweet_dat <- latest_dat %>%
@@ -55,18 +81,30 @@ unleash_tweets <- function(latest_dat, latest_day, current_day) {
     pull(tweet4) %>%
     paste0(glue::glue("Prozent Wachstum seit Vortag ({latest_day}):\n\n"), .)
 
-  twitteR::tweet(text = tweet1, mediaPath = tempfile1, bypassCharLimit = T)
+  # twitteR::tweet(text = tweet1, mediaPath = tempfile1, bypassCharLimit = T)
+  #
+  # Sys.sleep(10)
+  #
+  # twitteR::tweet(text = tweet2, mediaPath = tempfile1, bypassCharLimit = T)
+  #
+  #
+  # Sys.sleep(10)
+  #
+  # twitteR::tweet(text = tweet3, mediaPath = tempfile2, bypassCharLimit = T)
+  #
+  # Sys.sleep(10)
+  #
+  # twitteR::tweet(text = tweet4, mediaPath = tempfile2, bypassCharLimit = T)
+  #
+  # Sys.sleep(10)
+
+  twitteR::tweet(text = glue::glue("Bevölkerung geimpft ({current_day}):\n"),
+                 mediaPath = tempfile3, bypassCharLimit = T)
 
   Sys.sleep(10)
 
-  twitteR::tweet(text = tweet2, mediaPath = tempfile1, bypassCharLimit = T)
-
-
-  Sys.sleep(10)
-
-  twitteR::tweet(text = tweet3, mediaPath = tempfile2, bypassCharLimit = T)
-
-  Sys.sleep(10)
-
-  twitteR::tweet(text = tweet4, mediaPath = tempfile2, bypassCharLimit = T)
+  twitteR::tweet(text = glue::glue("Prozent der Bevölkerung geimpft ({current_day}):\n"),
+                 mediaPath = tempfile4, bypassCharLimit = T)
 }
+
+
