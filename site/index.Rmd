@@ -135,13 +135,13 @@ infobox1 <- df %>%
   slice(1:2) %>% 
   ggplot(aes(x, y, height = h, width = w, label = info)) +
     geom_tile(aes(fill = color)) +
-    geom_text(color = "white", fontface = "bold", size = 10,
+    geom_text(color = "white", fontface = "bold", size = 8,
               aes(label = value, x = x - 3.9, y = y + 0.5), hjust = 0) +
-    geom_text(color = "white", fontface = "bold", size = 4,
+    geom_text(color = "white", fontface = "bold", size = 3,
               aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
     coord_fixed() +
     scale_fill_manual(values = colors[c(1,5)]) +
-    geom_text(size = 15, aes(label = shape, family = font_family,
+    geom_text(size = 10, aes(label = shape, family = font_family,
                              x = x + 3, y = y + 0.1), alpha = 0.25) +
     theme_void() +
     guides(fill = FALSE) +
@@ -162,13 +162,13 @@ infobox2 <-df %>%
                             glue::glue("Prozent Wachstum Impfungen (seit {latest_day})"))) %>% 
   ggplot(aes(x, y, height = h, width = w, label = info)) +
     geom_tile(aes(fill = color)) +
-    geom_text(color = "white", fontface = "bold", size = 10,
+    geom_text(color = "white", fontface = "bold", size = 8,
               aes(label = value, x = x - 3.9, y = y + 0.5), hjust = 0) +
-    geom_text(color = "white", fontface = "bold", size = 4,
+    geom_text(color = "white", fontface = "bold", size = 3,
               aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
     coord_fixed() +
     scale_fill_manual(values = colors[3:4]) +
-    geom_text(size = 15, aes(label = shape, family = font_family,
+    geom_text(size = 10, aes(label = shape, family = font_family,
                              x = x + 3, y = y + 0.1), alpha = 0.25) +
     theme_void() +
     guides(fill = FALSE) +
