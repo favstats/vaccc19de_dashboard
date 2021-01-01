@@ -5,16 +5,19 @@ output:
     theme: yeti
 ---
 
+```{r}
 
+print(getwd())
+```
 
-```{r setup, include=FALSE}
+```{r}
+# ```{r setup, include=FALSE}
 # library(vaccc19de)
 library(tidyverse)
 library(highcharter)
 
 knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
-print(getwd())
 
 source("R/utils.R")
 
