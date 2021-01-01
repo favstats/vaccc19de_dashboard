@@ -307,10 +307,10 @@ gg_prz <- de_dat %>%
   theme(plot.title = element_text(size = 15, hjust = 0.5))
 
 ggsave(filename = "../img/prozent-zeit.png", plot = gg_prz,
-       width = 6, height = 4)
+       width = 8, height = 6)
 
 ggsave(filename = "../img/total-zeit.png", plot = gg_bv,
-       width = 6, height = 4)
+       width = 8, height = 6)
 
 
 
