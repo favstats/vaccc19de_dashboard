@@ -18,7 +18,7 @@ jobs:
           install.packages('highcharter')
           install.packages('emojifont')
           install.packages('R.utils')
-          install.packages('rtweet')
+          install.packages('twitteR')
         shell: Rscript {0}
       - name: Checkout repo
         uses: actions/checkout@v2

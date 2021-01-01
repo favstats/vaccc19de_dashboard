@@ -173,6 +173,9 @@ ggsave(filename = "../img/infobox1.png", plot = infobox1,
 
 infobox2 <-df %>% 
   slice(3:4) %>% 
+  mutate(info = fct_relevel(info,
+                            glue::glue("Zusätzliche Impfungen (seit {latest_day})"),
+                            glue::glue("Prozent Wachstum (seit {latest_day})"))) %>% 
   ggplot(aes(x, y, height = h, width = w, label = info)) +
     geom_tile(aes(fill = color)) +
     geom_text(color = "white", fontface = "bold", size = 10,
@@ -202,9 +205,9 @@ infobox2
 
 ```{r}
 
-if(!updated_data){
+if(updated_data){
   
-  library(rtweet)
+  library(twitteR)
   
   name <- "MyTotallyAwesomeUniqueApp"
   
@@ -215,29 +218,16 @@ if(!updated_data){
   access_token <- Sys.getenv("token")
   
   access_secret <- Sys.getenv("secret")
-  
-  twitter_token <-
-  
-    create_token(
-  
-      app = name,
-  
-      consumer_key = consumer_key,
-  
-      consumer_secret = consumer_secret,
-  
-      access_token = access_token,
-  
-      access_secret = access_secret,
-  
-      set_renv = F
-  
-    )
+
   
   tempfile1 <- tempfile()
   tempfile2 <- tempfile()
   
+
   
+  setup_twitter_oauth(consumer_key,consumer_secret,
+                            access_token,access_secret)  
+
   download.file("https://github.com/favstats/vaccc19de_dashboard/raw/main/img/infobox1.png", destfile = tempfile1)
   download.file("https://github.com/favstats/vaccc19de_dashboard/raw/main/img/infobox2.png", destfile = tempfile2)
   
@@ -273,21 +263,21 @@ tweet_dat <- latest_dat %>%
     pull(tweet4) %>% 
     paste0(glue::glue("Prozent Wachstum zum Vortag ({current_day}):\n\n"), .)
 
-  
-  
-  post_tweet(status = tweet1, media = tempfile1)
+  twitteR::tweet(text = tweet1, mediaPath = tempfile1, bypassCharLimit = T)
   
   Sys.sleep(10)
   
-  post_tweet(status = tweet2, media = tempfile1)
+  twitteR::tweet(text = tweet2, mediaPath = tempfile1, bypassCharLimit = T)
+
   
   Sys.sleep(10)
   
-  post_tweet(status = tweet3, media = tempfile3)
+  twitteR::tweet(text = tweet3, mediaPath = tempfile2, bypassCharLimit = T)
   
   Sys.sleep(10)
   
-  post_tweet(status = tweet4, media = tempfile4)
+  twitteR::tweet(text = tweet4, mediaPath = tempfile2, bypassCharLimit = T)
+
 }
 
 ```
