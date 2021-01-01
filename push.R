@@ -3,6 +3,7 @@
 
 while(T){
   unlink("docs", recursive = T, force = T)
+  unlink("_site", recursive = T, force = T)
 
   rmarkdown::render_site()
 

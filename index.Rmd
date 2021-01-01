@@ -20,7 +20,7 @@ source("R/utils.R")
 
 frie_dat <- read_csv("https://raw.githubusercontent.com/friep/vaccc19de_rki_data/main/data/cumulative_time_series.csv")
 
-rki_dat <- dir("../data/", full.names = T) %>% 
+rki_dat <- dir("data/", full.names = T) %>% 
   keep(~str_detect(.x, "csv")) %>% 
   purrr::map_dfr(read_csv) %>% 
   bind_rows(frie_dat) %>% 
