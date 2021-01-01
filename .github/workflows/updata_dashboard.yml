@@ -12,12 +12,13 @@ jobs:
       - uses: r-lib/actions/setup-r@v1
         with:
           r-version: 'release'
-      - shell: brew install pandoc
       - name: Install Packages
         run: |
           install.packages('tidyverse')
           install.packages('highcharter')
         shell: Rscript {0}
+      - name: Install pandoc
+      - run: brew install pandoc
       - name: Checkout repo
         uses: actions/checkout@v2
       - name: "Run Update Script"
