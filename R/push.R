@@ -7,9 +7,8 @@ while(T){
 
   rmarkdown::render_site()
 
+  dir.create("docs")
   R.utils::copyDirectory("site/_site/", "docs")
-
-  unlink("_site", recursive = T, force = T)
 
   system("git add -A")
   system(glue::glue('git commit -m "{Sys.time()}: Update Dashboard"'))
