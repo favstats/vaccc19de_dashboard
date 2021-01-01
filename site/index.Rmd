@@ -14,8 +14,9 @@ library(highcharter)
 
 knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
+print(getwd())
 
-source("../R/utils.R")
+source("R/utils.R")
 
 frie_dat <- read_csv("https://raw.githubusercontent.com/friep/vaccc19de_rki_data/main/data/cumulative_time_series.csv")
 
