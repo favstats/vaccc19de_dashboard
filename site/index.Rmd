@@ -131,7 +131,7 @@ df <- data.frame(
 
 colors <- colorspace::qualitative_hcl(palette = "Dark 3", 6)
 
-df %>% 
+infobox1 <- df %>% 
   slice(1:2) %>% 
   ggplot(aes(x, y, height = h, width = w, label = info)) +
     geom_tile(aes(fill = color)) +
@@ -153,9 +153,10 @@ theme(
   strip.text.x = element_blank()
 )
 
-ggsave(filename = "../img/infobox1.png", height = 1, width = 5,  bg = "transparent")
+ggsave(filename = "../img/infobox1.png", plot = infobox1, 
+       height = 1, width = 5,  bg = "transparent")
 
-df %>% 
+infobox2 <-df %>% 
   slice(3:4) %>% 
   mutate(info = fct_relevel(info, glue::glue("Zusätzliche Impfungen (seit {latest_day})"), 
                             glue::glue("Prozent Wachstum Impfungen (seit {latest_day})"))) %>% 
@@ -179,9 +180,11 @@ df %>%
       strip.text.x = element_blank()
     )
 
-ggsave(filename = "../img/infobox2.png", height = 1, width = 5,  bg = "transparent")
+ggsave(filename = "../img/infobox2.png", plot = infobox2, 
+       height = 1, width = 5,  bg = "transparent")
 
-
+infobox1
+infobox2
 ```
 
 
