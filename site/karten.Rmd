@@ -1,0 +1,189 @@
+---
+title: "Impfungen nach Bundesland"
+output: 
+  html_document:
+    theme: yeti
+---
+
+
+
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+# library(vaccc19de)
+library(tidyverse)
+library(highcharter)
+
+knitr::opts_chunk$set(echo = F, message = F, warning = F)
+
+rki_dat <- readRDS("../data/rki_dat.RDS")
+
+latest_dat <- rki_dat %>% 
+  filter(bundesland != "Deutschland") %>% 
+  dplyr::filter(day==max(day))
+
+prelatest_dat <- rki_dat %>% 
+  filter(bundesland != "Deutschland") %>% 
+  dplyr::filter(day<max(day)) %>% 
+  dplyr::filter(day==max(day))
+
+
+latest_dat <- latest_dat %>% 
+  mutate(impfungen_lasttime = prelatest_dat$impfungen_kumulativ,
+         impfungen_lasttime = impfungen_kumulativ-impfungen_lasttime,
+         prozent_lasttime = (impfungen_lasttime)/impfungen_kumulativ*100) %>% 
+  mutate(prozent_lasttime_label = round(prozent_lasttime, 2)) %>% 
+  mutate(impfungen_lasttime_label = scales::label_number()(impfungen_lasttime) %>% str_remove_all("\\.0"))
+```
+
+
+<br>
+
+```{r, out.width="100%"}
+    
+prozent_plot <- hcmap(
+  "https://code.highcharts.com/mapdata/countries/de/de-all.js",
+  data = latest_dat,
+  value = "prozent_geimpft",
+  joinBy = c("name", "bundesland"),
+  name = "% der Bevölkerung geimpft",
+    dataLabels = list(enabled = TRUE, format = "{point.name}"),
+    tooltip = list(
+      valueDecimals = 2,
+      valueSuffix = "%"
+    )
+  ) %>%
+  hc_exporting(
+    enabled = TRUE
+)  %>% 
+  hc_credits(
+    enabled = TRUE, text = "Quelle: Robert Koch-Institut.",
+    href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html",
+    style = list(fontSize = "12px")
+  ) %>%
+  hc_title(
+    text = "Prozent der Bevölkerung geimpft"
+  ) %>% 
+  hc_legend(
+    layout = "horizontal",
+    verticalAlign = "top",
+    align = "center",
+    valueDecimals = 0
+  )%>%
+  hc_colorAxis(
+    stops = color_stops(colors = colorspace::sequential_hcl(7, palette = "Blues 3", rev = T))
+  )
+
+total_plot <- hcmap(
+  "https://code.highcharts.com/mapdata/countries/de/de-all.js",
+  data = latest_dat,
+  value = "impfungen_kumulativ",
+  joinBy = c("name", "bundesland"),
+  name = "Anzahl der Impfungen",
+  dataLabels = list(enabled = TRUE, format = "{point.name}")
+  ) %>%
+  hc_exporting(
+    enabled = TRUE
+  )  %>% 
+  hc_credits(
+    enabled = TRUE, text = "Quelle: Robert Koch-Institut",
+    href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html",
+    style = list(fontSize = "12px")
+  ) %>%
+  hc_title(
+    text = " Anzahl der Impfungen"
+  ) %>% 
+  hc_legend(
+    layout = "horizontal",
+    verticalAlign = "top",
+    align = "center",
+    valueDecimals = 0
+  ) %>%
+  hc_colorAxis(
+    stops = color_stops(colors = colorspace::sequential_hcl(7, palette = "Mint", rev = T))
+  )
+
+
+# prozent_plot
+# 
+# total_plot
+
+hw_grid(total_plot, prozent_plot, ncol = 2)
+
+```
+
+
+<!-- ```{r, out.width="100%"} -->
+
+<!-- prozent_plot <- hcmap( -->
+<!--   "https://code.highcharts.com/mapdata/countries/de/de-all.js", -->
+<!--   data = latest_dat, -->
+<!--   value = "prozent_lasttime", -->
+<!--   joinBy = c("name", "bundesland"), -->
+<!--   name = "% der Bevölkerung geimpft", -->
+<!--     dataLabels = list(enabled = TRUE, format = "{point.name}"), -->
+<!--     tooltip = list( -->
+<!--       valueDecimals = 2, -->
+<!--       valueSuffix = "%" -->
+<!--     ) -->
+<!--   ) %>% -->
+<!--   hc_exporting( -->
+<!--     enabled = TRUE -->
+<!-- )  %>%  -->
+<!--   hc_credits( -->
+<!--     enabled = TRUE, text = "Quelle: Robert Koch-Institut.", -->
+<!--     href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html", -->
+<!--     style = list(fontSize = "12px") -->
+<!--   ) %>% -->
+<!--   hc_title( -->
+<!--     text = "Prozent der Bevölkerung geimpft" -->
+<!--   ) %>%  -->
+<!--   hc_legend( -->
+<!--     layout = "horizontal", -->
+<!--     verticalAlign = "top", -->
+<!--     align = "center", -->
+<!--     valueDecimals = 0 -->
+<!--   )%>% -->
+<!--   hc_colorAxis( -->
+<!--     stops = color_stops(colors = colorspace::sequential_hcl(7, palette = "Blues 3", rev = T)) -->
+<!--   ) -->
+
+<!-- total_plot <- hcmap( -->
+<!--   "https://code.highcharts.com/mapdata/countries/de/de-all.js", -->
+<!--   data = latest_dat, -->
+<!--   value = "impfungen_lasttime", -->
+<!--   joinBy = c("name", "bundesland"), -->
+<!--   name = "Anzahl der Impfungen", -->
+<!--   dataLabels = list(enabled = TRUE, format = "{point.name}") -->
+<!--   ) %>% -->
+<!--   hc_exporting( -->
+<!--     enabled = TRUE -->
+<!--   )  %>%  -->
+<!--   hc_credits( -->
+<!--     enabled = TRUE, text = "Quelle: Robert Koch-Institut", -->
+<!--     href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html", -->
+<!--     style = list(fontSize = "12px") -->
+<!--   ) %>% -->
+<!--   hc_title( -->
+<!--     text = " Anzahl der Impfungen" -->
+<!--   ) %>%  -->
+<!--   hc_legend( -->
+<!--     layout = "horizontal", -->
+<!--     verticalAlign = "top", -->
+<!--     align = "center", -->
+<!--     valueDecimals = 0 -->
+<!--   ) %>% -->
+<!--   hc_colorAxis( -->
+<!--     stops = color_stops(colors = colorspace::sequential_hcl(7, palette = "Mint", rev = T)) -->
+<!--   ) -->
+
+
+<!-- # prozent_plot -->
+<!-- #  -->
+<!-- # total_plot -->
+
+<!-- hw_grid(total_plot, prozent_plot, ncol = 2) -->
+
+<!-- ``` -->
+
+

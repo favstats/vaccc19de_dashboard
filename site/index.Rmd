@@ -1,0 +1,185 @@
+---
+title: "COVID-19 Impfungsdaten des RKI"
+output: 
+  html_document:
+    theme: yeti
+---
+
+
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+# library(vaccc19de)
+library(tidyverse)
+library(highcharter)
+
+knitr::opts_chunk$set(echo = F, message = F, warning = F)
+
+
+source("../R/utils.R")
+
+frie_dat <- read_csv("https://raw.githubusercontent.com/friep/vaccc19de_rki_data/main/data/cumulative_time_series.csv")
+
+rki_dat <- dir("../data/", full.names = T) %>% 
+  keep(~str_detect(.x, "csv")) %>% 
+  purrr::map_dfr(read_csv) %>% 
+  bind_rows(frie_dat) %>% 
+  distinct(ts_datenstand, bundesland, .keep_all = T) %>% 
+  mutate(day = lubridate::as_date(ts_datenstand)) 
+
+pop_dat <- readRDS("../data/pop_dat.RDS")
+
+rki_dat <- rki_dat %>% 
+  left_join(pop_dat) %>% 
+  mutate(prozent_geimpft = impfungen_kumulativ/insgesamt*100)
+
+
+de_dat <- rki_dat %>% 
+  group_by(day) %>% 
+  summarise(impfungen_kumulativ = sum(impfungen_kumulativ),
+            insgesamt = sum(insgesamt)) %>% 
+  mutate(prozent_geimpft = impfungen_kumulativ/insgesamt*100) %>% 
+  mutate(bundesland = "Deutschland")
+  
+bundesland_colors <- c(colorspace::qualitative_hcl(16, palette = "Dark 3", rev = T), "#000000")
+
+rki_dat <- rki_dat %>% 
+  bind_rows(de_dat)
+
+rki_dat <- rki_dat %>% 
+  distinct(bundesland) %>% 
+  mutate(colors = bundesland_colors) %>% 
+  right_join(rki_dat) %>% 
+  mutate(prozent_geimpft_label = round(prozent_geimpft, 2)) %>% 
+  mutate(impfungen_kumulativ_label = scales::label_number()(impfungen_kumulativ) %>% str_remove_all("\\.0"))
+
+saveRDS(rki_dat, file = "../data/rki_dat.RDS")
+
+
+rki_dat <- rki_dat %>% 
+  filter(bundesland != "Deutschland")
+
+latest_dat <- rki_dat %>% 
+  dplyr::filter(day==max(day))
+
+prelatest_dat <- rki_dat %>% 
+  dplyr::filter(day<max(day)) %>% 
+  dplyr::filter(day==max(day))
+```
+
+
+
+Ziel dieses [Dashboards](https://favstats.github.io/vaccc19de_dashboard/) ist es den Fortschritt von COVID-19 Impfungen in Deutschland zu dokumentieren und visualisieren. 
+
+Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Seite](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html) bereitgestellt. Die hier dargestellten Daten wurden mit Hilfe des R packages [vaccc19de](https://github.com/friep/vaccc19de) aufbereitet und können [hier](https://github.com/friep/vaccc19de_rki_data) heruntergeladen werden.
+
+Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
+
+
+
+Autor: [Fabio Votta](https://github.com/favstats)
+
+<center>
+
+<br>
+
+```{r, out.width="100%", fig.align="center", out.height="5%", fig.height=1}
+library(ggplot2)
+library(emojifont)
+
+geimpft_lasttime <- prelatest_dat %>% 
+  summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
+
+latest_day <- unique(prelatest_dat$day)
+
+geimpft <- latest_dat %>% 
+  summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
+
+geimpft_lasttime <- geimpft-geimpft_lasttime
+
+pop <- latest_dat %>% 
+  summarize(insgesamt = sum(insgesamt)) %>% pull(insgesamt)
+
+prozent <- paste0(round(geimpft/pop*100, 2), "%")
+prozent_lasttime <- paste0("+", round((geimpft_lasttime)/geimpft*100, 2), "%")
+
+geimpft <- scales::label_number()(geimpft)
+geimpft_lasttime <- scales::label_number()(geimpft_lasttime) %>% paste0("+", .)
+
+
+
+df <- data.frame(
+    x = rep(0, 4),
+    y = rep(4.5, 4),
+    h = rep(2.25, 2),
+    w = rep(8.25, 2),
+    value = c(geimpft,
+             prozent, 
+             geimpft_lasttime,
+             prozent_lasttime),
+    info = c("Anzahl der Impfungen",
+             "Prozent der Bevölkerung geimpft",
+             glue::glue("Zusätzliche Impfungen (seit {latest_day})"),
+             glue::glue("Prozent Wachstum (seit {latest_day})")),
+    shape = c(fontawesome("fa-users"),
+              fontawesome("fa-percent"),
+              fontawesome("fa-plus"),
+              fontawesome("fa-line-chart")),
+    font_family = c(rep("fontawesome-webfont", 4)),
+    color = factor(1:4)
+)
+
+colors <- colorspace::qualitative_hcl(palette = "Dark 3", 6)
+
+df %>% 
+  slice(1:2) %>% 
+  ggplot(aes(x, y, height = h, width = w, label = info)) +
+    geom_tile(aes(fill = color)) +
+    geom_text(color = "white", fontface = "bold", size = 20,
+              aes(label = value, x = x - 3.9, y = y + 0.5), hjust = 0) +
+    geom_text(color = "white", fontface = "bold", size = 6,
+              aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
+    coord_fixed() +
+    scale_fill_manual(values = colors[c(1,5)]) +
+    geom_text(size = 30, aes(label = shape, family = font_family,
+                             x = x + 3, y = y + 0.1), alpha = 0.25) +
+    theme_void() +
+    guides(fill = FALSE) +
+  facet_wrap(~info, ncol = 2)  + 
+theme(
+  strip.background = element_blank(),
+  strip.text.x = element_blank()
+)
+
+
+df %>% 
+  slice(3:4) %>% 
+  mutate(info = fct_relevel(info, glue::glue("Zusätzliche Impfungen (seit {latest_day})"), 
+                            glue::glue("Prozent Wachstum (seit {latest_day})"))) %>% 
+  ggplot(aes(x, y, height = h, width = w, label = info)) +
+    geom_tile(aes(fill = color)) +
+    geom_text(color = "white", fontface = "bold", size = 20,
+              aes(label = value, x = x - 3.9, y = y + 0.5), hjust = 0) +
+    geom_text(color = "white", fontface = "bold", size = 6,
+              aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
+    coord_fixed() +
+    scale_fill_manual(values = colors[3:4]) +
+    geom_text(size = 30, aes(label = shape, family = font_family,
+                             x = x + 3, y = y + 0.1), alpha = 0.25) +
+    theme_void() +
+    guides(fill = FALSE) +
+    facet_wrap(~info, ncol = 2)  + 
+    theme(
+      strip.background = element_blank(),
+      strip.text.x = element_blank()
+    )
+# emojifont::search_fontawesome("ambulance")
+
+
+```
+
+
+Letzte Datenaktualisierung: `r Sys.time()`
+
+</center>
+
