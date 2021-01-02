@@ -60,8 +60,8 @@ if(!updated_data){
   rmarkdown::render("README.Rmd")
   file.remove("README.html")
 
-  R.utils::copyDirectory("site/en/_site", "docs/en")
-  R.utils::copyDirectory("site/de/_site", "docs")
+  R.utils::copyDirectory("site/en/_site", "docs/en", recursive = T, overwrite = T)
+  R.utils::copyDirectory("site/de/_site", "docs", recursive = T, overwrite = T)
   # R.utils::copyDirectory("site/de/", "site/en/")
 
 
