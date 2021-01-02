@@ -13,6 +13,7 @@ output:
 library(tidyverse)
 library(highcharter)
 library(emojifont)
+library(downloadthis)
 
 knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
@@ -39,13 +40,11 @@ prelatest_dat <- rki_dat %>%
 
 The goal of this [dashboard](https://favstats.github.io/vaccc19de_dashboard/) is to document and visualize the progress of COVID-19 vaccinations in Germany.
 
-The vaccination data is provided by the [Robert Koch Institute (RKI)](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html). The data presented here was retrieved with the help of the R package [vaccc19de](https://github.com/friep/vaccc19de) and can be accessed [here](https://github.com/friep/vaccc19de_rki_data).
+The vaccination data is provided by the [Robert Koch Institute (RKI)](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html). The data presented here was processed with the help of the R package [vaccc19de](https://github.com/friep/vaccc19de).
 
 Population data for the federal states is taken from the [Federal Statistics Office (Statistisches Bundesamt)](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
 
 > Note: The RKI does not (yet) differentiate between first and second vaccination in its data.
-
-Author: [Fabio Votta](https://github.com/favstats)
 
 <center>
 
@@ -205,6 +204,33 @@ ggsave(filename = "../../img/total-zeit_de.png", plot = gg_bv,
 
 
 ```
+
+
+```{r}
+cumulative_time_series <- read_csv("../../data/cumulative_time_series.csv")
+diffs_time_series <- read_csv("../../data/diffs_time_series.csv")
+
+cumulative_time_series %>% 
+  download_this(
+    output_name = "cumulative_time_series",
+    output_extension = ".csv",
+    button_label = "Cumulative Dataset (Download)",
+    button_type = "primary",
+    has_icon = TRUE,
+    icon = "fa fa-save"
+  )
+
+diffs_time_series %>% 
+  download_this(
+    output_name = "diffs_time_series",
+    output_extension = ".csv",
+    button_label = "Daily Vaccinations Data (Download)",
+    button_type = "success",
+    has_icon = TRUE,
+    icon = "fa fa-save"
+  )
+```
+
 
 
 Last Update: `r Sys.time()`

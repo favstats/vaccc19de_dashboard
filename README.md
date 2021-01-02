@@ -3,18 +3,17 @@
 
 # COVID-19 Impfungsdaten des RKI
 
-Ziel dieses
-[Dashboards](https://favstats.github.io/vaccc19de_dashboard/) ist es den
-Fortschritt von COVID-19 Impfungen in Deutschland zu dokumentieren und
-visualisieren.
+Ziel dieses Repository ist es den Fortschritt von COVID-19 Impfungen in
+Deutschland zu
+[dokumentieren](https://github.com/friep/vaccc19de_rki_data) und
+[visualisieren](https://favstats.github.io/vaccc19de_dashboard/)
 
 Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf
 dieser
 Seite](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html)
-bereitgestellt. Die hier dargestellten Daten wurden mit Hilfe des R
-packages [vaccc19de](https://github.com/friep/vaccc19de) aufbereitet und
-können [hier](https://github.com/friep/vaccc19de_rki_data)
-heruntergeladen werden.
+bereitgestellt. Die hier dargestellten Daten werden nach jedem Update
+heruntergeladen und mit Hilfe des [{vaccc19de} R
+:package:](https://github.com/friep/vaccc19de) aufbereitet.
 
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen
 Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).

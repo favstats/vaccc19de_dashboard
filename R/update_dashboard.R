@@ -11,7 +11,8 @@ pop_dat <- readRDS("data/pop_dat.RDS")
 
 rki_dat <- rki_dat %>%
   left_join(pop_dat) %>%
-  mutate(prozent_geimpft = impfungen_kumulativ/insgesamt*100)
+  mutate(prozent_geimpft = impfungen_kumulativ/insgesamt*100) %>%
+  mutate(day = lubridate::as_date(ts_datenstand))
 
 de_dat <- rki_dat %>%
   group_by(day) %>%
@@ -71,6 +72,3 @@ if(!updated_data){
 
 
 }
-# system("git add -A")
-# system(glue::glue('git commit -m "{Sys.time()}: Update Dashboard"'))
-# system("git push")
