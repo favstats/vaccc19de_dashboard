@@ -53,7 +53,7 @@ if(nrow(rki_dat) > nrow(readRDS("data/rki_dat.RDS"))){
 
 
 
-if(!updated_data){
+if(updated_data){
 
   rmarkdown::render_site("site/en")
   rmarkdown::render_site("site/de")
