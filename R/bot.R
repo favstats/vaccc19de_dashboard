@@ -7,7 +7,7 @@ source("R/utils.R")
 last_update <- read_lines("last_update.txt")
 current <- read_lines("current.txt")
 
-if(last_update == current){
+if(last_update != current){
 
   cat(current, file = "current.txt")
 
