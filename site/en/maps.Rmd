@@ -60,7 +60,7 @@ prozent_plot <- hcmap(
     style = list(fontSize = "12px")
   ) %>%
   hc_title(
-    text = "Vaccination doses per 100 Inhabitantsr"
+    text = "Vaccination doses per 100 Inhabitants"
   ) %>% 
   hc_legend(
     layout = "horizontal",
