@@ -141,7 +141,7 @@ infobox2 <-df %>%
     geom_text(color = "white", fontface = "bold", size = 3,
               aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
     coord_fixed() +
-    scale_fill_manual(values = colors[3:4]) +
+    scale_fill_manual(values = colors[c(3,4)]) +
     geom_text(size = 10, aes(label = shape, family = font_family,
                              x = x + 3, y = y + 0.1), alpha = 0.25) +
     theme_void() +

@@ -45,7 +45,7 @@ Population data for the federal states is taken from the [Federal Statistics Off
 
 > Note: The RKI does not (yet) differentiate between first and second vaccination in its data.
 
-Author: [Fabio Votta] (https://github.com/favstats)
+Author: [Fabio Votta](https://github.com/favstats)
 
 <center>
 
@@ -106,7 +106,7 @@ df <- data.frame(
 colors <- colorspace::qualitative_hcl(palette = "Dark 3", 6)
 
 infobox1 <- df %>% 
-  slice(1:2) %>% 
+  slice(1:2)  %>% 
   ggplot(aes(x, y, height = h, width = w, label = info)) +
     geom_tile(aes(fill = color)) +
     geom_text(color = "white", fontface = "bold", size = 10,
@@ -133,7 +133,7 @@ infobox2 <-df %>%
   slice(3:4) %>% 
   mutate(info = fct_relevel(info,
                             glue::glue("Vaccines administered (since {latest_day})"),
-                            glue::glue("Percent growth (since {latest_day})"))) %>% 
+                            glue::glue("Percent growth (since {latest_day})")))  %>% 
   ggplot(aes(x, y, height = h, width = w, label = info)) +
     geom_tile(aes(fill = color)) +
     geom_text(color = "white", fontface = "bold", size = 10,
@@ -141,18 +141,18 @@ infobox2 <-df %>%
     geom_text(color = "white", fontface = "bold", size = 3,
               aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
     coord_fixed() +
-    scale_fill_manual(values = colors[3:4]) +
+    scale_fill_manual(values = colors[c(3,4)]) +
     geom_text(size = 10, aes(label = shape, family = font_family,
                              x = x + 3, y = y + 0.1), alpha = 0.25) +
     theme_void() +
     guides(fill = FALSE) +
-    facet_wrap(~info, ncol = 2)  + 
-    theme(
-      panel.background = element_rect(fill = "transparent", color = NA), # bg of the panel
-      plot.background = element_rect(fill = "transparent", color = NA),
-      strip.background = element_blank(),
-      strip.text.x = element_blank()
-    )
+  facet_wrap(~info, ncol = 2)  + 
+theme(
+  panel.background = element_rect(fill = "transparent", color = NA), # bg of the panel
+  plot.background = element_rect(fill = "transparent", color = NA),
+  strip.background = element_blank(),
+  strip.text.x = element_blank()
+)
 
 
 infobox1

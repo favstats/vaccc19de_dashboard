@@ -53,15 +53,15 @@ if(nrow(rki_dat) > nrow(readRDS("data/rki_dat.RDS"))){
 
 
 
-if(updated_data){
+if(!updated_data){
 
   rmarkdown::render_site("site/en")
   rmarkdown::render_site("site/de")
   rmarkdown::render("README.Rmd")
   file.remove("README.html")
 
-  R.utils::copyDirectory("site/en/_site", "docs/en")
-  R.utils::copyDirectory("site/de/_site", "docs")
+  R.utils::copyDirectory("site/en/_site", "docs/en", recursive = T, overwrite = T)
+  R.utils::copyDirectory("site/de/_site", "docs", recursive = T, overwrite = T)
   # R.utils::copyDirectory("site/de/", "site/en/")
 
 
