@@ -41,8 +41,7 @@ We are currently figuring out how to license the data / whether there
 are any restrictions from RKI’s side - we don’t suspect that there are
 any but we haven’t found any information on that yet.
 
-:warning: I take no liability for the correctness of the data\!
-:warning:
+:warning: I take no liability for the correctness of the data! :warning:
 
 ## Datasets
 
@@ -50,12 +49,12 @@ any but we haven’t found any information on that yet.
 
 ### Disclaimers :warning:
 
-  - All counts are cumulative (except `differenz_zum_vortag`)
-  - timestamps in the csv are in UTC, not in Berlin time.
-  - as stated in the raw xlsx file, one vaccinated person can have
+-   All counts are cumulative (except `differenz_zum_vortag`)
+-   timestamps in the csv are in UTC, not in Berlin time.
+-   as stated in the raw xlsx file, one vaccinated person can have
     multiple indications: “Anmerkung zu den Indikationen: Es können
     mehrere Indikationen je geimpfter Person vorliegen.”
-  - always check the raw xlsx (see folder `data/raw`)
+-   always check the raw xlsx (see folder `data/raw`)
 
 Read in directly from GitHub using R:
 
@@ -64,7 +63,7 @@ cumulative_ts <- readr::read_csv("https://raw.githubusercontent.com/favstats/vac
 ```
 
 | col                      | type      | description                                                                                                                      |
-| :----------------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------------- |
+|:-------------------------|:----------|:---------------------------------------------------------------------------------------------------------------------------------|
 | ts\_datenstand           | datetime  | datetime until which data is included (‘Datenstand’) as specified in the Excel file. Given in UTC                                |
 | ts\_download             | datetime  | datetime when data was downloaded from RKI website. Given in UTC                                                                 |
 | bundesland               | character | full name of Bundesland                                                                                                          |
@@ -84,11 +83,11 @@ Contributions are very welcome. Depending on where you want to add
 features, please open an issue here or on
 [{vaccc19de}](https://github.com/friep/vaccc19de):
 
-  - features relating to GitHub Action and daily updates of the data –\>
-    this repository
-  - features relating to the dashboard –\> this repository
-  - features relating to data wrangling, data cleaning of the original
-    excel file –\> [{vaccc19de}](https://github.com/friep/vaccc19de)
+-   features relating to GitHub Action and daily updates of the data
+    –&gt; this repository
+-   features relating to the dashboard –&gt; this repository
+-   features relating to data wrangling, data cleaning of the original
+    excel file –&gt; [{vaccc19de}](https://github.com/friep/vaccc19de)
 
 Of course, features might require changes in both repositories. Please
 still open issues in both repositories and then link them to each other.
