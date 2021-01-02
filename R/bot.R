@@ -4,12 +4,14 @@ library(twitteR)
 
 source("R/utils.R")
 
-last_update <- read_lines("last_update.txt")
-current <- read_lines("current.txt")
 
-if(last_update != current){
+rki_dat <- readRDS("data/rki_dat.RDS")
 
-  rki_dat <- readRDS("data/rki_dat.RDS")
+current_day <- max(rki_dat$day, na.rm = T)
+
+if(current_day > lubridate::as_date(read_lines("last_update.txt"))){
+
+  cat(current_day, file = "last_update.txt")
 
   rki_dat <- rki_dat %>%
     filter(bundesland != "Deutschland")
@@ -28,7 +30,6 @@ if(last_update != current){
   latest_day <- unique(prelatest_dat$day) %>% format.Date("%d.%m.%Y")
   current_day <- unique(latest_dat$day) %>% format.Date("%d.%m.%Y")
 
-  cat(current_day, file = "current.txt")
 
   name <- "MyTotallyAwesomeUniqueApp"
 

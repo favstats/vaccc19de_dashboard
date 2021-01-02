@@ -15,6 +15,7 @@ jobs:
       - name: Install Packages
         run: |
           install.packages('tidyverse')
+          install.packages('lubridate')
           install.packages('highcharter')
           install.packages('emojifont')
           install.packages('R.utils')
@@ -25,7 +26,7 @@ jobs:
       - name: Install pandoc
         run: brew install pandoc
       - name: "Run Update Script"
-        run: Rscript 'R/update.R'
+        run: Rscript 'R/update_dashboard.R'
       - name: Commit changes
         uses: EndBug/add-and-commit@v5
         with:

@@ -14,9 +14,9 @@ knitr::opts_chunk$set(
 
 # COVID-19 Impfungsdaten des RKI
 
-Ziel dieses [Dashboards](https://favstats.github.io/vaccc19de_dashboard/) ist es den Fortschritt von COVID-19 Impfungen in Deutschland zu dokumentieren und visualisieren. 
+Ziel dieses Repository ist es den Fortschritt von COVID-19 Impfungen in Deutschland zu [dokumentieren](https://github.com/friep/vaccc19de_rki_data) und [visualisieren](https://favstats.github.io/vaccc19de_dashboard/) 
 
-Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Seite](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html) bereitgestellt. Die hier dargestellten Daten wurden mit Hilfe des R packages [vaccc19de](https://github.com/friep/vaccc19de) aufbereitet und können [hier](https://github.com/friep/vaccc19de_rki_data) heruntergeladen werden.
+Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Seite](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html) bereitgestellt. Die hier dargestellten Daten werden nach jedem Update heruntergeladen und mit Hilfe des [{vaccc19de} R :package:](https://github.com/friep/vaccc19de) aufbereitet.
 
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
 
@@ -34,6 +34,7 @@ Besides providing the dashboard, we collect and store the data behind the dashbo
 The data is collected via a GitHub Action which uses the accompanying [{vaccc19de} R :package:](https://github.com/friep/vaccc19de). You can find the raw data (xlsx files and sheets as csvs) in `data/raw` and the time series at `data/cumulative_time_series.csv`.   
 
 ## Data License
+
 We are currently figuring out how to license the data / whether there are any restrictions from RKI's side - we don't suspect that there are any but we haven't found any information on that yet.
 
 :warning: I take no liability for the correctness of the data! :warning: 
@@ -50,6 +51,7 @@ We are currently figuring out how to license the data / whether there are any re
 - always check the raw xlsx (see folder `data/raw`)
 
 Read in directly from GitHub using R:
+
 ```{r eval=FALSE, echo=TRUE, message=FALSE}
 cumulative_ts <- readr::read_csv("https://raw.githubusercontent.com/favstats/vaccc19de_dashboard/main/data/cumulative_time_series.csv")
 ```
@@ -78,6 +80,7 @@ knitr::kable(dplyr::select(df, col, type, description))
 
 
 # Contribute
+
 Contributions are very welcome. Depending on where you want to add features, please open an issue here or on [{vaccc19de}](https://github.com/friep/vaccc19de):
 
 - features relating to GitHub Action and daily updates of the data --> this repository
