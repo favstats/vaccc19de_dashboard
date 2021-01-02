@@ -1,4 +1,6 @@
 
+library(readr)
+
 last_update <- read_lines("last_update.txt")
 current <- read_lines("current.txt")
 
