@@ -48,8 +48,6 @@ Population data for the federal states is taken from the [Federal Statistics Off
 
 <center>
 
-<br>
-
 ```{r infobox, fig.align="center", fig.height=1, out.width="100%"}
 
 
