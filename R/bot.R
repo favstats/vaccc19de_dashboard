@@ -27,6 +27,9 @@ if(last_update == current){
     dplyr::filter(day<max(day)) %>%
     dplyr::filter(day==max(day))
 
+  latest_day <- unique(prelatest_dat$day) %>% format.Date("%d.%m.%Y")
+  current_day <- unique(latest_dat$day) %>% format.Date("%d.%m.%Y")
+
   name <- "MyTotallyAwesomeUniqueApp"
 
   consumer_key <- Sys.getenv("consumer_key")
