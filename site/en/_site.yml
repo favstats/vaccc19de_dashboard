@@ -1,0 +1,18 @@
+name: "Dashboard: COVID-19 Impfungen"
+navbar:
+  title: "COVID-19 Impfungsdaten des RKI"
+  left:
+    - text: "Info"
+      href: index.html
+    - text: "Karten"
+      href: karten.html
+    - text: "Zeitreihen"
+      href: zeitreihen.html
+  right:
+    - text: "English"
+      href: index.html
+    - icon: fab fa-twitter fa-lg
+      href: http://twitter.com/favstats/
+    - text: "Code"
+      icon: fab fa-github  fa-lg
+      href: http://github.com/favstats/

@@ -57,12 +57,17 @@ if(updated_data){
 
   unlink("docs", recursive = T, force = T)
 
-  rmarkdown::render_site("site")
+  rmarkdown::render_site("site/en/")
+  rmarkdown::render_site("site/de/")
   rmarkdown::render("README.Rmd")
   file.remove("README.html")
 
-  dir.create("docs")
-  R.utils::copyDirectory("site/_site/", "docs")
+  dir.create("docs/en", recursive = T)
+  dir.create("docs/de", recursive = T)
+
+  R.utils::copyDirectory("site/site/en", "docs/en")
+  R.utils::copyDirectory("site/site/de", "docs/de")
+
 
   unlink("site/_site", recursive = T, force = T)
 
