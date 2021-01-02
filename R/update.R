@@ -55,18 +55,13 @@ if(nrow(rki_dat) > nrow(readRDS("data/rki_dat.RDS"))){
 
 if(updated_data){
 
-  unlink("docs", recursive = T, force = T)
-
   rmarkdown::render_site("site/en")
   rmarkdown::render_site("site/de")
   rmarkdown::render("README.Rmd")
   file.remove("README.html")
 
-  dir.create("docs/en", recursive = T)
-  dir.create("docs/de", recursive = T)
-
   R.utils::copyDirectory("site/en/_site", "docs/en")
-  R.utils::copyDirectory("site/de/_site", "docs/de")
+  R.utils::copyDirectory("site/de/_site", "docs")
   # R.utils::copyDirectory("site/de/", "site/en/")
 
 
