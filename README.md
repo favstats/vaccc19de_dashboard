@@ -21,7 +21,7 @@ Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Be
 
 ![](img/infobox1_de.png) ![](img/infobox2_de.png)
 
-# Datengrundlage: vaccc19de\_rki\_data
+# Data
 
 **Disclaimer**: The following is in English because it was migrated from
 the [old data repository](https://github.com/friep/vaccc19de_rki_data)

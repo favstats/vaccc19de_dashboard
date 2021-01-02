@@ -25,7 +25,7 @@ Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen Bundesamt](
 ![](img/infobox2_de.png)
 
 
-# Datengrundlage: vaccc19de_rki_data
+# Data
 
 **Disclaimer**: The following is in English because it was migrated from the [old data repository](https://github.com/friep/vaccc19de_rki_data) and we could not be bothered to translate it so far. 
 
