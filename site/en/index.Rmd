@@ -1,5 +1,5 @@
 ---
-title: "COVID-19 Impfungsdaten des RKI"
+title: "German COVID-19 Vaccine Data"
 output: 
   html_document:
     theme: yeti
@@ -37,15 +37,15 @@ prelatest_dat <- rki_dat %>%
 
 
 
-Ziel dieses [Dashboards](https://favstats.github.io/vaccc19de_dashboard/) ist es den Fortschritt von COVID-19 Impfungen in Deutschland zu dokumentieren und visualisieren. 
+The goal of this [dashboard](https://favstats.github.io/vaccc19de_dashboard/) is to document and visualize the progress of COVID-19 vaccinations in Germany.
 
-Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Seite](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html) bereitgestellt. Die hier dargestellten Daten wurden mit Hilfe des R packages [vaccc19de](https://github.com/friep/vaccc19de) aufbereitet und können [hier](https://github.com/friep/vaccc19de_rki_data) heruntergeladen werden.
+The vaccination data is provided by the [Robert Koch Institute (RKI)](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html). The data presented here was retrieved with the help of the R package [vaccc19de](https://github.com/friep/vaccc19de) and can be accessed [here](https://github.com/friep/vaccc19de_rki_data).
 
-Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
+Population data for the federal states is taken from the [Federal Statistics Office (Statistisches Bundesamt)](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
 
-> Hinweis: Das RKI unterescheidet in ihren Daten (noch) nicht zwischen erster und zweiter Impfung. 
+> Note: The RKI does not (yet) differentiate between first and second vaccination in its data.
 
-Autor: [Fabio Votta](https://github.com/favstats)
+Author: [Fabio Votta] (https://github.com/favstats)
 
 <center>
 
@@ -91,10 +91,10 @@ df <- data.frame(
              geimpft_pro_100, 
              geimpft_lasttime,
              prozent_lasttime),
-    info = c("Anzahl der Impfungen",
-             "Impfdosen pro 100 Einwohner",
-             glue::glue("Zusätzliche Impfungen (seit {latest_day})"),
-             glue::glue("Prozent Wachstum (seit {latest_day})")),
+    info = c("Total Vaccinations",
+             "Vaccine doses per 100 Inhabitants",
+             glue::glue("Vaccines administered (since {latest_day})"),
+             glue::glue("Percent growth (since {latest_day})")),
     shape = c(fontawesome("fa-users"),
               fontawesome("fa-user-circle-o"),
               fontawesome("fa-plus"),
@@ -132,8 +132,8 @@ theme(
 infobox2 <-df %>% 
   slice(3:4) %>% 
   mutate(info = fct_relevel(info,
-                            glue::glue("Zusätzliche Impfungen (seit {latest_day})"),
-                            glue::glue("Prozent Wachstum (seit {latest_day})"))) %>% 
+                            glue::glue("Vaccines administered (since {latest_day})"),
+                            glue::glue("Percent growth (since {latest_day})"))) %>% 
   ggplot(aes(x, y, height = h, width = w, label = info)) +
     geom_tile(aes(fill = color)) +
     geom_text(color = "white", fontface = "bold", size = 10,
@@ -160,16 +160,17 @@ infobox2
 
 
 ```
+
 ```{r}
-ggsave(filename = "../../img/infobox1_de.png", plot = infobox1,
+ggsave(filename = "../../img/infobox1_en.png", plot = infobox1,
        height = 1,  bg = "transparent")
-ggsave(filename = "../../img/infobox2_de.png", plot = infobox2,
+ggsave(filename = "../../img/infobox2_en.png", plot = infobox2,
        height = 1,  bg = "transparent")
 ```
 
 
 
-```{r, results = 'hide'}
+```{r, results = 'hide', eval = F}
 gg_bv <- de_dat %>% 
   ggplot(aes(day, impfungen_kumulativ)) +
   geom_line() +
@@ -206,7 +207,7 @@ ggsave(filename = "../../img/total-zeit_de.png", plot = gg_bv,
 ```
 
 
-Letzte Datenaktualisierung: `r Sys.time()`
+Last Update: `r Sys.time()`
 
 </center>
 

@@ -1,16 +1,16 @@
-name: "Dashboard: COVID-19 Impfungen"
+name: "Dashboard: German COVID-19 Vaccine Data"
 navbar:
-  title: "COVID-19 Impfungsdaten des RKI"
+  title: "German COVID-19 Vaccine Data"
   left:
     - text: "Info"
       href: index.html
-    - text: "Karten"
-      href: karten.html
-    - text: "Zeitreihen"
-      href: zeitreihen.html
+    - text: "Maps"
+      href: maps.html
+    - text: "Timeseries"
+      href: timeseries.html
   right:
-    - text: "English"
-      href: index.html
+    - text: "German"
+      href: https://favstats.github.io/vaccc19de_dashboard/de
     - icon: fab fa-twitter fa-lg
       href: http://twitter.com/favstats/
     - text: "Code"

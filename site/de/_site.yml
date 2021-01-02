@@ -10,7 +10,7 @@ navbar:
       href: zeitreihen.html
   right:
     - text: "English"
-      href: index.html
+      href: https://favstats.github.io/vaccc19de_dashboard/en
     - icon: fab fa-twitter fa-lg
       href: http://twitter.com/favstats/
     - text: "Code"

@@ -160,6 +160,7 @@ infobox2
 
 
 ```
+
 ```{r}
 ggsave(filename = "../../img/infobox1_de.png", plot = infobox1,
        height = 1,  bg = "transparent")

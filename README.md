@@ -19,4 +19,4 @@ heruntergeladen werden.
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen
 Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
 
-![](img/infobox1.png) ![](img/infobox2.png)
+![](img/infobox1_de.png) ![](img/infobox2_de.png)
