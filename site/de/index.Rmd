@@ -17,9 +17,9 @@ library(emojifont)
 knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
 
-source("../R/utils.R")
+source("../../R/utils.R")
 
-rki_dat <- readRDS("../data/rki_dat.RDS")
+rki_dat <- readRDS("../../data/rki_dat.RDS")
 
 de_dat <- rki_dat %>% 
   filter(bundesland == "Deutschland")
@@ -161,9 +161,9 @@ infobox2
 
 ```
 ```{r}
-ggsave(filename = "../img/infobox1.png", plot = infobox1,
+ggsave(filename = "../../img/infobox1_de.png", plot = infobox1,
        height = 1,  bg = "transparent")
-ggsave(filename = "../img/infobox2.png", plot = infobox2,
+ggsave(filename = "../../img/infobox2_de.png", plot = infobox2,
        height = 1,  bg = "transparent")
 ```
 
@@ -195,10 +195,10 @@ gg_prz <- de_dat %>%
   theme(plot.title = element_text(size = 15, hjust = 0.5))
 
 
-ggsave(filename = "../img/prozent-zeit.png", plot = gg_prz,
+ggsave(filename = "../../img/prozent-zeit_de.png", plot = gg_prz,
        width = 8, height = 6)
 
-ggsave(filename = "../img/total-zeit.png", plot = gg_bv,
+ggsave(filename = "../../img/total-zeit_de.png", plot = gg_bv,
        width = 8, height = 6)
 
 
