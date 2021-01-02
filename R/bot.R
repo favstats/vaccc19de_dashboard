@@ -9,8 +9,6 @@ current <- read_lines("current.txt")
 
 if(last_update != current){
 
-  cat(current, file = "current.txt")
-
   rki_dat <- readRDS("data/rki_dat.RDS")
 
   rki_dat <- rki_dat %>%
@@ -29,6 +27,8 @@ if(last_update != current){
 
   latest_day <- unique(prelatest_dat$day) %>% format.Date("%d.%m.%Y")
   current_day <- unique(latest_dat$day) %>% format.Date("%d.%m.%Y")
+
+  cat(current_day, file = "current.txt")
 
   name <- "MyTotallyAwesomeUniqueApp"
 

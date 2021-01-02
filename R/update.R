@@ -39,14 +39,21 @@ rki_dat <- rki_dat %>%
   mutate(prozent_geimpft_label = specify_decimal(prozent_geimpft, 2)) %>%
   mutate(impfungen_kumulativ_label = scales::label_number()(impfungen_kumulativ) %>% str_remove_all("\\.0"))
 
-cat(current, file = "last_update.txt")
+latest_dat <- rki_dat %>%
+  dplyr::filter(day==max(day))
 
-updated_data <- F
+current_day <- max(rki_dat$day, na.rm = T) %>% format.Date("%d.%m.%Y")
+
+
 
 if(nrow(rki_dat) > nrow(readRDS("data/rki_dat.RDS"))){
   updated_data <- T
 
   saveRDS(rki_dat, file = "data/rki_dat.RDS")
+} else {
+  cat(current_day, file = "last_update.txt")
+
+  updated_data <- F
 }
 
 
