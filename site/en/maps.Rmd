@@ -77,7 +77,7 @@ total_plot <- hcmap(
   data = latest_dat,
   value = "impfungen_kumulativ",
   joinBy = c("name", "bundesland"),
-  name = "Vaccine Doses",
+  name = "Vaccine doses administered",
   dataLabels = list(enabled = TRUE, format = "{point.name}")
   ) %>%
   hc_exporting(
@@ -89,7 +89,7 @@ total_plot <- hcmap(
     style = list(fontSize = "12px")
   ) %>%
   hc_title(
-    text = " Vaccination doses per 100 Inhabitants"
+    text = "Vaccine Doses Administered"
   ) %>% 
   hc_legend(
     layout = "horizontal",
