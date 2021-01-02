@@ -1,0 +1,21 @@
+Bundesland,Impfungen kumulativ,Differenz zum Vortag,Indikation nach Alter*,Berufliche Indikation*,Medizinische Indikation*,Pflegeheim-bewohnerIn*,...8
+Baden-Württemberg,17086,4295,7578,5423,1037,2693,NA
+Bayern,37955,9749,7840,18450,718,14265,NA
+Berlin,11114,2030,7029,2952,105,8161,NA
+Brandenburg,3219,183,204,2995,20,224,NA
+Bremen,1741,50,821,408,6,237,NA
+Hamburg,2759,719,1129,1420,NA,1341,NA
+Hessen,21373,5699,6073,12345,821,8513,NA
+Mecklenburg-Vorpommern,11494,393,178,6583,8,4804,NA
+Niedersachsen,3566,861,567,1981,654,2044,NA
+Nordrhein-Westfalen,24924,3033,NA,8963,NA,16334,(für den 31.12. wurden keine Daten aus der KV-Nordrhein übermittelt)
+Rheinland-Pfalz,5112,865,NA,2329,NA,2783,NA
+Saarland,2716,597,2065,248,NA,1080,NA
+Sachsen,3290,637,226,2754,1,535,NA
+Sachsen-Anhalt,11146,1046,3506,5582,458,5346,NA
+Schleswig-Holstein,7270,1689,1766,4523,1527,2817,NA
+Thüringen,810,0,232,297,0,413,NA
+Gesamt,165575,31846,39214,77253,5355,71590,NA
+NA,NA,NA,NA,NA,NA,NA,NA
+Anmerkung zu den Indikationen: Es können mehrere Indikationen je geimpfter Person vorliegen.,NA,NA,NA,NA,NA,NA,NA
+* In einigen Bundesländern werden nicht alle der in der Tabelle aufgeführten Indikationen einzeln ausgewiesen.,NA,NA,NA,NA,NA,NA,NA

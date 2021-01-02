@@ -7,3 +7,4 @@
 ##*.csv
 ##data/
 ##*.xlsx
+.DS_Store
