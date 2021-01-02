@@ -214,7 +214,7 @@ cumulative_time_series %>%
     output_name = "cumulative_time_series",
     output_extension = ".csv",
     button_label = "Kumulativer Datensatz (Download)",
-    button_type = "primary",
+    button_type = "default",
     has_icon = TRUE,
     icon = "fa fa-save"
   )
@@ -224,7 +224,7 @@ diffs_time_series %>%
     output_name = "diffs_time_series",
     output_extension = ".csv",
     button_label = "Tägliche Neu-Impfungen Datensatz (Download)",
-    button_type = "success",
+    button_type = "default",
     has_icon = TRUE,
     icon = "fa fa-save"
   )
