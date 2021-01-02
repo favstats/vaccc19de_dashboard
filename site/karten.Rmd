@@ -45,11 +45,10 @@ prozent_plot <- hcmap(
   data = latest_dat,
   value = "prozent_geimpft",
   joinBy = c("name", "bundesland"),
-  name = "% der Bevölkerung geimpft",
+  name = "Impfdosen pro 100 Einwohner",
     dataLabels = list(enabled = TRUE, format = "{point.name}"),
     tooltip = list(
-      valueDecimals = 2,
-      valueSuffix = "%"
+      valueDecimals = 2
     )
   ) %>%
   hc_exporting(
@@ -61,7 +60,7 @@ prozent_plot <- hcmap(
     style = list(fontSize = "12px")
   ) %>%
   hc_title(
-    text = "Prozent der Bevölkerung geimpft"
+    text = "Impfdosen pro 100 Einwohner"
   ) %>% 
   hc_legend(
     layout = "horizontal",
@@ -78,7 +77,7 @@ total_plot <- hcmap(
   data = latest_dat,
   value = "impfungen_kumulativ",
   joinBy = c("name", "bundesland"),
-  name = "Anzahl der Impfungen",
+  name = "Anzahl der Impfdosen",
   dataLabels = list(enabled = TRUE, format = "{point.name}")
   ) %>%
   hc_exporting(
@@ -90,7 +89,7 @@ total_plot <- hcmap(
     style = list(fontSize = "12px")
   ) %>%
   hc_title(
-    text = " Anzahl der Impfungen"
+    text = " Anzahl der Impfdosen"
   ) %>% 
   hc_legend(
     layout = "horizontal",

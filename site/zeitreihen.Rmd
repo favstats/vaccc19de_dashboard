@@ -25,11 +25,12 @@ hc_mapper <- function(dat, max_size) {
   hc <- dat %>% 
     hchart("line", hcaes(day, prozent_geimpft),
         tooltip = list(
-        name = "Prozent geimpft",
-        pointFormat = "<b>{point.bundesland}</b><br><b>Prozent geimpft:</b> {point.prozent_geimpft_label}%<br><br><b>Total geimpft:</b> {point.impfungen_kumulativ_label}")) %>%
+        name = "Impfdosen pro 100 Einwohner",
+        pointFormat = "<b>{point.bundesland}</b><br><b>Impfdosen pro 100 Einwohner
+:</b> {point.prozent_geimpft_label}<br><br><b>Anzahl der Impfungen:</b> {point.impfungen_kumulativ_label}")) %>%
     # Axis
     hc_yAxis(
-      title = list(text = "Prozent der Bevölkerung geimpft")
+      title = list(text = "Impfdosen pro 100 Einwohner")
     ) %>% 
     hc_xAxis(
       title = list(text = "Datum (täglich)")

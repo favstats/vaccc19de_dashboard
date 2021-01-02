@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
 source("../R/utils.R")
 
-rki_dat <- readRDS("data/rki_dat.RDS")
+rki_dat <- readRDS("../data/rki_dat.RDS")
 
 rki_dat <- rki_dat %>% 
   filter(bundesland != "Deutschland")
@@ -40,7 +40,7 @@ Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Sei
 
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
 
-
+> Hinweis: Das RKI unterescheidet in ihren Daten (noch) nicht zwischen erster und zweiter Impfung. 
 
 Autor: [Fabio Votta](https://github.com/favstats)
 
@@ -54,15 +54,13 @@ Autor: [Fabio Votta](https://github.com/favstats)
 geimpft_lasttime <- prelatest_dat %>% 
   summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
 
-
-
 geimpft <- latest_dat %>% 
   summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
 
 latest_day <- unique(prelatest_dat$day) %>% format.Date("%d.%m.%Y")
 current_day <- unique(latest_dat$day) %>% format.Date("%d.%m.%Y")
 
-cat(current_day, file = "../last_update.txt")
+# cat(current_day, file = "../last_update.txt")
 # cat(current_day, file = "../current.txt")
 
 geimpft <- latest_dat %>% 
@@ -73,7 +71,7 @@ geimpft_lasttime <- geimpft-geimpft_lasttime
 pop <- latest_dat %>% 
   summarize(insgesamt = sum(insgesamt)) %>% pull(insgesamt)
 
-prozent <- paste0(specify_decimal(geimpft/pop*100, 2), "%")
+geimpft_pro_100 <- specify_decimal(geimpft/pop*100, 2)
 prozent_lasttime <- paste0("+", specify_decimal((geimpft_lasttime)/geimpft*100, 2), "%")
 
 geimpft <- scales::label_number()(geimpft)
@@ -87,11 +85,11 @@ df <- data.frame(
     h = rep(2.25, 2),
     w = rep(8.25, 2),
     value = c(geimpft,
-             prozent, 
+             geimpft_pro_100, 
              geimpft_lasttime,
              prozent_lasttime),
     info = c("Anzahl der Impfungen",
-             "Prozent der Bevölkerung geimpft",
+             "Impfdosen pro 100 Einwohner",
              glue::glue("Zusätzliche Impfungen (seit {latest_day})"),
              glue::glue("Prozent Wachstum (seit {latest_day})")),
     shape = c(fontawesome("fa-users"),
@@ -126,8 +124,7 @@ theme(
   strip.text.x = element_blank()
 )
 
-ggsave(filename = "../img/infobox1.png", plot = infobox1,
-       height = 1,  bg = "transparent")
+
 
 infobox2 <-df %>% 
   slice(3:4) %>% 
@@ -154,11 +151,17 @@ infobox2 <-df %>%
       strip.text.x = element_blank()
     )
 
-ggsave(filename = "../img/infobox2.png", plot = infobox2,
-       height = 1,  bg = "transparent")
 
 infobox1
 infobox2
+
+
+```
+```{r}
+ggsave(filename = "../img/infobox1.png", plot = infobox1,
+       height = 1,  bg = "transparent")
+ggsave(filename = "../img/infobox2.png", plot = infobox2,
+       height = 1,  bg = "transparent")
 ```
 
 
@@ -172,7 +175,7 @@ gg_bv <- de_dat %>%
   scale_y_continuous(limits = c(0, NA), labels = scales::label_number()) +
   labs(y = "Anzahl Impfungen (kumulativ)\n",
        x = '\nDatum (täglich)', 
-       title = "Anzahl der Bevölkerung die COVID-19 Impfung erhalten haben\n",
+       title = "Anzahl der verabreichten COVID-19 Impfdosen\n",
        caption = "\nQuelle: Robert-Koch Institut. Daten Aufbereitung: Fabio Votta (@favstats).") +
   theme(plot.title = element_text(size = 15, hjust = 0.5))
 
@@ -182,9 +185,9 @@ gg_prz <- de_dat %>%
   geom_point() +
   theme_minimal() +
   scale_y_continuous(labels = scales::unit_format(suffix = "%", accuracy = 0.01), limits = c(0, NA)) +
-  labs(y = "Prozent der Bevölkerung geimpft\n",
+  labs(y = "Impfdosen pro 100 Einwohner\n",
        x = '\nDatum (täglich)', 
-       title = "Prozent der Bevölkerung die COVID-19 Impfung erhalten haben\n",
+       title = "Impfdosen verabreicht pro 100 Einwohner\n",
        caption = "\nQuelle: Robert-Koch Institut. Daten Aufbereitung: Fabio Votta (@favstats).") +
   theme(plot.title = element_text(size = 15, hjust = 0.5))
 
