@@ -53,7 +53,7 @@ if(nrow(rki_dat) > nrow(readRDS("data/rki_dat.RDS"))){
 
 
 
-if(!updated_data){
+if(updated_data){
 
   unlink("docs", recursive = T, force = T)
 
