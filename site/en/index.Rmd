@@ -1,0 +1,213 @@
+---
+title: "German COVID-19 Vaccine Data"
+output: 
+  html_document:
+    theme: yeti
+---
+
+
+
+<!-- # ```{r} -->
+```{r setup, include=FALSE}
+# library(vaccc19de)
+library(tidyverse)
+library(highcharter)
+library(emojifont)
+
+knitr::opts_chunk$set(echo = F, message = F, warning = F)
+
+
+source("../../R/utils.R")
+
+rki_dat <- readRDS("../../data/rki_dat.RDS")
+
+de_dat <- rki_dat %>% 
+  filter(bundesland == "Deutschland")
+
+rki_dat <- rki_dat %>% 
+  filter(bundesland != "Deutschland")
+
+latest_dat <- rki_dat %>% 
+  dplyr::filter(day==max(day))
+
+prelatest_dat <- rki_dat %>% 
+  dplyr::filter(day<max(day)) %>% 
+  dplyr::filter(day==max(day))
+```
+
+
+
+The goal of this [dashboard](https://favstats.github.io/vaccc19de_dashboard/) is to document and visualize the progress of COVID-19 vaccinations in Germany.
+
+The vaccination data is provided by the [Robert Koch Institute (RKI)](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html). The data presented here was retrieved with the help of the R package [vaccc19de](https://github.com/friep/vaccc19de) and can be accessed [here](https://github.com/friep/vaccc19de_rki_data).
+
+Population data for the federal states is taken from the [Federal Statistics Office (Statistisches Bundesamt)](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
+
+> Note: The RKI does not (yet) differentiate between first and second vaccination in its data.
+
+Author: [Fabio Votta] (https://github.com/favstats)
+
+<center>
+
+<br>
+
+```{r infobox, fig.align="center", fig.height=1, out.width="100%"}
+
+
+geimpft_lasttime <- prelatest_dat %>% 
+  summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
+
+geimpft <- latest_dat %>% 
+  summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
+
+latest_day <- unique(prelatest_dat$day) %>% format.Date("%d.%m.%Y")
+current_day <- unique(latest_dat$day) %>% format.Date("%d.%m.%Y")
+
+# cat(current_day, file = "../last_update.txt")
+# cat(current_day, file = "../current.txt")
+
+geimpft <- latest_dat %>% 
+  summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
+
+geimpft_lasttime <- geimpft-geimpft_lasttime
+
+pop <- latest_dat %>% 
+  summarize(insgesamt = sum(insgesamt)) %>% pull(insgesamt)
+
+geimpft_pro_100 <- specify_decimal(geimpft/pop*100, 2)
+prozent_lasttime <- paste0("+", specify_decimal((geimpft_lasttime)/geimpft*100, 2), "%")
+
+geimpft <- scales::label_number()(geimpft)
+geimpft_lasttime <- scales::label_number()(geimpft_lasttime) %>% paste0("+", .)
+
+
+
+df <- data.frame(
+    x = rep(0, 4),
+    y = rep(4.5, 4),
+    h = rep(2.25, 2),
+    w = rep(8.25, 2),
+    value = c(geimpft,
+             geimpft_pro_100, 
+             geimpft_lasttime,
+             prozent_lasttime),
+    info = c("Total Vaccinations",
+             "Vaccine doses per 100 Inhabitants",
+             glue::glue("Vaccines administered (since {latest_day})"),
+             glue::glue("Percent growth (since {latest_day})")),
+    shape = c(fontawesome("fa-users"),
+              fontawesome("fa-user-circle-o"),
+              fontawesome("fa-plus"),
+              fontawesome("fa-line-chart")),
+    font_family = c(rep("fontawesome-webfont", 4)),
+    color = factor(1:4)
+)
+
+colors <- colorspace::qualitative_hcl(palette = "Dark 3", 6)
+
+infobox1 <- df %>% 
+  slice(1:2) %>% 
+  ggplot(aes(x, y, height = h, width = w, label = info)) +
+    geom_tile(aes(fill = color)) +
+    geom_text(color = "white", fontface = "bold", size = 10,
+              aes(label = value, x = x - 3.9, y = y + 0.5), hjust = 0) +
+    geom_text(color = "white", fontface = "bold", size = 3,
+              aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
+    coord_fixed() +
+    scale_fill_manual(values = colors[c(1,5)]) +
+    geom_text(size = 10, aes(label = shape, family = font_family,
+                             x = x + 3, y = y + 0.1), alpha = 0.25) +
+    theme_void() +
+    guides(fill = FALSE) +
+  facet_wrap(~info, ncol = 2)  + 
+theme(
+  panel.background = element_rect(fill = "transparent", color = NA), # bg of the panel
+  plot.background = element_rect(fill = "transparent", color = NA),
+  strip.background = element_blank(),
+  strip.text.x = element_blank()
+)
+
+
+
+infobox2 <-df %>% 
+  slice(3:4) %>% 
+  mutate(info = fct_relevel(info,
+                            glue::glue("Vaccines administered (since {latest_day})"),
+                            glue::glue("Percent growth (since {latest_day})"))) %>% 
+  ggplot(aes(x, y, height = h, width = w, label = info)) +
+    geom_tile(aes(fill = color)) +
+    geom_text(color = "white", fontface = "bold", size = 10,
+              aes(label = value, x = x - 3.9, y = y + 0.5), hjust = 0) +
+    geom_text(color = "white", fontface = "bold", size = 3,
+              aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
+    coord_fixed() +
+    scale_fill_manual(values = colors[3:4]) +
+    geom_text(size = 10, aes(label = shape, family = font_family,
+                             x = x + 3, y = y + 0.1), alpha = 0.25) +
+    theme_void() +
+    guides(fill = FALSE) +
+    facet_wrap(~info, ncol = 2)  + 
+    theme(
+      panel.background = element_rect(fill = "transparent", color = NA), # bg of the panel
+      plot.background = element_rect(fill = "transparent", color = NA),
+      strip.background = element_blank(),
+      strip.text.x = element_blank()
+    )
+
+
+infobox1
+infobox2
+
+
+```
+
+```{r}
+ggsave(filename = "../../img/infobox1_en.png", plot = infobox1,
+       height = 1,  bg = "transparent")
+ggsave(filename = "../../img/infobox2_en.png", plot = infobox2,
+       height = 1,  bg = "transparent")
+```
+
+
+
+```{r, results = 'hide', eval = F}
+gg_bv <- de_dat %>% 
+  ggplot(aes(day, impfungen_kumulativ)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  scale_y_continuous(limits = c(0, NA), labels = scales::label_number()) +
+  labs(y = "Anzahl Impfungen (kumulativ)\n",
+       x = '\nDatum (täglich)', 
+       title = "Anzahl der verabreichten COVID-19 Impfdosen\n",
+       caption = "\nQuelle: Robert-Koch Institut. Daten Aufbereitung: Fabio Votta (@favstats).") +
+  theme(plot.title = element_text(size = 15, hjust = 0.5))
+
+gg_prz <- de_dat %>% 
+  ggplot(aes(day, prozent_geimpft)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::unit_format(suffix = "%", accuracy = 0.01), limits = c(0, NA)) +
+  labs(y = "Impfdosen pro 100 Einwohner\n",
+       x = '\nDatum (täglich)', 
+       title = "Impfdosen verabreicht pro 100 Einwohner\n",
+       caption = "\nQuelle: Robert-Koch Institut. Daten Aufbereitung: Fabio Votta (@favstats).") +
+  theme(plot.title = element_text(size = 15, hjust = 0.5))
+
+
+ggsave(filename = "../../img/prozent-zeit_de.png", plot = gg_prz,
+       width = 8, height = 6)
+
+ggsave(filename = "../../img/total-zeit_de.png", plot = gg_bv,
+       width = 8, height = 6)
+
+
+
+```
+
+
+Last Update: `r Sys.time()`
+
+</center>
+

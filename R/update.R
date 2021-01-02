@@ -57,14 +57,21 @@ if(updated_data){
 
   unlink("docs", recursive = T, force = T)
 
-  rmarkdown::render_site("site")
+  rmarkdown::render_site("site/en")
+  rmarkdown::render_site("site/de")
   rmarkdown::render("README.Rmd")
   file.remove("README.html")
 
-  dir.create("docs")
-  R.utils::copyDirectory("site/_site/", "docs")
+  dir.create("docs/en", recursive = T)
+  dir.create("docs/de", recursive = T)
 
-  unlink("site/_site", recursive = T, force = T)
+  R.utils::copyDirectory("site/en/_site", "docs/en")
+  R.utils::copyDirectory("site/de/_site", "docs/de")
+  # R.utils::copyDirectory("site/de/", "site/en/")
+
+
+  unlink("site/en/_site", recursive = T, force = T)
+  unlink("site/de/_site", recursive = T, force = T)
 
 }
 # system("git add -A")
