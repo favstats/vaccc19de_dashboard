@@ -21,6 +21,9 @@ source("../R/utils.R")
 
 rki_dat <- readRDS("../data/rki_dat.RDS")
 
+de_dat <- rki_dat %>% 
+  filter(bundesland == "Deutschland")
+
 rki_dat <- rki_dat %>% 
   filter(bundesland != "Deutschland")
 

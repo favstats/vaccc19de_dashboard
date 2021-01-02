@@ -70,5 +70,3 @@ if(updated_data){
 # system("git add -A")
 # system(glue::glue('git commit -m "{Sys.time()}: Update Dashboard"'))
 # system("git push")
-
-
