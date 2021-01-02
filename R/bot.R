@@ -9,7 +9,7 @@ current <- read_lines("current.txt")
 
 if(last_update == current){
 
-  cat(current_day, file = "current.txt")
+  cat(current, file = "current.txt")
 
   rki_dat <- readRDS("data/rki_dat.RDS")
 
