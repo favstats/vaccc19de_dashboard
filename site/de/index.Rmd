@@ -13,6 +13,7 @@ output:
 library(tidyverse)
 library(highcharter)
 library(emojifont)
+library(downloadthis)
 
 knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
@@ -39,17 +40,15 @@ prelatest_dat <- rki_dat %>%
 
 Ziel dieses [Dashboards](https://favstats.github.io/vaccc19de_dashboard/) ist es den Fortschritt von COVID-19 Impfungen in Deutschland zu dokumentieren und visualisieren. 
 
-Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Seite](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html) bereitgestellt. Die hier dargestellten Daten wurden mit Hilfe des R packages [vaccc19de](https://github.com/friep/vaccc19de) aufbereitet und können [hier](https://github.com/friep/vaccc19de_rki_data) heruntergeladen werden.
+Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Seite](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html) bereitgestellt. Die hier dargestellten Daten wurden mit Hilfe des R packages [vaccc19de](https://github.com/friep/vaccc19de) aufbereitet.
 
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
 
-> Hinweis: Das RKI unterescheidet in ihren Daten (noch) nicht zwischen erster und zweiter Impfung. 
+> Hinweis: Das RKI unterscheidet in ihren Daten (noch) nicht zwischen erster und zweiter Impfung. 
 
-Autor: [Fabio Votta](https://github.com/favstats)
 
 <center>
 
-<br>
 
 ```{r infobox, fig.align="center", fig.height=1, out.width="100%"}
 
@@ -79,7 +78,6 @@ prozent_lasttime <- paste0("+", specify_decimal((geimpft_lasttime)/geimpft*100, 
 
 geimpft <- scales::label_number()(geimpft)
 geimpft_lasttime <- scales::label_number()(geimpft_lasttime) %>% paste0("+", .)
-
 
 
 df <- data.frame(
@@ -207,7 +205,34 @@ ggsave(filename = "../../img/total-zeit_de.png", plot = gg_bv,
 ```
 
 
+```{r}
+cumulative_time_series <- read_csv("../../data/cumulative_time_series.csv")
+diffs_time_series <- read_csv("../../data/diffs_time_series.csv")
+
+cumulative_time_series %>% 
+  download_this(
+    output_name = "cumulative_time_series",
+    output_extension = ".csv",
+    button_label = "Kumulativer Datensatz (Download)",
+    button_type = "primary",
+    has_icon = TRUE,
+    icon = "fa fa-save"
+  )
+
+diffs_time_series %>% 
+  download_this(
+    output_name = "diffs_time_series",
+    output_extension = ".csv",
+    button_label = "Tägliche Neu-Impfungen Datensatz (Download)",
+    button_type = "success",
+    has_icon = TRUE,
+    icon = "fa fa-save"
+  )
+```
+
+
 Letzte Datenaktualisierung: `r Sys.time()`
+
 
 </center>
 
