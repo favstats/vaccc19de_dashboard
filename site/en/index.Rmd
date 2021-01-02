@@ -13,6 +13,7 @@ output:
 library(tidyverse)
 library(highcharter)
 library(emojifont)
+library(downloadthis)
 
 knitr::opts_chunk$set(echo = F, message = F, warning = F)
 

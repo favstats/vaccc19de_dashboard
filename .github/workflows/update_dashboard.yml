@@ -20,6 +20,7 @@ jobs:
           install.packages('emojifont')
           install.packages('R.utils')
           install.packages('twitteR')
+          install.packages('downloadthis')
         shell: Rscript {0}
       - name: Checkout repo
         uses: actions/checkout@v2
