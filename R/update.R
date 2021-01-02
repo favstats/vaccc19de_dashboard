@@ -2,6 +2,8 @@
 
 library(tidyverse)
 
+source("R/utils.R")
+
 frie_dat <- read_csv("https://raw.githubusercontent.com/friep/vaccc19de_rki_data/main/data/cumulative_time_series.csv")
 
 rki_dat <- dir("data/", full.names = T) %>%
