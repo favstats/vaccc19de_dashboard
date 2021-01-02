@@ -1,5 +1,5 @@
 ---
-title: "Prozent der Bevölkerung geimpft"
+title: "Impfdosen verabreicht über Zeit"
 output: 
   html_document:
     theme: yeti

@@ -93,7 +93,7 @@ df <- data.frame(
              glue::glue("Zusätzliche Impfungen (seit {latest_day})"),
              glue::glue("Prozent Wachstum (seit {latest_day})")),
     shape = c(fontawesome("fa-users"),
-              fontawesome("fa-percent"),
+              fontawesome("fa-user-circle-o"),
               fontawesome("fa-plus"),
               fontawesome("fa-line-chart")),
     font_family = c(rep("fontawesome-webfont", 4)),
