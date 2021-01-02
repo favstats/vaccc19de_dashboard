@@ -37,7 +37,7 @@ The data is collected via a GitHub Action which uses the accompanying [{vaccc19d
 
 We are currently figuring out how to license the data / whether there are any restrictions from RKI's side - we don't suspect that there are any but we haven't found any information on that yet.
 
-:warning: I take no liability for the correctness of the data! :warning: 
+:warning: We take no liability for the correctness of the data! :warning: 
 
 ## Datasets
 
