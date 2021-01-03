@@ -11,7 +11,7 @@ current_day <- max(rki_dat$day, na.rm = T)
 
 if(current_day > lubridate::as_date(read_lines("last_update.txt"))){
 
-  cat(current_day, file = "last_update.txt")
+  cat(as.character(current_day), file = "last_update.txt")
 
   rki_dat <- rki_dat %>%
     filter(bundesland != "Deutschland")
