@@ -16,10 +16,6 @@ if(current_day > lubridate::as_date(read_lines("last_update.txt"))){
   rki_dat <- rki_dat %>%
     filter(bundesland != "Deutschland")
 
-  de_dat <- rki_dat %>%
-    filter(bundesland == "Deutschland") %>%
-    dplyr::filter(day==max(day))
-
   latest_dat <- rki_dat %>%
     dplyr::filter(day==max(day))
 
@@ -67,7 +63,9 @@ if(current_day > lubridate::as_date(read_lines("last_update.txt"))){
     mutate(tweet_raw2 = glue::glue("{bundesland_iso}: {impfungen_kumulativ_label}")) %>%
 
     mutate(tweet_raw3 = glue::glue("{bundesland_iso}: +{differenz_zum_vortag_label}"))  %>%
-    mutate(tweet_raw4 = glue::glue("{bundesland_iso}: +{prozent_zum_vortag_label}%"))
+    mutate(tweet_raw4 = glue::glue("{bundesland_iso}: +{prozent_zum_vortag_label}%")) %>%
+    mutate_all(~str_replace_all(.x, "NA", "--")) %>%
+    mutate_all(~ifelse(str_detect(.x, "--"), str_remove_all(.x, "\\+|%"), .x))
 
   tweet1 <- tweet_dat %>%
     summarise(tweet1 = paste0(tweet_raw1, collapse = "\n")) %>%
@@ -77,7 +75,7 @@ if(current_day > lubridate::as_date(read_lines("last_update.txt"))){
   tweet2 <- tweet_dat %>%
     summarise(tweet2 = paste0(tweet_raw2, collapse = "\n")) %>%
     pull(tweet2) %>%
-    paste0(glue::glue("Impfodsen verabreicht ({current_day}):\n\n"), .)
+    paste0(glue::glue("Impfdosen verabreicht ({current_day}):\n\n"), .)
 
   tweet3 <- tweet_dat %>%
     summarise(tweet3 = paste0(tweet_raw3, collapse = "\n")) %>%
