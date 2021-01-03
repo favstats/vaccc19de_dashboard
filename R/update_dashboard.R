@@ -47,7 +47,7 @@ if(current_day > lubridate::as_date(read_lines("last_update.txt"))){
 
 
 
-if(!updated_data){
+if(updated_data){
 
   ## cleanup docs because they always cause merge conflicts
   cleanup_docs <- dir("docs", full.names = T, recursive = T) %>%
