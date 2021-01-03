@@ -178,7 +178,7 @@ gg_bv <- de_dat %>%
   labs(y = "Anzahl Impfungen (kumulativ)\n",
        x = '\nDatum (täglich)', 
        title = "Anzahl der verabreichten COVID-19 Impfdosen\n",
-       caption = "\nQuelle: Robert-Koch Institut. Daten Aufbereitung: Fabio Votta (@favstats).") +
+       caption = "\nQuelle: Robert-Koch Institut.") +
   theme(plot.title = element_text(size = 15, hjust = 0.5))
 
 gg_prz <- de_dat %>% 
@@ -186,11 +186,11 @@ gg_prz <- de_dat %>%
   geom_line() +
   geom_point() +
   theme_minimal() +
-  scale_y_continuous(labels = scales::unit_format(suffix = "%", accuracy = 0.01), limits = c(0, NA)) +
+  scale_y_continuous(limits = c(0, NA)) +
   labs(y = "Impfdosen pro 100 Einwohner\n",
        x = '\nDatum (täglich)', 
        title = "Impfdosen verabreicht pro 100 Einwohner\n",
-       caption = "\nQuelle: Robert-Koch Institut. Daten Aufbereitung: Fabio Votta (@favstats).") +
+       caption = "\nQuelle: Robert-Koch Institut.") +
   theme(plot.title = element_text(size = 15, hjust = 0.5))
 
 
