@@ -71,10 +71,8 @@ df <- tibble::tribble(
     "double", "Total number of people vaccinated because of their profession so far (cumulative)",
     "double", "Total number of people vaccinated because of medical reasons so far (cumulative)",
     "double", "Total number of people in nursing homes so far (cumulative)",
-    "character", "Notes as indicated by * in the Excel sheet.",
-    "character", "additional comments (we're working on merging those with the notes)",
+    "character", "Notes as indicated by * at the bottom of the Excel sheet and stored in unnamed columns.",
     "character", "vaccinations per 1000 inhabitants",
-    "character", "additional comments (we're working on merging those with the notes)"
 )
 
 ## when there are new variables this fails so this is a failsafe that should probably be updated
@@ -83,6 +81,38 @@ df$col <- cnames[1:nrow(df)]
 knitr::kable(dplyr::select(df, col, type, description))
 ```
 
+### `data/diffs_time_series.csv`
+This dataset contains the "decumulated" time series which is derived from the `cumulative_time_series.csv`. Each row represents the *increase* since the last update of the data (usually the day before).
+
+### Disclaimers :warning:
+- Note that a number for a day does not necessarily correspond to the number of vaccinations for that day. This is due to reporting delays and other irregularities in the process (see "notes" column).
+- Again, one person can have multiple indications which is why numbers of the indications might not add up to the overall increase in vaccinated people.
+- No liability is taken for the correctness of the calculations.  If in doubt, check the raw excel files. 
+
+
+```{r echo=FALSE, message=FALSE}
+data <- readr::read_csv("data/diffs_time_series.csv")
+cnames <- colnames(data)
+df <- tibble::tribble(
+    ~type, ~description,
+    "datetime", "datetime until which data is included ('Datenstand') as specified in the Excel file. Given in UTC",
+    "datetime", "datetime when data was downloaded from RKI website. Given in UTC",
+    "character", "full name of Bundesland", 
+    "character", "ISO 3166-2 of Bundesland",
+    "double", "Cumulative total number of vaccinations in the Bundesland",
+    "double", "Difference to previous day (~roughly corresponds to people vaccinated since then although delays in reporting could be the case",
+    "double", "Number of people reported vaccinated because of their age since the last data update",
+    "double", "Number of people reported vaccinated because of their profession since the last data update",
+    "double", "Number of people reported vaccinated because of medical reasons since the last data update",
+    "double", "Number of people reported vaccinated in nursing homes since the last data update",
+    "character", "Notes as indicated by * at the bottom of the Excel sheet and stored in unnamed columns.",
+)
+
+## when there are new variables this fails so this is a failsafe that should probably be updated
+df$col <- cnames[1:nrow(df)]
+
+knitr::kable(dplyr::select(df, col, type, description))
+```
 
 # Contribute
 
