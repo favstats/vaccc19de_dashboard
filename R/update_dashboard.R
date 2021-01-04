@@ -50,7 +50,6 @@ file.remove("README.html")
 
 R.utils::copyDirectory("site/en/_site", "docs/en", recursive = T, overwrite = T)
 R.utils::copyDirectory("site/de/_site", "docs", recursive = T, overwrite = T)
-  # R.utils::copyDirectory("site/de/", "site/en/")
 
 ## cleanup sites because they always cause merge conflicts
 unlink("site/en/_site", recursive = T, force = T)
