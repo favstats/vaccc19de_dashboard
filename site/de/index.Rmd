@@ -153,13 +153,14 @@ infobox2 <-df %>%
     )
 
 
-infobox1
-infobox2
+# infobox1
+# infobox2
 
 
 ```
 
-
+![](https://github.com/favstats/vaccc19de_dashboard/blob/display-notes/img/infobox1_de.png?raw=true)
+![](https://github.com/favstats/vaccc19de_dashboard/blob/display-notes/img/infobox2_de.png?raw=true)
 
 ```{r}
 ggsave(filename = "../../img/infobox1_de.png", plot = infobox1,

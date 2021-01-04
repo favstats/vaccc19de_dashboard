@@ -152,16 +152,19 @@ theme(
 )
 
 
-infobox1
-infobox2
+# infobox1
+# infobox2
 
 
 ```
 
 
+![](https://github.com/favstats/vaccc19de_dashboard/blob/display-notes/img/infobox1_en.png?raw=true)
+![](https://github.com/favstats/vaccc19de_dashboard/blob/display-notes/img/infobox2_en.png?raw=true)
+
+
 ```{r}
-datenstand <- unique(latest_dat$ts_datenstand) %>% 
-  format("%d.%m.%Y %H:%M:%S")
+datenstand <- unique(latest_dat$ts_datenstand) 
 ```
 
 

@@ -18,7 +18,18 @@ heruntergeladen und mit Hilfe des [{vaccc19de} R
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen
 Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
 
-![](img/infobox1_de.png) ![](img/infobox2_de.png)
+![](https://github.com/favstats/vaccc19de_dashboard/raw/main/img/infobox1_de.png)
+![](https://github.com/favstats/vaccc19de_dashboard/raw/main/img/infobox2_de.png)
+
+<center>
+
+*Letzter Datenstand: 04.01.2021 11:00:00*
+
+**Aktuelle Anmerkungen:**
+
+Brandenburg: *Meldung vom 03.01. steht noch aus.*
+
+</center>
 
 # Data
 
@@ -57,27 +68,26 @@ any but we haven’t found any information on that yet.
     mehrere Indikationen je geimpfter Person vorliegen.”
   - always check the raw xlsx (see folder `data/raw`)
 
-Read in directly from GitHub using
-R:
+Read in directly from GitHub using R:
 
 ``` r
 cumulative_ts <- readr::read_csv("https://raw.githubusercontent.com/favstats/vaccc19de_dashboard/main/data/cumulative_time_series.csv")
 ```
 
-| col                               | type      | description                                                                                                                     |
-| :-------------------------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------------ |
-| ts\_datenstand                    | datetime  | datetime until which data is included (‘Datenstand’) as specified in the Excel file. Given in UTC                               |
-| ts\_download                      | datetime  | datetime when data was downloaded from RKI website. Given in UTC                                                                |
-| bundesland                        | character | full name of Bundesland                                                                                                         |
-| bundesland\_iso                   | character | ISO 3166-2 of Bundesland                                                                                                        |
-| impfungen\_kumulativ              | double    | Cumulative total number of vaccinations in the Bundesland                                                                       |
-| differenz\_zum\_vortag            | double    | Difference to previous day (~roughly corresponds to people vaccinated since then although delays in reporting could be the case |
-| indikation\_nach\_alter           | double    | Total number of people vaccinated because of their age so far (cumulative)                                                      |
-| berufliche\_indikation            | double    | Total number of people vaccinated because of their profession so far (cumulative)                                               |
-| medizinische\_indikation          | double    | Total number of people vaccinated because of medical reasons so far (cumulative)                                                |
-| pflegeheim\_bewohner\_in          | double    | Total number of people in nursing homes so far (cumulative)                                                                     |
-| notes                             | character | Notes as indicated by \* at the bottom of the Excel sheet and stored in unnamed columns.                                        |
-| impfungen\_pro\_1\_000\_einwohner | character | vaccinations per 1000 inhabitants                                                                                               |
+| col                               | type      | description                                                                                                                      |
+| :-------------------------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| ts\_datenstand                    | datetime  | datetime until which data is included (‘Datenstand’) as specified in the Excel file. Given in UTC                                |
+| ts\_download                      | datetime  | datetime when data was downloaded from RKI website. Given in UTC                                                                 |
+| bundesland                        | character | full name of Bundesland                                                                                                          |
+| bundesland\_iso                   | character | ISO 3166-2 of Bundesland                                                                                                         |
+| impfungen\_kumulativ              | double    | Cumulative total number of vaccinations in the Bundesland                                                                        |
+| differenz\_zum\_vortag            | double    | Difference to previous day (\~roughly corresponds to people vaccinated since then although delays in reporting could be the case |
+| indikation\_nach\_alter           | double    | Total number of people vaccinated because of their age so far (cumulative)                                                       |
+| berufliche\_indikation            | double    | Total number of people vaccinated because of their profession so far (cumulative)                                                |
+| medizinische\_indikation          | double    | Total number of people vaccinated because of medical reasons so far (cumulative)                                                 |
+| pflegeheim\_bewohner\_in          | double    | Total number of people in nursing homes so far (cumulative)                                                                      |
+| notes                             | character | Notes as indicated by \* at the bottom of the Excel sheet and stored in unnamed columns.                                         |
+| impfungen\_pro\_1\_000\_einwohner | character | vaccinations per 1000 inhabitants                                                                                                |
 
 ### `data/diffs_time_series.csv`
 
@@ -94,22 +104,21 @@ from the `cumulative_time_series.csv`. Each row represents the
     of the indications might not add up to the overall increase in
     vaccinated people.
   - No liability is taken for the correctness of the calculations. If in
-    doubt, check the raw excel
-files.
+    doubt, check the raw excel files.
 
-| col                      | type      | description                                                                                                                     |
-| :----------------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------------ |
-| ts\_datenstand           | datetime  | datetime until which data is included (‘Datenstand’) as specified in the Excel file. Given in UTC                               |
-| ts\_download             | datetime  | datetime when data was downloaded from RKI website. Given in UTC                                                                |
-| bundesland               | character | full name of Bundesland                                                                                                         |
-| bundesland\_iso          | character | ISO 3166-2 of Bundesland                                                                                                        |
-| impfungen\_kumulativ     | double    | Cumulative total number of vaccinations in the Bundesland                                                                       |
-| differenz\_zum\_vortag   | double    | Difference to previous day (~roughly corresponds to people vaccinated since then although delays in reporting could be the case |
-| indikation\_nach\_alter  | double    | Number of people reported vaccinated because of their age since the last data update                                            |
-| berufliche\_indikation   | double    | Number of people reported vaccinated because of their profession since the last data update                                     |
-| medizinische\_indikation | double    | Number of people reported vaccinated because of medical reasons since the last data update                                      |
-| pflegeheim\_bewohner\_in | double    | Number of people reported vaccinated in nursing homes since the last data update                                                |
-| notes                    | character | Notes as indicated by \* at the bottom of the Excel sheet and stored in unnamed columns.                                        |
+| col                      | type      | description                                                                                                                      |
+| :----------------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| ts\_datenstand           | datetime  | datetime until which data is included (‘Datenstand’) as specified in the Excel file. Given in UTC                                |
+| ts\_download             | datetime  | datetime when data was downloaded from RKI website. Given in UTC                                                                 |
+| bundesland               | character | full name of Bundesland                                                                                                          |
+| bundesland\_iso          | character | ISO 3166-2 of Bundesland                                                                                                         |
+| impfungen\_kumulativ     | double    | Cumulative total number of vaccinations in the Bundesland                                                                        |
+| differenz\_zum\_vortag   | double    | Difference to previous day (\~roughly corresponds to people vaccinated since then although delays in reporting could be the case |
+| indikation\_nach\_alter  | double    | Number of people reported vaccinated because of their age since the last data update                                             |
+| berufliche\_indikation   | double    | Number of people reported vaccinated because of their profession since the last data update                                      |
+| medizinische\_indikation | double    | Number of people reported vaccinated because of medical reasons since the last data update                                       |
+| pflegeheim\_bewohner\_in | double    | Number of people reported vaccinated in nursing homes since the last data update                                                 |
+| notes                    | character | Notes as indicated by \* at the bottom of the Excel sheet and stored in unnamed columns.                                         |
 
 # Contribute
 
