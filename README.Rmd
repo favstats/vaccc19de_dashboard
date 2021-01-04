@@ -21,9 +21,58 @@ Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Sei
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
 
 
-![](img/infobox1_de.png)
-![](img/infobox2_de.png)
+![](https://github.com/favstats/vaccc19de_dashboard/raw/main/img/infobox1_de.png)
+![](https://github.com/favstats/vaccc19de_dashboard/raw/main/img/infobox2_de.png)
 
+```{r echo=FALSE, message=FALSE, warning = FALSE}
+library(tidyverse)
+
+data <- readr::read_csv("data/cumulative_time_series.csv")
+
+latest_dat <- data %>% 
+  filter(ts_datenstand == max(ts_datenstand))
+
+datenstand <- unique(latest_dat$ts_datenstand) %>% 
+  format("%d.%m.%Y %H:%M:%S")
+```
+
+<center>
+
+*Letzter Datenstand: `r datenstand`*
+
+**Aktuelle Anmerkungen:**
+
+```{r, results = "asis", echo = F}
+
+
+
+notes_dat <- latest_dat %>% 
+  drop_na(notes)
+
+
+if(nrow(notes_dat)!=0){
+  notes_dat %>% 
+    mutate(notes = ifelse(stringi::stri_startswith_fixed(notes, "("),
+                          str_remove(notes, "\\("),
+                          notes),
+           notes = ifelse(stringi::stri_endswith_fixed(notes, ")") ,
+                          str_sub(notes, 1, str_length(notes)-1),
+                          notes),
+           notes = ifelse(!stringi::stri_endswith_fixed(notes, "\\.") ,
+                          paste0(notes, "."),
+                          notes)) %>% 
+    mutate(note_display = glue::glue("{bundesland}: *{notes}*")) %>% 
+    pull(note_display) %>% 
+    paste0(collapse = "\n\n")  %>% 
+    cat()
+} else {
+  cat("*Keine Anmerkungen.*")
+}
+
+
+```
+
+</center>
 
 # Data
 
@@ -57,7 +106,6 @@ cumulative_ts <- readr::read_csv("https://raw.githubusercontent.com/favstats/vac
 ```
 
 ```{r echo=FALSE, message=FALSE}
-data <- readr::read_csv("data/cumulative_time_series.csv")
 cnames <- colnames(data)
 df <- tibble::tribble(
     ~type, ~description,

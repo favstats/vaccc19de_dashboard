@@ -38,7 +38,7 @@ prelatest_dat <- rki_dat %>%
 
 
 
-The goal of this [dashboard](https://favstats.github.io/vaccc19de_dashboard/) is to document and visualize the progress of COVID-19 vaccinations in Germany.
+The goal of this [dashboard](https://favstats.github.io/vaccc19de_dashboard/en) is to document and visualize the progress of COVID-19 vaccinations in Germany.
 
 The vaccination data is provided by the [Robert Koch Institute (RKI)](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html). The data presented here was processed with the help of the R package [vaccc19de](https://github.com/friep/vaccc19de).
 
@@ -152,11 +152,53 @@ theme(
 )
 
 
-infobox1
-infobox2
+# infobox1
+# infobox2
 
 
 ```
+
+
+![](https://github.com/favstats/vaccc19de_dashboard/blob/display-notes/img/infobox1_en.png?raw=true)
+![](https://github.com/favstats/vaccc19de_dashboard/blob/display-notes/img/infobox2_en.png?raw=true)
+
+
+```{r}
+datenstand <- unique(latest_dat$ts_datenstand) 
+```
+
+
+*Last Update: `r datenstand`*
+
+**Recent notes (in German):**
+
+```{r, results = "asis"}
+notes_dat <- latest_dat %>% 
+  drop_na(notes)
+
+
+if(nrow(notes_dat)!=0){
+  notes_dat %>% 
+    mutate(notes = ifelse(stringi::stri_startswith_fixed(notes, "("),
+                          str_remove(notes, "\\("),
+                          notes),
+           notes = ifelse(stringi::stri_endswith_fixed(notes, ")") ,
+                          str_sub(notes, 1, str_length(notes)-1),
+                          notes),
+           notes = ifelse(!stringi::stri_endswith_fixed(notes, "\\.") ,
+                          paste0(notes, "."),
+                          notes)) %>% 
+    mutate(note_display = glue::glue("{bundesland}: *{notes}*")) %>% 
+    pull(note_display) %>% 
+    paste0(collapse = "\n\n")  %>% 
+    cat()
+} else {
+  cat("*No notes.*")
+}
+
+
+```
+
 
 ```{r}
 ggsave(filename = "../../img/infobox1_en.png", plot = infobox1,
@@ -229,9 +271,6 @@ diffs_time_series %>%
   )
 ```
 
-
-
-Last Update: `r Sys.time()`
 
 </center>
 
