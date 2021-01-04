@@ -72,9 +72,14 @@ df <- tibble::tribble(
     "double", "Total number of people vaccinated because of medical reasons so far (cumulative)",
     "double", "Total number of people in nursing homes so far (cumulative)",
     "character", "Notes as indicated by * in the Excel sheet.",
+    "character", "additional comments (we're working on merging those with the notes)",
+    "character", "vaccinations per 1000 inhabitants",
     "character", "additional comments (we're working on merging those with the notes)"
 )
-df$col <- cnames
+
+## when there are new variables this fails so this is a failsafe that should probably be updated
+df$col <- cnames[1:nrow(df)]
+
 knitr::kable(dplyr::select(df, col, type, description))
 ```
 
