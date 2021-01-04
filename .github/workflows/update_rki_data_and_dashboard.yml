@@ -16,7 +16,7 @@ on:
       - 'R/maintenance/*'
   schedule:
       - cron: '0 */1 * * *'
-jobs:
+jobs:    
   update-data:
     name: Download and extract data
     runs-on: "macos-latest"
@@ -24,20 +24,20 @@ jobs:
       - uses: r-lib/actions/setup-r@v1
         with:
           r-version: 'release'
-      - name: install vaccc19de
+      - name: Setup - install vaccc19de
         run: |
           install.packages('remotes')
           remotes::install_github("friep/vaccc19de")
           install.packages('glue')
           install.packages('readr')
         shell: Rscript {0}
-      - name: Checkout repo
+      - name: Setup - Checkout repo
         uses: actions/checkout@v2
-      - name: "Download data"
+      - name: "Data - Download data"
         run: |
           source('R/download_and_update.R')
         shell: Rscript {0}
-      - name: "Read datenstand and check whether data was updated" 
+      - name: "Data - Read datenstand and check whether data was updated" 
         id: check-whether-updated
         run: |
           TS_DATENSTAND=$(cat /tmp/ts_datenstand.txt)
@@ -47,7 +47,7 @@ jobs:
           echo "::set-output name=TS_DATENSTAND::$TS_DATENSTAND"
           echo "::set-output name=IS_UPDATED::$IS_UPDATED"
           echo "::set-output name=TS_DOWNLOAD::$(cat /tmp/ts_download.txt)"
-      - name: Commit data
+      - name: "Data - Commit"
         uses: EndBug/add-and-commit@v5
         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
         with:
@@ -57,7 +57,7 @@ jobs:
           add: "data/ --force"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Install Packages
+      - name: "Setup - Install Packages"
         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
         run: |
           install.packages('tidyverse')
@@ -68,21 +68,13 @@ jobs:
           install.packages('twitteR')
           install.packages('downloadthis')
         shell: Rscript {0}
-      - name: Install pandoc
+      - name: "Setup - Install pandoc"
         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
         run: brew install pandoc
-      - name: "Run Update Script"
+      - name: "Dashboard - Run Update Script"
         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
         run: Rscript 'R/update_dashboard.R'
-      - name: "Run Bot"
-        run: Rscript 'R/bot.R'
-        if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
-        env:
-          consumer_key: ${{ secrets.CONSUMER_KEY }}
-          consumer_secret: ${{ secrets.CONSUMER_SECRET }}
-          token: ${{ secrets.TOKEN }}
-          secret: ${{ secrets.SECRET }}
-      - name: Commit dashboard changes
+      - name: "Dashboard - Commit"
         uses: EndBug/add-and-commit@v5
         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
         with:
@@ -92,7 +84,15 @@ jobs:
           add: "-A"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Commit bot changes
+      - name: "Bot - Run"
+        run: Rscript 'R/bot.R'
+        if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
+        env:
+          consumer_key: ${{ secrets.CONSUMER_KEY }}
+          consumer_secret: ${{ secrets.CONSUMER_SECRET }}
+          token: ${{ secrets.TOKEN }}
+          secret: ${{ secrets.SECRET }}
+      - name: "Bot - Commit"
         uses: EndBug/add-and-commit@v5
         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
         with:
@@ -102,7 +102,7 @@ jobs:
           add: "-A"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create Release
+      - name: "Release - Create Release"
         id: create_release
         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
         uses: actions/create-release@v1
