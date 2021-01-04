@@ -63,20 +63,22 @@ Read in directly from GitHub using R:
 cumulative_ts <- readr::read_csv("https://raw.githubusercontent.com/favstats/vaccc19de_dashboard/main/data/cumulative_time_series.csv")
 ```
 
-| col                      | type      | description                                                                                                                      |
-|:-------------------------|:----------|:---------------------------------------------------------------------------------------------------------------------------------|
-| ts\_datenstand           | datetime  | datetime until which data is included (‘Datenstand’) as specified in the Excel file. Given in UTC                                |
-| ts\_download             | datetime  | datetime when data was downloaded from RKI website. Given in UTC                                                                 |
-| bundesland               | character | full name of Bundesland                                                                                                          |
-| bundesland\_iso          | character | ISO 3166-2 of Bundesland                                                                                                         |
-| impfungen\_kumulativ     | double    | Cumulative total number of vaccinations in the Bundesland                                                                        |
-| differenz\_zum\_vortag   | double    | Difference to previous day (\~roughly corresponds to people vaccinated since then although delays in reporting could be the case |
-| indikation\_nach\_alter  | double    | Total number of people vaccinated because of their age so far (cumulative)                                                       |
-| berufliche\_indikation   | double    | Total number of people vaccinated because of their profession so far (cumulative)                                                |
-| medizinische\_indikation | double    | Total number of people vaccinated because of medical reasons so far (cumulative)                                                 |
-| pflegeheim\_bewohner\_in | double    | Total number of people in nursing homes so far (cumulative)                                                                      |
-| notes                    | character | Notes as indicated by \* in the Excel sheet.                                                                                     |
-| x8                       | character | additional comments (we’re working on merging those with the notes)                                                              |
+| col                               | type      | description                                                                                                                      |
+|:----------------------------------|:----------|:---------------------------------------------------------------------------------------------------------------------------------|
+| ts\_datenstand                    | datetime  | datetime until which data is included (‘Datenstand’) as specified in the Excel file. Given in UTC                                |
+| ts\_download                      | datetime  | datetime when data was downloaded from RKI website. Given in UTC                                                                 |
+| bundesland                        | character | full name of Bundesland                                                                                                          |
+| bundesland\_iso                   | character | ISO 3166-2 of Bundesland                                                                                                         |
+| impfungen\_kumulativ              | double    | Cumulative total number of vaccinations in the Bundesland                                                                        |
+| differenz\_zum\_vortag            | double    | Difference to previous day (\~roughly corresponds to people vaccinated since then although delays in reporting could be the case |
+| indikation\_nach\_alter           | double    | Total number of people vaccinated because of their age so far (cumulative)                                                       |
+| berufliche\_indikation            | double    | Total number of people vaccinated because of their profession so far (cumulative)                                                |
+| medizinische\_indikation          | double    | Total number of people vaccinated because of medical reasons so far (cumulative)                                                 |
+| pflegeheim\_bewohner\_in          | double    | Total number of people in nursing homes so far (cumulative)                                                                      |
+| notes                             | character | Notes as indicated by \* in the Excel sheet.                                                                                     |
+| x8                                | character | additional comments (we’re working on merging those with the notes)                                                              |
+| impfungen\_pro\_1\_000\_einwohner | character | vaccinations per 1000 inhabitants                                                                                                |
+| x9                                | character | additional comments (we’re working on merging those with the notes)                                                              |
 
 # Contribute
 
