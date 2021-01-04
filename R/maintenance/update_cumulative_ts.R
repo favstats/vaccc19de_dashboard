@@ -1,4 +1,3 @@
-# add notes column for all datasets - as per vaccc19de 0.2.0
 library(vaccc19de)
 
 # all xlsx paths
@@ -9,4 +8,7 @@ cumulative_ts <- xlsxs %>%
     rki_extract_cumulative_data(path)
   })
 
+diffs_ts <- rki_extract_diffs(cumulative_ts)
+
 readr::write_csv(cumulative_ts, "data/cumulative_time_series.csv")
+readr::write_csv(cumulative_ts, "data/diffs_time_series.csv")
