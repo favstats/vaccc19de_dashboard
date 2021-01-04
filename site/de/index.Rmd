@@ -44,7 +44,7 @@ Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Sei
 
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
 
-> Hinweis: Das RKI unterscheidet in ihren Daten (noch) nicht zwischen erster und zweiter Impfung. 
+> Hinweis: Das RKI unterscheidet in seinen Daten (noch) nicht zwischen erster und zweiter Impfung. 
 
 
 <center>
@@ -159,6 +159,8 @@ infobox2
 
 ```
 
+
+
 ```{r}
 ggsave(filename = "../../img/infobox1_de.png", plot = infobox1,
        height = 1,  bg = "transparent")
@@ -166,6 +168,43 @@ ggsave(filename = "../../img/infobox2_de.png", plot = infobox2,
        height = 1,  bg = "transparent")
 ```
 
+
+```{r}
+datenstand <- unique(latest_dat$ts_datenstand) %>% 
+  format("%d.%m.%Y %H:%M:%S")
+```
+
+
+*Letzter Datenstand: `r datenstand`*
+
+**Aktuelle Anmerkungen:**
+
+```{r, results = "asis"}
+notes_dat <- latest_dat %>% 
+  drop_na(notes)
+
+
+if(nrow(notes_dat)!=0){
+  notes_dat %>% 
+    mutate(notes = ifelse(stringi::stri_startswith_fixed(notes, "("),
+                          str_remove(notes, "\\("),
+                          notes),
+           notes = ifelse(stringi::stri_endswith_fixed(notes, ")") ,
+                          str_sub(notes, 1, str_length(notes)-1),
+                          notes),
+           notes = ifelse(!stringi::stri_endswith_fixed(notes, "\\.") ,
+                          paste0(notes, "."),
+                          notes)) %>% 
+    mutate(note_display = glue::glue("{bundesland}: *{notes}*")) %>% 
+    pull(note_display) %>% 
+    paste0(collapse = "\n\n")  %>% 
+    cat()
+} else {
+  cat("*Keine Anmerkungen.*")
+}
+
+
+```
 
 
 ```{r, results = 'hide'}
@@ -230,8 +269,6 @@ diffs_time_series %>%
   )
 ```
 
-
-Letzte Datenaktualisierung: `r Sys.time()`
 
 
 </center>
