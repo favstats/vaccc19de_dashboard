@@ -51,6 +51,16 @@ Authors: [Frie Preu](https://twitter.com/ameisen_strasse){target="_blank"} &  [F
 
 <center>
 
+
+```{r}
+datenstand <- unique(latest_dat$ts_datenstand) %>% 
+  lubridate::with_tz(tz = "Europe/Berlin") 
+
+datenstand_day <- unique(latest_dat$ts_datenstand) %>% 
+  lubridate::with_tz(tz = "Europe/Berlin") %>% lubridate::as_date()
+```
+
+
 ```{r infobox, fig.align="center", fig.height=1, out.width="100%"}
 
 
@@ -91,7 +101,7 @@ df <- data.frame(
              geimpft_pro_100, 
              geimpft_lasttime,
              prozent_lasttime),
-    info = c("Total Vaccinations",
+    info = c("Total Vaccinations in Germany",
              "Vaccine doses per 100 Inhabitants",
              glue::glue("Vaccines administered (since {latest_day})"),
              glue::glue("Percent growth (since {latest_day})")),
@@ -100,6 +110,7 @@ df <- data.frame(
               fontawesome("fa-plus"),
               fontawesome("fa-line-chart")),
     font_family = c(rep("fontawesome-webfont", 4)),
+    datenstand = paste0("Last Update: ", datenstand_day),
     color = factor(1:4)
 )
 
@@ -113,9 +124,11 @@ infobox1 <- df %>%
               aes(label = value, x = x - 3.9, y = y + 0.5), hjust = 0) +
     geom_text(color = "white", fontface = "bold", size = 3,
               aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
+    geom_text(color = "white", size = 2,
+              aes(label = datenstand, x = x + 3.9, y = y + 0.95), hjust = 1) +
     coord_fixed() +
     scale_fill_manual(values = colors[c(1,5)]) +
-    geom_text(size = 10, aes(label = shape, family = font_family,
+    geom_text(size = 15, aes(label = shape, family = font_family,
                              x = x + 3, y = y + 0.1), alpha = 0.25) +
     theme_void() +
     guides(fill = FALSE) +
@@ -140,9 +153,11 @@ infobox2 <-df %>%
               aes(label = value, x = x - 3.9, y = y + 0.5), hjust = 0) +
     geom_text(color = "white", fontface = "bold", size = 3,
               aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
+    geom_text(color = "white", size = 2,
+              aes(label = datenstand, x = x + 3.9, y = y + 0.95), hjust = 1) +
     coord_fixed() +
     scale_fill_manual(values = colors[c(3,4)]) +
-    geom_text(size = 10, aes(label = shape, family = font_family,
+    geom_text(size = 15, aes(label = shape, family = font_family,
                              x = x + 3, y = y + 0.1), alpha = 0.25) +
     theme_void() +
     guides(fill = FALSE) +
@@ -155,21 +170,14 @@ theme(
 )
 
 
-# infobox1
-# infobox2
+infobox1
+infobox2
 
 
 ```
 
 
-![](https://raw.githubusercontent.com/favstats/vaccc19de_dashboard/main/img/infobox1_en.png)
-![](https://raw.githubusercontent.com/favstats/vaccc19de_dashboard/main/img/infobox2_en.png)
 
-
-```{r}
-datenstand <- unique(latest_dat$ts_datenstand) %>% 
-  lubridate::with_tz(tz = "Europe/Berlin") 
-```
 
 
 *Last Update: `r datenstand`*

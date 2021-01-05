@@ -40,19 +40,6 @@ access_secret <- Sys.getenv("secret")
 setup_twitter_oauth(consumer_key,consumer_secret,
                     access_token,access_secret)
 
-## create some tempfiles
-tempfile1 <- tempfile()
-tempfile2 <- tempfile()
-tempfile3 <- tempfile()
-tempfile4 <- tempfile()
-
-
-## download files
-download.file("https://github.com/favstats/vaccc19de_dashboard/raw/main/img/infobox1_de.png", destfile = tempfile1)
-download.file("https://github.com/favstats/vaccc19de_dashboard/raw/main/img/infobox2_de.png", destfile = tempfile2)
-download.file("https://github.com/favstats/vaccc19de_dashboard/blob/main/img/total-zeit_de.png?raw=true", destfile = tempfile3)
-download.file("https://github.com/favstats/vaccc19de_dashboard/blob/main/img/prozent-zeit_de.png?raw=true", destfile = tempfile4)
-
 ## create tweets
 tweet_dat <- latest_dat %>%
   mutate(differenz_zum_vortag_label = scales::label_number()(differenz_zum_vortag) %>% str_remove_all("\\.0")) %>%
@@ -87,29 +74,29 @@ tweet4 <- tweet_dat %>%
   paste0(glue::glue("Prozent Wachstum seit Vortag ({latest_day}):\n\n"), .)
 
 ## tweet them
-twitteR::tweet(text = tweet1, mediaPath = tempfile1, bypassCharLimit = T)
+twitteR::tweet(text = tweet1, mediaPath = "img/infobox1_de.png", bypassCharLimit = T)
 
 Sys.sleep(10)
 
-twitteR::tweet(text = tweet2, mediaPath = tempfile1, bypassCharLimit = T)
+twitteR::tweet(text = tweet2, mediaPath = "img/infobox1_de.png", bypassCharLimit = T)
 
 
 Sys.sleep(10)
 
-twitteR::tweet(text = tweet3, mediaPath = tempfile2, bypassCharLimit = T)
+twitteR::tweet(text = tweet3, mediaPath = "img/infobox2_de.png", bypassCharLimit = T)
 
 Sys.sleep(10)
 
-twitteR::tweet(text = tweet4, mediaPath = tempfile2, bypassCharLimit = T)
+twitteR::tweet(text = tweet4, mediaPath = "img/infobox2_de.png", bypassCharLimit = T)
 
 Sys.sleep(10)
 
 twitteR::tweet(text = glue::glue("Impfdosen verabreicht ({current_day}):\n"),
-               mediaPath = tempfile3, bypassCharLimit = T)
+               mediaPath = "img/total-zeit_de.png", bypassCharLimit = T)
 
 Sys.sleep(10)
 
 twitteR::tweet(text = glue::glue("Impfdosen pro 100 Einwohner ({current_day}):\n"),
-                 mediaPath = tempfile4, bypassCharLimit = T)
+                 mediaPath = "img/prozent-zeit_de.png", bypassCharLimit = T)
 
 
