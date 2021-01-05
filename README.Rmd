@@ -32,7 +32,8 @@ data <- readr::read_csv("data/cumulative_time_series.csv")
 latest_dat <- data %>% 
   filter(ts_datenstand == max(ts_datenstand))
 
-datenstand <- unique(latest_dat$ts_datenstand) %>% 
+datenstand <- unique(latest_dat$ts_datenstand) %>%  
+  lubridate::with_tz(tz = "Europe/Berlin") %>% 
   format("%d.%m.%Y %H:%M:%S")
 ```
 

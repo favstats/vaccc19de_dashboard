@@ -164,6 +164,7 @@ ggsave(filename = "../../img/infobox2_de.png", plot = infobox2,
 
 ```{r}
 datenstand <- unique(latest_dat$ts_datenstand) %>% 
+  lubridate::with_tz(tz = "Europe/Berlin") %>% 
   format("%d.%m.%Y %H:%M:%S")
 ```
 
