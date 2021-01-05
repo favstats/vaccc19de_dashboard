@@ -18,8 +18,7 @@ heruntergeladen und mit Hilfe des [{vaccc19de} R
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen
 Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
 
-![](https://github.com/favstats/vaccc19de_dashboard/raw/main/img/infobox1_de.png)
-![](https://github.com/favstats/vaccc19de_dashboard/raw/main/img/infobox2_de.png)
+![](img/infobox1_de.png) ![](img/infobox2_de.png)
 
 <center>
 
