@@ -13,7 +13,7 @@ pop_dat <- readRDS("data/pop_dat.RDS")
 rki_dat <- rki_dat %>%
   left_join(pop_dat) %>%
   mutate(prozent_geimpft = impfungen_kumulativ/insgesamt*100) %>%
-  mutate(day = lubridate::as_date(ts_datenstand))
+  mutate(day = lubridate::as_date(ts_datenstand) - 1)
 
 ## create German total data
 de_dat <- rki_dat %>%
