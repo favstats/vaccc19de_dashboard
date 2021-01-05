@@ -41,25 +41,22 @@ rki_dat <- rki_dat %>%
 ## save rki_dat temporarily for internal use
 saveRDS(rki_dat, file = "data/rki_dat.RDS")
 
-## cleanup docs because they always cause merge conflicts
-cleanup_docs <- dir("docs", full.names = T, recursive = T) %>%
-  discard(~str_detect(.x, "docs/de/"))
+rmarkdown::render_site("Rmd/de", quiet = F)
+rmarkdown::render_site("Rmd/en", quiet = F)
 
-cleanup_docs %>%
-  walk(file.remove)
+## create redirect page
+dir.create("docs/de")
+c('<!DOCTYPE html>',
+  '<html>',
+  '<head>',
+  '<meta http-equiv="refresh" content="0; url=https://favstats.github.io/vaccc19de_dashboard">',
+  '</head>',
+  '</html>') %>%
+  cat(file = "docs/de/index.html", sep = "\n")
 
-rmarkdown::render_site("site/en")
-rmarkdown::render_site("site/de")
+## render readme
 rmarkdown::render("README.Rmd")
-## for some reason it always generates an HTML too
+
+## for some reason it always generates an HTML too so delete it
 file.remove("README.html")
-
-## copy files from _site to docs
-R.utils::copyDirectory("site/en/_site", "docs/en", recursive = T, overwrite = T)
-R.utils::copyDirectory("site/de/_site", "docs", recursive = T, overwrite = T)
-
-## cleanup sites because they always cause merge conflicts
-unlink("site/en/_site", recursive = T, force = T)
-unlink("site/de/_site", recursive = T, force = T)
-
 

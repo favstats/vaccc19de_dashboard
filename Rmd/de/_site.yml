@@ -1,4 +1,5 @@
 name: "Dashboard: COVID-19 Impfungen"
+output_dir: "../../docs"
 navbar:
   title: "COVID-19 Impfungsdaten des RKI"
   left:

@@ -73,15 +73,17 @@ if(nrow(notes_dat)!=0){
 
 ```
 
+Twitter Bot für tägliche Updates: [vaccc19de](https://twitter.com/vaccc19de){target="_blank"}
+
 </center>
 
 # Data
 
-**Disclaimer**: The following is in English because it was migrated from the [old data repository](https://github.com/friep/vaccc19de_rki_data) and we could not be bothered to translate it so far. 
+**Disclaimer**: The following is in English because it was migrated from the [old data repository](https://github.com/friep/vaccc19de_rki_data){target="_blank"} and we could not be bothered to translate it so far. 
 
-Besides providing the dashboard, we collect and store the data behind the dashboard in this repository. Data is published by the RKI on [this page](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquotenmonitoring.html). 
+Besides providing the dashboard, we collect and store the data behind the dashboard in this repository. Data is published by the RKI on [this page](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquotenmonitoring.html){target="_blank"}. 
 
-The data is collected via a GitHub Action which uses the accompanying [{vaccc19de} R :package:](https://github.com/friep/vaccc19de). You can find the raw data (xlsx files and sheets as csvs) in `data/raw` and the time series at `data/cumulative_time_series.csv`.   
+The data is collected via a GitHub Action which uses the accompanying [{vaccc19de} R :package:](https://github.com/friep/vaccc19de){target="_blank"}. You can find the raw data (xlsx files and sheets as csvs) in `data/raw` and the time series at `data/cumulative_time_series.csv`.   
 
 ## Data License
 
@@ -165,11 +167,11 @@ knitr::kable(dplyr::select(df, col, type, description))
 
 # Contribute
 
-Contributions are very welcome. Depending on where you want to add features, please open an issue here or on [{vaccc19de}](https://github.com/friep/vaccc19de):
+Contributions are very welcome. Depending on where you want to add features, please open an issue here or on [{vaccc19de}](https://github.com/friep/vaccc19de){target="_blank"}:
 
 - features relating to GitHub Action and daily updates of the data --> this repository
 - features relating to the dashboard --> this repository
-- features relating to data wrangling, data cleaning of the original excel file --> [{vaccc19de}](https://github.com/friep/vaccc19de)
+- features relating to data wrangling, data cleaning of the original excel file --> [{vaccc19de}](https://github.com/friep/vaccc19de){target="_blank"}
 
 Of course, features might require changes in both repositories. Please still open issues in both repositories and then link them to each other. 
 

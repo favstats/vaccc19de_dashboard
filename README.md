@@ -23,11 +23,14 @@ Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Be
 
 <center>
 
-*Letzter Datenstand: 04.01.2021 11:00:00*
+*Letzter Datenstand: 04.01.2021 12:00:00*
 
 **Aktuelle Anmerkungen:**
 
 Brandenburg: *Meldung vom 03.01. steht noch aus.*
+
+Twitter Bot für tägliche Updates:
+[vaccc19de](https://twitter.com/vaccc19de)
 
 </center>
 

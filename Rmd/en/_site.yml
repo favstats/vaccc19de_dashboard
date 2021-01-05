@@ -1,4 +1,5 @@
 name: "Dashboard: German COVID-19 Vaccine Data"
+output_dir: "../../docs/en"
 navbar:
   title: "German COVID-19 Vaccine Data"
   left:
