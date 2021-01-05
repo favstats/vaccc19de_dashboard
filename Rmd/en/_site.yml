@@ -13,7 +13,7 @@ navbar:
     - text: "German"
       href: https://favstats.github.io/vaccc19de_dashboard
     - icon: fab fa-twitter fa-lg
-      href: http://twitter.com/favstats/
+      href: https://twitter.com/vaccc19de
     - text: "Code"
       icon: fab fa-github  fa-lg
       href: http://github.com/favstats/vaccc19de_dashboard
