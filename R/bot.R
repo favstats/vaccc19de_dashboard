@@ -112,5 +112,4 @@ Sys.sleep(10)
 twitteR::tweet(text = glue::glue("Impfdosen pro 100 Einwohner ({current_day}):\n"),
                  mediaPath = tempfile4, bypassCharLimit = T)
 
-## remove rki dat
-unlink("data/rki_dat.RDS", force = T)
+

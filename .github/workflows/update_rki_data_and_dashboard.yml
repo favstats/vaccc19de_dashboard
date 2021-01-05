@@ -74,14 +74,6 @@ jobs:
       - name: "Dashboard - Run Update Script"
         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
         run: Rscript 'R/update_dashboard.R'
-      - name: "Bot - Run"
-        run: Rscript 'R/bot.R'
-        if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
-        env:
-          consumer_key: ${{ secrets.CONSUMER_KEY }}
-          consumer_secret: ${{ secrets.CONSUMER_SECRET }}
-          token: ${{ secrets.TOKEN }}
-          secret: ${{ secrets.SECRET }}
       - name: "Dashboard - Commit"
         uses: EndBug/add-and-commit@v5
         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
@@ -92,6 +84,14 @@ jobs:
           add: "-A"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Bot - Run"
+        run: Rscript 'R/bot.R'
+        if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
+        env:
+          consumer_key: ${{ secrets.CONSUMER_KEY }}
+          consumer_secret: ${{ secrets.CONSUMER_SECRET }}
+          token: ${{ secrets.TOKEN }}
+          secret: ${{ secrets.SECRET }}
       - name: "Release - Create Release"
         id: create_release
         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
