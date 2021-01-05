@@ -88,7 +88,7 @@ total_plot <- hcmap(
   data = latest_dat,
   value = "impfungen_kumulativ",
   joinBy = c("name", "bundesland"),
-  name = "Anzahl der Impfdosen",
+  name = "Anzahl der Impfungen",
   dataLabels = list(enabled = TRUE, format = "{point.name}")
   ) %>%
   hc_exporting(
@@ -100,7 +100,7 @@ total_plot <- hcmap(
     style = list(fontSize = "12px")
   ) %>%
   hc_title(
-    text = "Anzahl der Impfdosen",
+    text = "Anzahl der Impfungen",
     verticalAlign = "top",
     align = "center"
   ) %>% 
@@ -149,7 +149,7 @@ total_plot_animated <- rki_dat %>%
     style = list(fontSize = "12px")
   ) %>%
   hc_title(
-    text = "Animation: Anzahl der Impfdosen",
+    text = "Animation: Anzahl der Impfungen",
     verticalAlign = "top",
     align = "center"
   ) %>% 
