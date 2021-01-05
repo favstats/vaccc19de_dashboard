@@ -1,3 +1,5 @@
+## this script only has to run once to get the population data
+
 library(rvest)
 library(tidyverse)
 library(janitor)

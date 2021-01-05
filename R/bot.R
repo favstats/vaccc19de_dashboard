@@ -2,25 +2,31 @@
 library(tidyverse)
 library(twitteR)
 
+## source some utility functions
 source("R/utils.R")
 
-
+## read in data
 rki_dat <- readRDS("data/rki_dat.RDS")
 
+## we dont need German data
 rki_dat <- rki_dat %>%
   filter(bundesland != "Deutschland")
 
+## create the most recent data
 latest_dat <- rki_dat %>%
   dplyr::filter(day==max(day))
 
+## create the pre-recent data
 prelatest_dat <- rki_dat %>%
   dplyr::filter(day<max(day)) %>%
   dplyr::filter(day==max(day))
 
+## last and current update day
 latest_day <- unique(prelatest_dat$day) %>% format.Date("%d.%m.%Y")
 current_day <- unique(latest_dat$day) %>% format.Date("%d.%m.%Y")
 
 
+## set up Twitter
 name <- "MyTotallyAwesomeUniqueApp"
 
 consumer_key <- Sys.getenv("consumer_key")
@@ -31,23 +37,23 @@ access_token <- Sys.getenv("token")
 
 access_secret <- Sys.getenv("secret")
 
+setup_twitter_oauth(consumer_key,consumer_secret,
+                    access_token,access_secret)
 
+## create some tempfiles
 tempfile1 <- tempfile()
 tempfile2 <- tempfile()
 tempfile3 <- tempfile()
 tempfile4 <- tempfile()
 
 
-
-setup_twitter_oauth(consumer_key,consumer_secret,
-                    access_token,access_secret)
-
+## download files
 download.file("https://github.com/favstats/vaccc19de_dashboard/raw/main/img/infobox1_de.png", destfile = tempfile1)
 download.file("https://github.com/favstats/vaccc19de_dashboard/raw/main/img/infobox2_de.png", destfile = tempfile2)
 download.file("https://github.com/favstats/vaccc19de_dashboard/blob/main/img/total-zeit_de.png?raw=true", destfile = tempfile3)
 download.file("https://github.com/favstats/vaccc19de_dashboard/blob/main/img/prozent-zeit_de.png?raw=true", destfile = tempfile4)
 
-
+## create tweets
 tweet_dat <- latest_dat %>%
   mutate(differenz_zum_vortag_label = scales::label_number()(differenz_zum_vortag) %>% str_remove_all("\\.0")) %>%
   mutate(prozent_zum_vortag =  (differenz_zum_vortag)/(impfungen_kumulativ-differenz_zum_vortag)*100) %>%
@@ -80,6 +86,7 @@ tweet4 <- tweet_dat %>%
   pull(tweet4) %>%
   paste0(glue::glue("Prozent Wachstum seit Vortag ({latest_day}):\n\n"), .)
 
+## tweet them
 twitteR::tweet(text = tweet1, mediaPath = tempfile1, bypassCharLimit = T)
 
 Sys.sleep(10)

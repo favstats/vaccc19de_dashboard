@@ -102,9 +102,6 @@ total_plot <- hcmap(
   )
 
 
-# prozent_plot
-# 
-# total_plot
 
 hw_grid(total_plot, prozent_plot, ncol = 2)
 

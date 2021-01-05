@@ -6,14 +6,16 @@ source("R/utils.R")
 
 rki_dat <- read_csv("data/cumulative_time_series.csv")
 
-## population data
+## population data (see get_pop_dar.R)
 pop_dat <- readRDS("data/pop_dat.RDS")
 
+## join in pop_dat
 rki_dat <- rki_dat %>%
   left_join(pop_dat) %>%
   mutate(prozent_geimpft = impfungen_kumulativ/insgesamt*100) %>%
   mutate(day = lubridate::as_date(ts_datenstand))
 
+## create German total data
 de_dat <- rki_dat %>%
   group_by(day) %>%
   summarise(impfungen_kumulativ = sum(impfungen_kumulativ),
@@ -21,11 +23,14 @@ de_dat <- rki_dat %>%
   mutate(prozent_geimpft = impfungen_kumulativ/insgesamt*100) %>%
   mutate(bundesland = "Deutschland")
 
+## some common colors accross plots
 bundesland_colors <- c(colorspace::qualitative_hcl(16, palette = "Dark 3", rev = T), "#000000")
 
+## combine bundesland data with German data
 rki_dat <- rki_dat %>%
   bind_rows(de_dat)
 
+##combine color dat with rki_dat
 rki_dat <- rki_dat %>%
   distinct(bundesland) %>%
   mutate(colors = bundesland_colors) %>%
@@ -33,7 +38,7 @@ rki_dat <- rki_dat %>%
   mutate(prozent_geimpft_label = specify_decimal(prozent_geimpft, 2)) %>%
   mutate(impfungen_kumulativ_label = scales::label_number()(impfungen_kumulativ) %>% str_remove_all("\\.0"))
 
-
+## save rki_dat temporarily for internal use
 saveRDS(rki_dat, file = "data/rki_dat.RDS")
 
 ## cleanup docs because they always cause merge conflicts
@@ -46,8 +51,10 @@ cleanup_docs %>%
 rmarkdown::render_site("site/en")
 rmarkdown::render_site("site/de")
 rmarkdown::render("README.Rmd")
+## for some reason it always generates an HTML too
 file.remove("README.html")
 
+## copy files from _site to docs
 R.utils::copyDirectory("site/en/_site", "docs/en", recursive = T, overwrite = T)
 R.utils::copyDirectory("site/de/_site", "docs", recursive = T, overwrite = T)
 

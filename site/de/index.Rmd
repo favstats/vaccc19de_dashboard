@@ -9,7 +9,6 @@ output:
 
 <!-- # ```{r} -->
 ```{r setup, include=FALSE}
-# library(vaccc19de)
 library(tidyverse)
 library(highcharter)
 library(emojifont)
@@ -61,9 +60,6 @@ geimpft <- latest_dat %>%
 
 latest_day <- unique(prelatest_dat$day) %>% format.Date("%d.%m.%Y")
 current_day <- unique(latest_dat$day) %>% format.Date("%d.%m.%Y")
-
-# cat(current_day, file = "../last_update.txt")
-# cat(current_day, file = "../current.txt")
 
 geimpft <- latest_dat %>% 
   summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
@@ -151,10 +147,6 @@ infobox2 <-df %>%
       strip.background = element_blank(),
       strip.text.x = element_blank()
     )
-
-
-# infobox1
-# infobox2
 
 
 ```
@@ -246,6 +238,7 @@ ggsave(filename = "../../img/total-zeit_de.png", plot = gg_bv,
 
 
 ```{r}
+## download buttons
 cumulative_time_series <- read_csv("../../data/cumulative_time_series.csv")
 diffs_time_series <- read_csv("../../data/diffs_time_series.csv")
 
