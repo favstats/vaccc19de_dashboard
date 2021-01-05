@@ -25,7 +25,8 @@ jobs:
         shell: Rscript {0}
       - name: Checkout repo
         uses: actions/checkout@v2
-      - name: Install pandoc
+      - name: Install pandoc (mac-os)
+        if:  matrix.os == 'macos-latest'
         run: brew install pandoc
       - name: "Run Update Script"
         run: Rscript 'R/update_dashboard.R'
