@@ -34,10 +34,3 @@ jobs:
           add: "-A"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: "Run Bot"
-        run: Rscript 'R/bot.R'
-        env:
-          consumer_key: ${{ secrets.CONSUMER_KEY }}
-          consumer_secret: ${{ secrets.CONSUMER_SECRET }}
-          token: ${{ secrets.TOKEN }}
-          secret: ${{ secrets.SECRET }}
