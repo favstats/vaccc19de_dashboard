@@ -45,7 +45,7 @@ Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen Bundesamt](
 
 > Hinweis: Das RKI unterscheidet in seinen Daten (noch) nicht zwischen erster und zweiter Impfung. 
 
-Autoren: Frie Preu ([@friep](https://twitter.com/ameisen_strasse)) & Fabio Votta ([@favstats](https://twitter.com/favstats)).
+Autoren: [Frie Preu](https://twitter.com/ameisen_strasse){target="_blank"} &  [Fabio Votta](https://twitter.com/favstats){target="_blank"}.
 
 <center>
 

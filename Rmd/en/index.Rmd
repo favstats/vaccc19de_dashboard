@@ -46,7 +46,7 @@ Population data for the federal states is taken from the [Federal Statistics Off
 
 > Note: The RKI does not (yet) differentiate between first and second vaccination in its data.
 
-Authors: Frie Preu ([@friep](https://twitter.com/ameisen_strasse)) & Fabio Votta ([@favstats](https://twitter.com/favstats)).
+Authors: [Frie Preu](https://twitter.com/ameisen_strasse){target="_blank"} &  [Fabio Votta](https://twitter.com/favstats){target="_blank"}.
 
 
 <center>
