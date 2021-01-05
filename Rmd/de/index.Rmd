@@ -158,9 +158,11 @@ infobox2
 <!-- ![](https://raw.githubusercontent.com/favstats/vaccc19de_dashboard/main/img/infobox2_de.png) -->
 
 ```{r}
-ggsave(filename = "../../img/infobox1_de.png", plot = infobox1,
+id <- runif(1, 0, 1000) %>% round
+
+ggsave(filename = paste0("../../img/infobox1_de", id, ".png"), plot = infobox1,
        height = 1,  bg = "transparent")
-ggsave(filename = "../../img/infobox2_de.png", plot = infobox2,
+ggsave(filename = paste0("../../img/infobox2_de", id, ".png"), plot = infobox2,
        height = 1,  bg = "transparent")
 ```
 
