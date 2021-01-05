@@ -11,7 +11,7 @@ jobs:
         with:
           r-version: 'release'
       - name: Install Ubuntu libs
-        shell: apt install libcurl4-openssl-dev libssl-dev libxml2-dev
+        run: apt install libcurl4-openssl-dev libssl-dev libxml2-dev
       - name: Install Packages
         run: |
           install.packages('tidyverse')
