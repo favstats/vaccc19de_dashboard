@@ -1,108 +1,106 @@
-name: "Download data from RKI, update Dashboard and Bot"
-on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '**/README.**'
-      - 'data/*'
-      - 'R/maintenance/*'
-  pull_request:
-    branches:
-      - main
-    paths-ignore:
-      - '**/README.**'
-      - 'data/*'
-      - 'R/maintenance/*'
-  schedule:
-      - cron: '0 */1 * * *'
-jobs:
-  update-data:
-    name: Download data and update dashboard and bot if necessary
-    runs-on: "macos-latest"
-    steps:
-      - uses: r-lib/actions/setup-r@v1
-        with:
-          r-version: 'release'
-      - name: Setup - Install vaccc19de
-        run: |
-          install.packages('remotes')
-          remotes::install_github("friep/vaccc19de")
-          install.packages('glue')
-          install.packages('readr')
-        shell: Rscript {0}
-      - name: Setup - Checkout repo
-        uses: actions/checkout@v2
-      - name: "Data - Download data"
-        run: |
-          source('R/download_and_update.R')
-        shell: Rscript {0}
-      - name: "Data - Read datenstand and check whether data was updated"
-        id: check-whether-updated
-        run: |
-          TS_DATENSTAND=$(cat /tmp/ts_datenstand.txt)
-          IS_UPDATED=0; [ "$TS_DATENSTAND" == "no_update" ] || IS_UPDATED=1
-          echo $TS_DATENSTAND
-          echo $IS_UPDATED
-          echo "::set-output name=TS_DATENSTAND::$TS_DATENSTAND"
-          echo "::set-output name=IS_UPDATED::$IS_UPDATED"
-          echo "::set-output name=TS_DOWNLOAD::$(cat /tmp/ts_download.txt)"
-      - name: "Data - Commit"
-        uses: EndBug/add-and-commit@v5
-        if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
-        with:
-          author_name: "GitHub Action"
-          author_email: bot_user@frie.codes
-          message: ${{ format('Update with data up to {0}', steps.check-whether-updated.outputs.TS_DATENSTAND) }}
-          add: "data/ --force"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: "Setup - Install Packages"
-        if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
-        run: |
-          install.packages('tidyverse')
-          install.packages('lubridate')
-          install.packages('highcharter')
-          install.packages('emojifont')
-          install.packages('R.utils')
-          install.packages('twitteR')
-          install.packages('downloadthis')
-        shell: Rscript {0}
-      - name: "Setup - Install pandoc"
-        if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
-        run: brew install pandoc
-      - name: "Dashboard - Run Update Script"
-        if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
-        run: Rscript 'R/update_dashboard.R'
-      - name: "Dashboard - Commit"
-        uses: EndBug/add-and-commit@v5
-        if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
-        with:
-          author_name: favstats
-          author_email: fabio.votta@gmail.come
-          message: "Update Dashboard"
-          add: "-A"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: "Bot - Run"
-        run: Rscript 'R/bot.R'
-        if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
-        env:
-          consumer_key: ${{ secrets.CONSUMER_KEY }}
-          consumer_secret: ${{ secrets.CONSUMER_SECRET }}
-          token: ${{ secrets.TOKEN }}
-          secret: ${{ secrets.SECRET }}
-      - name: "Release - Create Release"
-        id: create_release
-        if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ format('v{0}', steps.check-whether-updated.outputs.TS_DATENSTAND) }}
-          release_name: ${{ format('{0} vaccc19de_rki_data', steps.check-whether-updated.outputs.TS_DATENSTAND) }}
-          body: |
-            Add data up to ${{steps.check-whether-updated.outputs.TS_DATENSTAND}}
-            Downloaded at ${{steps.check-whether-updated.outputs.TS_DOWNLOAD}}
-          draft: false
-          prerelease: false
+# name: "Download data from RKI, update Dashboard and Bot"
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths-ignore:
+#       - '**/README.**'
+#       - 'data/*'
+#       - 'R/maintenance/*'
+#   pull_request:
+#     branches:
+#       - main
+#     paths-ignore:
+#       - '**/README.**'
+#       - 'data/*'
+#       - 'R/maintenance/*'
+#   schedule:
+#       - cron: '0 */1 * * *'
+# jobs:
+#   update-data:
+#     name: Download data and update dashboard and bot if necessary
+#     runs-on: "macos-latest"
+#     steps:
+#       - uses: r-lib/actions/setup-r@v1
+#         with:
+#           r-version: 'release'
+#       - name: Setup - Install vaccc19de
+#         run: |
+#           install.packages('remotes')
+#           remotes::install_github("friep/vaccc19de")
+#           install.packages('glue')
+#           install.packages('readr')
+#         shell: Rscript {0}
+#       - name: Setup - Checkout repo
+#         uses: actions/checkout@v2
+#       - name: "Data - Download data"
+#         run: |
+#           source('R/download_and_update.R')
+#         shell: Rscript {0}
+#       - name: "Data - Read datenstand and check whether data was updated"
+#         id: check-whether-updated
+#         run: |
+#           TS_DATENSTAND=$(cat /tmp/ts_datenstand.txt)
+#           IS_UPDATED=0; [ "$TS_DATENSTAND" == "no_update" ] || IS_UPDATED=1
+#           echo $TS_DATENSTAND
+#           echo $IS_UPDATED
+#           echo "::set-output name=TS_DATENSTAND::$TS_DATENSTAND"
+#           echo "::set-output name=IS_UPDATED::$IS_UPDATED"
+#           echo "::set-output name=TS_DOWNLOAD::$(cat /tmp/ts_download.txt)"
+#       - name: "Data - Commit"
+#         uses: EndBug/add-and-commit@v5
+#         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
+#         with:
+#           author_name: "GitHub Action"
+#           author_email: bot_user@frie.codes
+#           message: ${{ format('Update with data up to {0}', steps.check-whether-updated.outputs.TS_DATENSTAND) }}
+#           add: "data/ --force"
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       - name: "Setup - Install Packages"
+#         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
+#         run: |
+#           install.packages('tidyverse')
+#           install.packages('highcharter')
+#           install.packages('emojifont')
+#           install.packages('twitteR')
+#           install.packages('downloadthis')
+#         shell: Rscript {0}
+#       - name: "Setup - Install pandoc"
+#         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
+#         run: brew install pandoc
+#       - name: "Dashboard - Run Update Script"
+#         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
+#         run: Rscript 'R/update_dashboard.R'
+#       - name: "Dashboard - Commit"
+#         uses: EndBug/add-and-commit@v5
+#         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
+#         with:
+#           author_name: favstats
+#           author_email: fabio.votta@gmail.come
+#           message: "Update Dashboard"
+#           add: "-A"
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       - name: "Bot - Run"
+#         run: Rscript 'R/bot.R'
+#         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
+#         env:
+#           consumer_key: ${{ secrets.CONSUMER_KEY }}
+#           consumer_secret: ${{ secrets.CONSUMER_SECRET }}
+#           token: ${{ secrets.TOKEN }}
+#           secret: ${{ secrets.SECRET }}
+#       - name: "Release - Create Release"
+#         id: create_release
+#         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
+#         uses: actions/create-release@v1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#         with:
+#           tag_name: ${{ format('v{0}', steps.check-whether-updated.outputs.TS_DATENSTAND) }}
+#           release_name: ${{ format('{0} vaccc19de_rki_data', steps.check-whether-updated.outputs.TS_DATENSTAND) }}
+#           body: |
+#             Add data up to ${{steps.check-whether-updated.outputs.TS_DATENSTAND}}
+#             Downloaded at ${{steps.check-whether-updated.outputs.TS_DOWNLOAD}}
+#           draft: false
+#           prerelease: false
