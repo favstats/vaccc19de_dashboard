@@ -2,46 +2,58 @@
 specify_decimal <- function(x, k) trimws(format(round(x, k), nsmall=k))
 
 
-hcmap2 <- function(map = "custom/world",
-                   data = NULL, joinBy = "hc-key", value = NULL,
-                   download_map_data = FALSE, custom_map = NULL, ...) {
 
-  url <- "https://code.highcharts.com/mapdata"
-  map <- str_replace(map, "\\.js", "")
-  map <- str_replace(map, "https://code\\.highcharts\\.com/mapdata/", "")
-  mapfile <- sprintf("%s.js", map)
 
-  hc <- highchart(type = "map")
 
-  if(download_map_data) {
 
-    mapdata <- download_map_data(file.path(url, mapfile))
 
-  } else {
+hc_de_map_motion <- function(data, date = "date", date_label = "date_label",
+                             bundesland = "bundesland",
+                             value = "perc", label = "",
+                             map, decimals = 0){
 
-    mapdata <- custom_map
 
-  }
 
-  if(is.null(data)) {
+  ds <- data[,c(date, date_label, bundesland, value)]
+  colnames(ds) <- c("date", "date_label", "bundesland", "value")
+  ds <- ds %>%
+    group_by(bundesland) %>%
+    do(item = list(
+      bundesland = first(.$bundesland),
+      sequence = .$value,
+      value = first(.$value))
+    ) %>%
+    .$item
 
-    hc <- hc %>%
-      highcharter:::hc_add_series.default(
-        mapData = mapdata, ...)
+  high_map <- highcharter::highchart(type = "map") %>%
+    highcharter::hc_add_series(
+      data = ds,
+      name = label,
+      mapData = map,
+      joinBy = c("name", "bundesland"),
+      borderWidth = 0.01,
+      tooltip = list(
+        valueDecimals = decimals
+      )
+    ) %>%
+    highcharter::hc_add_theme(highcharter::hc_theme_smpl()) %>%
+    highcharter::hc_motion(
+      enabled = T,
+      axisLabel = "date",
+      labels = unique(data$date_label),
+      series = 0,
+      updateIterval = 50,
+      magnet = list(
+        round = "floor",
+        step = 0.01
+      )
+    )
 
-  } else {
+  return(high_map)
+}
 
-    stopifnot(joinBy %in% names(data))
-    data <- mutate_(data, "value" = value)
-
-    hc <- hc %>%
-      highcharter:::hc_add_series.default(
-        mapData = mapdata,
-        data = list_parse(data), joinBy = joinBy, ...) %>%
-      hc_colorAxis(auxpar = NULL)
-
-  }
-
-  hc
-
+## from here: https://stackoverflow.com/questions/6461209/how-to-round-up-to-the-nearest-10-or-100-or-x
+nice_ceiling <- function(x, nice=c(1,2,4,5,6,8,10)) {
+  if(length(x) != 1) stop("'x' must be of length 1")
+  10^floor(log10(x)) * nice[[which(x <= 10^floor(log10(x)) * nice)[[1]]]]
 }

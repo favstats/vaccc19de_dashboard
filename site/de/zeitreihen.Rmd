@@ -15,6 +15,9 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
 rki_dat <- readRDS("../../data/rki_dat.RDS")
 
+source("../../R/utils.R")
+
+
 latest_dat <- rki_dat %>% 
   dplyr::filter(day==max(day))
 
@@ -39,7 +42,9 @@ hc_mapper <- function(dat, max_size) {
         enabled = TRUE
       )  %>% 
     hc_title(
-      text = unique(dat$bundesland)
+      text = unique(dat$bundesland),
+      verticalAlign = "top",
+      align = "center"
     ) %>% 
     hc_credits(
       enabled = TRUE, text = "<br>Quelle: Robert Koch-Institut.",
@@ -48,7 +53,8 @@ hc_mapper <- function(dat, max_size) {
     )%>%
     hc_colors(colors =  unique(dat$colors)
     )  %>% 
-    hc_yAxis(max = max_size)  
+    hc_yAxis(max = max_size)  %>%
+    highcharter::hc_add_theme(highcharter::hc_theme_smpl())  
   return(hc)
 }
 
@@ -56,7 +62,7 @@ max_size <- rki_dat %>%
   pull(prozent_geimpft) %>% 
   max()
 
-max_size <- max_size + 0.1*max_size
+max_size <- nice_ceiling(max(max_size, na.rm = T))
 
 # max_size 
 

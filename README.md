@@ -6,7 +6,7 @@
 Ziel dieses Repository ist es den Fortschritt von COVID-19 Impfungen in
 Deutschland zu
 [dokumentieren](https://github.com/friep/vaccc19de_rki_data) und
-[visualisieren](https://favstats.github.io/vaccc19de_dashboard/)
+[visualisieren](https://favstats.github.io/vaccc19de_dashboard/).
 
 Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf
 dieser
@@ -30,7 +30,6 @@ Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Be
 Brandenburg: *Meldung vom 03.01. steht noch aus.*
 
 </center>
-
 
 # Data
 

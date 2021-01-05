@@ -15,40 +15,44 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
 rki_dat <- readRDS("../../data/rki_dat.RDS")
 
+source("../../R/utils.R")
+
 latest_dat <- rki_dat %>% 
   dplyr::filter(day==max(day))
 
-
 hc_mapper <- function(dat, max_size) {
 
-  
-  hc <- dat %>% 
+
+  hc <- dat %>%
     hchart("line", hcaes(day, prozent_geimpft),
-        tooltip = list(
-        name = "Vaccine doses per 100 Inhabitants",
-        pointFormat = "<b>{point.bundesland}</b><br><b>Vaccination doses per 100 Inhabitants
+           tooltip = list(
+             name = "Vaccine doses per 100 Inhabitants",
+             pointFormat = "<b>{point.bundesland}</b><br><b>Vaccination doses per 100 Inhabitants
 :</b> {point.prozent_geimpft_label}<br><br><b>Total Vaccinations:</b> {point.impfungen_kumulativ_label}")) %>%
     # Axis
     hc_yAxis(
       title = list(text = "Vaccine doses per 100 Inhabitants")
-    ) %>% 
+    ) %>%
     hc_xAxis(
       title = list(text = "Date (daily)")
-      )  %>% 
+    )  %>%
     hc_exporting(
-        enabled = TRUE
-      )  %>% 
+      enabled = TRUE
+    )  %>%
     hc_title(
-      text = unique(dat$bundesland)
-    ) %>% 
+      text = unique(dat$bundesland),
+      verticalAlign = "top",
+      align = "center"
+    ) %>%
     hc_credits(
       enabled = TRUE, text = "<br>Source: Robert Koch-Institut.",
       href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html",
       style = list(fontSize = "8px")
     )%>%
     hc_colors(colors =  unique(dat$colors)
-    )  %>% 
-    hc_yAxis(max = max_size)  
+    )  %>%
+    hc_yAxis(max = max_size)  %>%
+    highcharter::hc_add_theme(highcharter::hc_theme_smpl())
   return(hc)
 }
 
@@ -56,7 +60,9 @@ max_size <- rki_dat %>%
   pull(prozent_geimpft) %>% 
   max()
 
-max_size <- max_size + 0.1*max_size
+max_size <- nice_ceiling(max(max_size, na.rm = T))
+
+# max_size <- max_size + 0.1*max_size
 
 # max_size 
 
