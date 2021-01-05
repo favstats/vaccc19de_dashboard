@@ -23,11 +23,11 @@ Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Be
 
 <center>
 
-*Letzter Datenstand: 04.01.2021 11:00:00*
+*Letzter Datenstand: 05.01.2021 12:00:00*
 
 **Aktuelle Anmerkungen:**
 
-Brandenburg: *Meldung vom 03.01. steht noch aus.*
+*Keine Anmerkungen.*
 
 </center>
 
@@ -52,7 +52,7 @@ We are currently figuring out how to license the data / whether there
 are any restrictions from RKI’s side - we don’t suspect that there are
 any but we haven’t found any information on that yet.
 
-:warning: We take no liability for the correctness of the data\!
+:warning: We take no liability for the correctness of the data!
 :warning:
 
 ## Datasets
@@ -61,12 +61,12 @@ any but we haven’t found any information on that yet.
 
 ### Disclaimers :warning:
 
-  - All counts are cumulative (except `differenz_zum_vortag`)
-  - timestamps in the csv are in UTC, not in Berlin time.
-  - as stated in the raw xlsx file, one vaccinated person can have
+-   All counts are cumulative (except `differenz_zum_vortag`)
+-   timestamps in the csv are in UTC, not in Berlin time.
+-   as stated in the raw xlsx file, one vaccinated person can have
     multiple indications: “Anmerkung zu den Indikationen: Es können
     mehrere Indikationen je geimpfter Person vorliegen.”
-  - always check the raw xlsx (see folder `data/raw`)
+-   always check the raw xlsx (see folder `data/raw`)
 
 Read in directly from GitHub using R:
 
@@ -75,7 +75,7 @@ cumulative_ts <- readr::read_csv("https://raw.githubusercontent.com/favstats/vac
 ```
 
 | col                               | type      | description                                                                                                                      |
-| :-------------------------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------------- |
+|:----------------------------------|:----------|:---------------------------------------------------------------------------------------------------------------------------------|
 | ts\_datenstand                    | datetime  | datetime until which data is included (‘Datenstand’) as specified in the Excel file. Given in UTC                                |
 | ts\_download                      | datetime  | datetime when data was downloaded from RKI website. Given in UTC                                                                 |
 | bundesland                        | character | full name of Bundesland                                                                                                          |
@@ -97,28 +97,28 @@ from the `cumulative_time_series.csv`. Each row represents the
 
 ### Disclaimers :warning:
 
-  - Note that a number for a day does not necessarily correspond to the
+-   Note that a number for a day does not necessarily correspond to the
     number of vaccinations for that day. This is due to reporting delays
     and other irregularities in the process (see “notes” column).
-  - Again, one person can have multiple indications which is why numbers
+-   Again, one person can have multiple indications which is why numbers
     of the indications might not add up to the overall increase in
     vaccinated people.
-  - No liability is taken for the correctness of the calculations. If in
+-   No liability is taken for the correctness of the calculations. If in
     doubt, check the raw excel files.
 
-| col                      | type      | description                                                                                                                      |
-| :----------------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------------- |
-| ts\_datenstand           | datetime  | datetime until which data is included (‘Datenstand’) as specified in the Excel file. Given in UTC                                |
-| ts\_download             | datetime  | datetime when data was downloaded from RKI website. Given in UTC                                                                 |
-| bundesland               | character | full name of Bundesland                                                                                                          |
-| bundesland\_iso          | character | ISO 3166-2 of Bundesland                                                                                                         |
-| impfungen\_kumulativ     | double    | Cumulative total number of vaccinations in the Bundesland                                                                        |
-| differenz\_zum\_vortag   | double    | Difference to previous day (\~roughly corresponds to people vaccinated since then although delays in reporting could be the case |
-| indikation\_nach\_alter  | double    | Number of people reported vaccinated because of their age since the last data update                                             |
-| berufliche\_indikation   | double    | Number of people reported vaccinated because of their profession since the last data update                                      |
-| medizinische\_indikation | double    | Number of people reported vaccinated because of medical reasons since the last data update                                       |
-| pflegeheim\_bewohner\_in | double    | Number of people reported vaccinated in nursing homes since the last data update                                                 |
-| notes                    | character | Notes as indicated by \* at the bottom of the Excel sheet and stored in unnamed columns.                                         |
+| col                           | type      | description                                                                                                                      |
+|:------------------------------|:----------|:---------------------------------------------------------------------------------------------------------------------------------|
+| ts\_datenstand                | datetime  | datetime until which data is included (‘Datenstand’) as specified in the Excel file. Given in UTC                                |
+| ts\_download                  | datetime  | datetime when data was downloaded from RKI website. Given in UTC                                                                 |
+| bundesland                    | character | full name of Bundesland                                                                                                          |
+| bundesland\_iso               | character | ISO 3166-2 of Bundesland                                                                                                         |
+| impfungen\_neu                | double    | Cumulative total number of vaccinations in the Bundesland                                                                        |
+| indikation\_nach\_alter\_neu  | double    | Difference to previous day (\~roughly corresponds to people vaccinated since then although delays in reporting could be the case |
+| medizinische\_indikation\_neu | double    | Number of people reported vaccinated because of their age since the last data update                                             |
+| berufliche\_indikation\_neu   | double    | Number of people reported vaccinated because of their profession since the last data update                                      |
+| pflegeheim\_bewohner\_in\_neu | double    | Number of people reported vaccinated because of medical reasons since the last data update                                       |
+| notes                         | double    | Number of people reported vaccinated in nursing homes since the last data update                                                 |
+| NA                            | character | Notes as indicated by \* at the bottom of the Excel sheet and stored in unnamed columns.                                         |
 
 # Contribute
 
@@ -126,11 +126,11 @@ Contributions are very welcome. Depending on where you want to add
 features, please open an issue here or on
 [{vaccc19de}](https://github.com/friep/vaccc19de):
 
-  - features relating to GitHub Action and daily updates of the data –\>
-    this repository
-  - features relating to the dashboard –\> this repository
-  - features relating to data wrangling, data cleaning of the original
-    excel file –\> [{vaccc19de}](https://github.com/friep/vaccc19de)
+-   features relating to GitHub Action and daily updates of the data
+    –&gt; this repository
+-   features relating to the dashboard –&gt; this repository
+-   features relating to data wrangling, data cleaning of the original
+    excel file –&gt; [{vaccc19de}](https://github.com/friep/vaccc19de)
 
 Of course, features might require changes in both repositories. Please
 still open issues in both repositories and then link them to each other.
