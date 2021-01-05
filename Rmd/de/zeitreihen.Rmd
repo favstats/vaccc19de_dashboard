@@ -5,6 +5,9 @@ output:
     theme: yeti
 ---
 
+## {.tabset .tabset-pills}
+
+
 ```{r, setup, include=FALSE}
 # library(vaccc19de)
 library(tidyverse)
@@ -69,11 +72,57 @@ max_size <- nice_ceiling(max(max_size, na.rm = T))
 ```
 
 
+### Kombiniert
 
+Um die Anzeige einzelner Linien ein- oder auszuschalten einfach auf die entsprechende Linie in der Legende klicken.
 
 ```{r}
-# debugonce(hc_mapper)
+custom_dashes <- c("longdash", rep("Solid", 16))
+custom_lines <- c(4, rep(2, 16))
 
+
+combined_plot <- rki_dat %>% 
+  mutate(bundesland = fct_relevel(bundesland, "Deutschland")) %>%
+  mutate(color = fct_reorder(colors, as.numeric(bundesland))) 
+
+
+combined_plot %>% 
+    hchart("line", hcaes(day, prozent_geimpft, 
+                         group = bundesland,),
+           dashStyle = custom_dashes,
+           lineWidth = custom_lines,
+        tooltip = list(
+        name = "Impfdosen pro 100 Einwohner",
+        pointFormat = "<b>{point.bundesland}</b><br><b>Impfdosen pro 100 Einwohner
+:</b> {point.prozent_geimpft_label}<br><br><b>Anzahl der Impfungen:</b> {point.impfungen_kumulativ_label}")) %>%
+    # Axis
+    hc_yAxis(
+      title = list(text = "Impfdosen pro 100 Einwohner")
+    ) %>% 
+    hc_xAxis(
+      title = list(text = "Datum (täglich)")
+      )  %>% 
+    hc_exporting(
+        enabled = TRUE
+      )  %>% 
+    # hc_title(
+    #   text = unique(dat$bundesland),
+    #   verticalAlign = "top",
+    #   align = "center"
+    # ) %>% 
+    hc_credits(
+      enabled = TRUE, text = "<br>Quelle: Robert Koch-Institut.",
+      href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html",
+      style = list(fontSize = "8px")
+    ) %>% 
+    hc_colors(colors =  combined_plot$color %>% levels)  %>%
+    highcharter::hc_add_theme(highcharter::hc_theme_smpl())
+
+```
+
+### Einzelne Panels
+
+```{r}
 
 rki_dat %>% 
   mutate(bundesland = fct_relevel(bundesland, "Deutschland")) %>% 
@@ -83,3 +132,4 @@ rki_dat %>%
 
 
 ```
+
