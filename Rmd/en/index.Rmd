@@ -73,6 +73,8 @@ geimpft <- latest_dat %>%
 latest_day <- unique(prelatest_dat$day) %>% format.Date("%d.%m.%Y")
 current_day <- unique(latest_dat$day) %>% format.Date("%d.%m.%Y")
 
+fromto_date <- glue::glue("since {latest_day}")
+
 # cat(current_day, file = "../last_update.txt")
 # cat(current_day, file = "../current.txt")
 
@@ -103,14 +105,14 @@ df <- data.frame(
              prozent_lasttime),
     info = c("Total Vaccinations in Germany",
              "Vaccine doses per 100 Inhabitants",
-             glue::glue("Vaccines administered (since {latest_day})"),
-             glue::glue("Percent growth (since {latest_day})")),
+                            glue::glue("Vaccines administered ({fromto_date})"),
+                            glue::glue("Percent growth ({fromto_date})")),
     shape = c(fontawesome("fa-users"),
               fontawesome("fa-user-circle-o"),
               fontawesome("fa-plus"),
               fontawesome("fa-line-chart")),
     font_family = c(rep("fontawesome-webfont", 4)),
-    datenstand = paste0("Last Update: ", datenstand_day),
+    datenstand = paste0("Last Update: ", datenstand),
     color = factor(1:4)
 )
 
@@ -124,8 +126,6 @@ infobox1 <- df %>%
               aes(label = value, x = x - 3.9, y = y + 0.5), hjust = 0) +
     geom_text(color = "white", fontface = "bold", size = 3,
               aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
-    geom_text(color = "white", size = 2,
-              aes(label = datenstand, x = x + 3.9, y = y + 0.95), hjust = 1) +
     coord_fixed() +
     scale_fill_manual(values = colors[c(1,5)]) +
     geom_text(size = 15, aes(label = shape, family = font_family,
@@ -145,16 +145,14 @@ theme(
 infobox2 <-df %>% 
   slice(3:4) %>% 
   mutate(info = fct_relevel(info,
-                            glue::glue("Vaccines administered (since {latest_day})"),
-                            glue::glue("Percent growth (since {latest_day})")))  %>% 
+                            glue::glue("Vaccines administered ({fromto_date})"),
+                            glue::glue("Percent growth ({fromto_date})")))  %>% 
   ggplot(aes(x, y, height = h, width = w, label = info)) +
     geom_tile(aes(fill = color)) +
     geom_text(color = "white", fontface = "bold", size = 10,
               aes(label = value, x = x - 3.9, y = y + 0.5), hjust = 0) +
     geom_text(color = "white", fontface = "bold", size = 3,
               aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
-    geom_text(color = "white", size = 2,
-              aes(label = datenstand, x = x + 3.9, y = y + 0.95), hjust = 1) +
     coord_fixed() +
     scale_fill_manual(values = colors[c(3,4)]) +
     geom_text(size = 15, aes(label = shape, family = font_family,
@@ -214,6 +212,14 @@ if(nrow(notes_dat)!=0){
 
 
 ```{r}
+infobox1 <- infobox1  +
+    geom_text(color = "white", size = 2,
+              aes(label = datenstand, x = x + 3.9, y = y + 0.95), hjust = 1)
+
+infobox2 <- infobox2  +
+    geom_text(color = "white", size = 2,
+              aes(label = datenstand, x = x + 3.9, y = y + 0.95), hjust = 1)
+
 ggsave(filename = "../../img/infobox1_en.png", plot = infobox1,
        height = 1,  bg = "transparent")
 ggsave(filename = "../../img/infobox2_en.png", plot = infobox2,

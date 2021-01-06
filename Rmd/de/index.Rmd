@@ -72,6 +72,8 @@ geimpft <- latest_dat %>%
 latest_day <- unique(prelatest_dat$day) %>% format.Date("%d.%m.%Y")
 current_day <- unique(latest_dat$day) %>% format.Date("%d.%m.%Y")
 
+fromto_date <- glue::glue("seit {latest_day}")
+
 geimpft <- latest_dat %>% 
   summarize(impfungen_kumulativ = sum(impfungen_kumulativ)) %>% pull(impfungen_kumulativ)
 
@@ -87,6 +89,8 @@ geimpft <- scales::label_number()(geimpft)
 geimpft_lasttime <- scales::label_number()(geimpft_lasttime) %>% paste0("+", .)
 
 
+
+
 df <- data.frame(
     x = rep(0, 4),
     y = rep(4.5, 4),
@@ -98,13 +102,13 @@ df <- data.frame(
              prozent_lasttime),
     info = c("Anzahl der Impfungen (Deutschlandweit)",
              "Impfdosen pro 100 Einwohner",
-             glue::glue("Zusätzliche Impfungen (seit {latest_day})"),
-             glue::glue("Prozent Wachstum (seit {latest_day})")),
+             glue::glue("Zusätzliche Impfungen ({fromto_date})"),
+             glue::glue("Prozent Wachstum ({fromto_date})")),
     shape = c(fontawesome("fa-users"),
               fontawesome("fa-user-circle-o"),
               fontawesome("fa-plus"),
               fontawesome("fa-line-chart")),
-    datenstand = paste0("Datenstand: ", datenstand_day),
+    datenstand = paste0("Datenstand: ", datenstand),
     font_family = c(rep("fontawesome-webfont", 4)),
     color = factor(1:4)
 )
@@ -119,8 +123,6 @@ infobox1 <- df %>%
               aes(label = value, x = x - 3.9, y = y + 0.5), hjust = 0) +
     geom_text(color = "white", fontface = "bold", size = 3,
               aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
-    geom_text(color = "white", size = 2,
-              aes(label = datenstand, x = x + 3.9, y = y + 0.95), hjust = 1) +
     coord_fixed() +
     scale_fill_manual(values = colors[c(1,5)]) +
     geom_text(size = 15, aes(label = shape, family = font_family,
@@ -140,16 +142,14 @@ theme(
 infobox2 <-df %>% 
   slice(3:4) %>% 
   mutate(info = fct_relevel(info,
-                            glue::glue("Zusätzliche Impfungen (seit {latest_day})"),
-                            glue::glue("Prozent Wachstum (seit {latest_day})"))) %>% 
+             glue::glue("Zusätzliche Impfungen ({fromto_date})"),
+             glue::glue("Prozent Wachstum ({fromto_date})"))) %>% 
   ggplot(aes(x, y, height = h, width = w, label = info)) +
     geom_tile(aes(fill = color)) +
     geom_text(color = "white", fontface = "bold", size = 10,
               aes(label = value, x = x - 3.9, y = y + 0.5), hjust = 0) +
     geom_text(color = "white", fontface = "bold", size = 3,
               aes(label = info, x = x - 3.9, y = y - 0.75), hjust = 0) +
-    geom_text(color = "white", size = 2,
-              aes(label = datenstand, x = x + 3.9, y = y + 0.95), hjust = 1) +
     coord_fixed() +
     scale_fill_manual(values = colors[c(3,4)]) +
     geom_text(size = 15, aes(label = shape, family = font_family,
@@ -171,6 +171,13 @@ infobox2
 
 
 ```{r}
+infobox1 <- infobox1  +
+    geom_text(color = "white", size = 2,
+              aes(label = datenstand, x = x + 3.9, y = y + 0.95), hjust = 1)
+
+infobox2 <- infobox2  +
+    geom_text(color = "white", size = 2,
+              aes(label = datenstand, x = x + 3.9, y = y + 0.95), hjust = 1)
 
 ggsave(filename = "../../img/infobox1_de.png", plot = infobox1,
        height = 1,  bg = "transparent")
