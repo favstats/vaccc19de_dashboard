@@ -58,7 +58,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: "Setup - Install Packages"
-        if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
         run: |
           install.packages('tidyverse')
           install.packages('highcharter')
@@ -67,7 +66,6 @@ jobs:
           install.packages('downloadthis')
         shell: Rscript {0}
       - name: "Setup - Install pandoc"
-        if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
         run: brew install pandoc
       - name: "Dashboard - Run Update Script"
         run: Rscript 'R/update_dashboard.R'
