@@ -70,11 +70,9 @@ jobs:
         if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
         run: brew install pandoc
       - name: "Dashboard - Run Update Script"
-        if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
         run: Rscript 'R/update_dashboard.R'
       - name: "Dashboard - Commit"
         uses: EndBug/add-and-commit@v5
-        if:  ${{ steps.check-whether-updated.outputs.IS_UPDATED == 1 }}
         with:
           author_name: favstats
           author_email: fabio.votta@gmail.come
