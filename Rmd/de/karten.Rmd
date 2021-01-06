@@ -125,7 +125,12 @@ hw_grid(total_plot, prozent_plot, ncol = 2)
 
 ```{r}
 
-max_rounded <- nice_ceiling(max(rki_dat$impfungen_kumulativ, na.rm = T))
+max_rounded <- max(rki_dat$impfungen_kumulativ, na.rm = T)
+
+# max_rounded <- nice_ceiling(max(rki_dat$impfungen_kumulativ, na.rm = T))
+
+max_rounded <- max_rounded + max_rounded*0.05
+
 
 de_map <- highcharter::download_map_data("https://code.highcharts.com/mapdata/countries/de/de-all.js")
 
@@ -164,8 +169,12 @@ total_plot_animated <- rki_dat %>%
     min = 100, max = max_rounded
   )
 
-max_rounded <- nice_ceiling(max(rki_dat$prozent_geimpft, na.rm = T))
 
+max_rounded <- max(rki_dat$prozent_geimpft, na.rm = T)
+
+# max_rounded <- nice_ceiling(max(rki_dat$prozent_geimpft, na.rm = T))
+
+max_rounded <- max_rounded + max_rounded*0.05
 
 prozent_plot_animated <- rki_dat %>%
   left_join(de_dat) %>% 
