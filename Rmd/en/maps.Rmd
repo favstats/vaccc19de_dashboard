@@ -157,7 +157,7 @@ total_plot_animated <- rki_dat %>%
     style = list(fontSize = "12px")
   ) %>%
   hc_title(
-    text = "Animation: Vaccine doses Administered",
+    text = "Animation: Vaccine Doses Administered",
     verticalAlign = "top",
     align = "center"
   ) %>% 
