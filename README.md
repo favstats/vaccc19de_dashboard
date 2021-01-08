@@ -22,7 +22,7 @@ Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Be
 
 <center>
 
-*Letzter Datenstand: 07.01.2021 11:00:00*
+*Letzter Datenstand: 08.01.2021 11:00:00*
 
 **Aktuelle Anmerkungen:**
 
