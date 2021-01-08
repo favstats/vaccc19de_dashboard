@@ -7,7 +7,7 @@ output:
 
 ## {.tabset .tabset-pills}
 
-Die folgenden Grafiken zeigen kumulative Zahlen.
+The following graphs show cumulative numbers.
 
 ```{r, setup, include=FALSE}
 # library(vaccc19de)
@@ -189,7 +189,7 @@ rki_dat %>%
 ```
 
 
-## Täglich Anzahl an verabreichten Impfungen {.tabset .tabset-pills}
+## Tägliche Anzahl an verabreichten Impfungen {.tabset .tabset-pills}
 
 Die folgenden Grafiken zeigen die Anzahl der täglich durchgeführten Impfungen.
 
