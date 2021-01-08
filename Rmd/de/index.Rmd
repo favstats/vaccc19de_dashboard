@@ -43,6 +43,9 @@ Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Sei
 
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html){target="_blank"}.
 
+Die Grafiken in diesem Dashboard zeigen das *Impfdatum* das heißt in der Regel ist das jeweils der Tag vor dem Meldedatum. Manchmal gibt es allerdings Verzögerungen und Bundesländer melden Daten erst später. Daher bitte die Anmerkungen in den Tooltips der Grafiken beachten. Ein Datensatz mit allen bisherigen Anmerkungen kann [hier](https://github.com/favstats/vaccc19de_dashboard/blob/main/data/notes_dat.csv) eingesehen werden.
+
+
 > Hinweis: Das RKI unterscheidet in seinen Daten (noch) nicht zwischen erster und zweiter Impfung. 
 
 Autoren: [Frie Preu](https://twitter.com/ameisen_strasse){target="_blank"} &  [Fabio Votta](https://twitter.com/favstats){target="_blank"}.
@@ -200,15 +203,6 @@ notes_dat <- latest_dat %>%
 
 if(nrow(notes_dat)!=0){
   notes_dat %>% 
-    mutate(notes = ifelse(stringi::stri_startswith_fixed(notes, "("),
-                          str_remove(notes, "\\("),
-                          notes),
-           notes = ifelse(stringi::stri_endswith_fixed(notes, ")") ,
-                          str_sub(notes, 1, str_length(notes)-1),
-                          notes),
-           notes = ifelse(!stringi::stri_endswith_fixed(notes, "\\.") ,
-                          paste0(notes, "."),
-                          notes)) %>% 
     mutate(note_display = glue::glue("{bundesland}: *{notes}*")) %>% 
     pull(note_display) %>% 
     paste0(collapse = "\n\n")  %>% 
