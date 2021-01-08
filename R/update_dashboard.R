@@ -36,7 +36,16 @@ rki_dat <- rki_dat %>%
   mutate(colors = bundesland_colors) %>%
   right_join(rki_dat) %>%
   mutate(prozent_geimpft_label = specify_decimal(prozent_geimpft, 2)) %>%
-  mutate(impfungen_kumulativ_label = scales::label_number()(impfungen_kumulativ) %>% str_remove_all("\\.0"))
+  mutate(impfungen_kumulativ_label = scales::label_number()(impfungen_kumulativ) %>% str_remove_all("\\.0")) %>%
+  mutate(notes = ifelse(stringi::stri_startswith_fixed(notes, "("),
+                        str_remove(notes, "\\("),
+                        notes),
+         notes = ifelse(stringi::stri_endswith_fixed(notes, ")") ,
+                        str_sub(notes, 1, str_length(notes)-1),
+                        notes),
+         notes = ifelse(!stringi::stri_endswith_fixed(notes, "\\.") ,
+                        paste0(notes, "."),
+                        notes))
 
 ## save rki_dat temporarily for internal use
 saveRDS(rki_dat, file = "data/rki_dat.RDS")
@@ -60,3 +69,9 @@ rmarkdown::render("README.Rmd")
 ## for some reason it always generates an HTML too so delete it
 file.remove("README.html")
 
+
+notes_dat <- rki_dat %>%
+  drop_na(notes) %>%
+  select(bundesland, bundesland_iso, ts_datenstand, notes)
+
+write_csv(notes_dat, file = "data/notes_dat.csv")

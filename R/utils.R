@@ -9,8 +9,10 @@ specify_decimal <- function(x, k) trimws(format(round(x, k), nsmall=k))
 
 hc_de_map_motion <- function(data, date = "date", date_label = "date_label",
                              bundesland = "bundesland",
-                             value = "perc", label = "",
-                             map, decimals = 0){
+                             value = "perc", label,
+                             map, decimals = 0, #tooltip_name,
+                             pointformat
+                             ){
 
 
 
@@ -33,8 +35,7 @@ hc_de_map_motion <- function(data, date = "date", date_label = "date_label",
       joinBy = c("name", "bundesland"),
       borderWidth = 0.01,
       tooltip = list(
-        valueDecimals = decimals
-      )
+        valueDecimals = decimals)
     ) %>%
     highcharter::hc_add_theme(highcharter::hc_theme_smpl()) %>%
     highcharter::hc_motion(

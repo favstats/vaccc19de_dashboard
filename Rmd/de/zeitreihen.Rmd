@@ -7,6 +7,7 @@ output:
 
 ## {.tabset .tabset-pills}
 
+The following graphs show cumulative numbers.
 
 ```{r, setup, include=FALSE}
 # library(vaccc19de)
@@ -16,7 +17,8 @@ library(highcharter)
 
 knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
-rki_dat <- readRDS("../../data/rki_dat.RDS")
+rki_dat <- readRDS("../../data/rki_dat.RDS") %>% 
+  mutate(notes = ifelse(is.na(notes), "--", notes))
 
 source("../../R/utils.R")
 
@@ -25,7 +27,7 @@ latest_dat <- rki_dat %>%
   dplyr::filter(day==max(day))
 
 
-hc_mapper <- function(dat, max_size) {
+hc_vaccines_per_100 <- function(dat, max_size) {
 
   
   hc <- dat %>% 
@@ -33,7 +35,7 @@ hc_mapper <- function(dat, max_size) {
         tooltip = list(
         name = "Impfdosen pro 100 Einwohner",
         pointFormat = "<b>{point.bundesland}</b><br><b>Impfdosen pro 100 Einwohner
-:</b> {point.prozent_geimpft_label}<br><br><b>Anzahl der Impfungen:</b> {point.impfungen_kumulativ_label}")) %>%
+:</b> {point.prozent_geimpft_label}<br><br><b>Anzahl der Impfungen:</b> {point.impfungen_kumulativ_label}<br><br><b>Anmerkung:</b> {point.notes}")) %>%
     # Axis
     hc_yAxis(
       title = list(text = "Impfdosen pro 100 Einwohner")
@@ -61,6 +63,43 @@ hc_mapper <- function(dat, max_size) {
   return(hc)
 }
 
+hc_daily_stats <- function(dat) {
+
+  
+  hc <- dat %>% 
+    hchart("line", hcaes(day, impfungen_neu),
+        tooltip = list(
+        name = "Anzahl verabreichter Impfungen",
+        pointFormat = "<b>{point.bundesland}</b><br><b>Anzahl verabreichter Impfungen
+:</b> {point.impfungen_neu_label}<br><br><b>Anmerkung:</b> {point.notes}")) %>%
+    # Axis
+    hc_yAxis(
+      title = list(text = "Impfungen pro Tag")
+    ) %>% 
+    hc_xAxis(
+      title = list(text = "Datum (täglich)")
+      )  %>% 
+    hc_exporting(
+        enabled = TRUE
+      )  %>% 
+    hc_title(
+      text = unique(dat$bundesland),
+      verticalAlign = "top",
+      align = "center"
+    ) %>% 
+    hc_credits(
+      enabled = TRUE, text = "<br>Quelle: Robert Koch-Institut.",
+      href = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html",
+      style = list(fontSize = "8px")
+    )%>%
+    hc_colors(colors =  unique(dat$colors)
+    )  %>% 
+    # hc_yAxis(max = max_size)  %>%
+    highcharter::hc_add_theme(highcharter::hc_theme_smpl())  
+  return(hc)
+}
+
+
 max_size <- rki_dat %>% 
   pull(prozent_geimpft) %>% 
   max(na.rm = T)
@@ -72,6 +111,19 @@ max_size <- max_size + max_size*0.05
 
 # max_size 
 
+
+diffs <- read_csv("../../data/diffs_time_series.csv") %>%
+  mutate(day = lubridate::as_date(ts_datenstand) - 1) %>% 
+  mutate(notes = ifelse(stringi::stri_startswith_fixed(notes, "("),
+                        str_remove(notes, "\\("),
+                        notes),
+         notes = ifelse(stringi::stri_endswith_fixed(notes, ")") ,
+                        str_sub(notes, 1, str_length(notes)-1),
+                        notes),
+         notes = ifelse(!stringi::stri_endswith_fixed(notes, "\\.") ,
+                        paste0(notes, "."),
+                        notes)) %>% 
+  mutate(notes = ifelse(is.na(notes), "--", notes))
 ```
 
 
@@ -91,13 +143,13 @@ combined_plot <- rki_dat %>%
 
 combined_plot %>% 
     hchart("line", hcaes(day, prozent_geimpft, 
-                         group = bundesland,),
+                         group = bundesland),
            dashStyle = custom_dashes,
            lineWidth = custom_lines,
         tooltip = list(
         name = "Impfdosen pro 100 Einwohner",
         pointFormat = "<b>{point.bundesland}</b><br><b>Impfdosen pro 100 Einwohner
-:</b> {point.prozent_geimpft_label}<br><br><b>Anzahl der Impfungen:</b> {point.impfungen_kumulativ_label}")) %>%
+:</b> {point.prozent_geimpft_label}<br><br><b>Anzahl der Impfungen:</b> {point.impfungen_kumulativ_label}<br><br><b>Anmerkung:</b> {point.notes}")) %>%
     # Axis
     hc_yAxis(
       title = list(text = "Impfdosen pro 100 Einwohner")
@@ -130,9 +182,80 @@ combined_plot %>%
 rki_dat %>% 
   mutate(bundesland = fct_relevel(bundesland, "Deutschland")) %>% 
   group_split(bundesland) %>% 
-  map(~hc_mapper(.x, max_size)) %>% 
+  map(~hc_vaccines_per_100(.x, max_size)) %>% 
   hw_grid(ncol = 3)
 
 
+```
+
+
+## Tägliche Anzahl an verabreichten Impfungen {.tabset .tabset-pills}
+
+Die folgenden Grafiken zeigen die Anzahl der täglich durchgeführten Impfungen.
+
+
+
+```{r}
+bundesland_colors <- c(colorspace::qualitative_hcl(16, palette = "Dark 3", rev = T), "#000000")
+
+
+
+## create German total data
+de_dat_diffs <- diffs %>%
+  group_by(day) %>%
+  summarise(impfungen_neu = sum(impfungen_neu, na.rm = T)) %>%
+  mutate(bundesland = "Deutschland") %>% 
+  ungroup()
+
+
+ diffs <- diffs %>% 
+  bind_rows(de_dat_diffs)
+ 
+ first_dat <- rki_dat %>% 
+  filter(ts_datenstand == min(ts_datenstand, na.rm = T)) %>%
+  select(bundesland, impfungen_kumulativ)
+
+##combine color dat with rki_dat
+diffs_dat <- diffs %>% 
+  bind_rows(de_dat_diffs) %>%
+  distinct(bundesland) %>%
+  mutate(colors = bundesland_colors) %>%
+  right_join(diffs)  %>% 
+  left_join(first_dat) %>% 
+  mutate(impfungen_neu = case_when(
+    ts_datenstand == min(ts_datenstand, na.rm = T) ~ impfungen_kumulativ,
+    is.na(impfungen_neu) ~ 0, 
+    T ~ impfungen_neu))%>%
+  mutate(impfungen_neu_label = scales::label_number()(impfungen_neu) %>% str_remove_all("\\.0"))  %>% 
+  mutate(notes = ifelse(is.na(notes), "--", notes))%>% 
+  mutate(bundesland = fct_relevel(bundesland, "Deutschland"))
+
+
+
+```
+
+
+### Einzelne Panels
+
+
+```{r}
+
+
+
+ # %>% 
+ #  group_by(iso_code, continent, location) %>% 
+ #  mutate(
+ #    new_deaths_7day_rollmean = RcppRoll::roll_meanr(new_deaths, n = 7),
+ #    new_deaths_7day_rollmean = ifelse(is.na(new_deaths_7day_rollmean), 0, new_deaths_7day_rollmean),
+ #    new_deaths_7day_rollmean = round(new_deaths_7day_rollmean)
+ #    ) %>% 
+ #  ungroup()
+
+# diffs_dat
+
+diffs_dat %>% 
+  group_split(bundesland) %>% 
+  map(~hc_daily_stats(.x)) %>% 
+  hw_grid(ncol = 3) 
 ```
 
