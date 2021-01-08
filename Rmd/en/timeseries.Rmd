@@ -7,6 +7,8 @@ output:
 
 ## {.tabset .tabset-pills}
 
+The following graphs show cumulative numbers.
+
 
 ```{r, setup, include=FALSE}
 # library(vaccc19de)
