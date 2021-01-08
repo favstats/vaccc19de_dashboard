@@ -93,7 +93,7 @@ hc_daily_stats <- function(dat) {
     )%>%
     hc_colors(colors =  unique(dat$colors)
     )  %>% 
-    # hc_yAxis(max = max_size)  %>%
+    hc_yAxis(min = 0)  %>%
     highcharter::hc_add_theme(highcharter::hc_theme_smpl())  
   return(hc)
 }
