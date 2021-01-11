@@ -1,0 +1,22 @@
+RS,Bundesland,Impfungen kumulativ,Differenz zum Vortag,Impfungen pro 1.000 Einwohner,Indikation nach Alter*,Berufliche Indikation*,Medizinische Indikation*,Pflegeheim-bewohnerIn*,...10
+08,Baden-Württemberg,65488,4369,5.899610410225078,35369,19392,2838,10274,NA
+09,Bayern,120136,12109,9.153402464369382,27674,59598,2117,41058,NA
+11,Berlin,32014,1026,8.724370764228608,21120,10308,105,19661,NA
+12,Brandenburg,14063,0,5.5763666420423075,1682,12236,87,982,NA
+04,Bremen,6303,491,9.252762029471436,1070,2607,43,2426,NA
+02,Hamburg,12695,1336,6.872366698010506,4312,6397,144,3361,NA
+06,Hessen,54361,2120,8.645087212630882,14595,31645,2723,20567,NA
+13,Mecklenburg-Vorpommern,25141,0,15.633608558469486,1473,13122,194,11541,NA
+03,Niedersachsen,45342,513,5.672282153440599,9968,22613,8519,25233,NA
+05,Nordrhein-Westfalen,114762,3676,6.39441616058553,NA,52000,NA,62770,NA
+07,Rheinland-Pfalz,29994,1866,7.326504804828057,3852,16859,5,9278,NA
+10,Saarland,9157,0,9.27867121565083,6956,1229,NA,3253,NA
+14,Sachsen,19756,715,4.85170449396619,1357,16051,1,3704,NA
+15,Sachsen-Anhalt,21914,0,9.984590724728013,6860,10787,1057,10698,NA
+01,Schleswig-Holstein,31431,0,10.824193213450226,7457,13050,4301,12323,(Meldung steht noch aus)
+16,Thüringen,10790,0,5.057706604267973,903,8861,25,924,(Meldung aus KH steht noch aus)
+NA,Gesamt,613347,28221,7.3749098963406166,144648,296755,22159,238053,NA
+NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Anmerkung zu den Indikationen: Es können mehrere Indikationen je geimpfter Person vorliegen.,NA,NA,NA,NA,NA,NA,NA,NA,NA
+* In einigen Bundesländern werden nicht alle der in der Tabelle aufgeführten Indikationen einzeln ausgewiesen.,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"RS: Regionalschlüssel eines jeden Bundeslandes (destatis, https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/Administrativ/beschreibung-gebietseinheiten.pdf?__blob=publicationFile).",NA,NA,NA,NA,NA,NA,NA,NA,NA
