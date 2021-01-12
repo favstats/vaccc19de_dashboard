@@ -1,5 +1,4 @@
 library(tidyverse)
-remotes::install_github("friep/vaccc19de")
 library(vaccc19de)
 
 
