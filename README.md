@@ -22,13 +22,11 @@ Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Be
 
 <center>
 
-*Letzter Datenstand: 11.01.2021 11:00:00*
+*Letzter Datenstand: 12.01.2021 11:00:00*
 
 **Aktuelle Anmerkungen:**
 
-Schleswig-Holstein: *Meldung steht noch aus.*
-
-Thüringen: *Meldung aus KH steht noch aus.*
+*Keine Anmerkungen.*
 
 Twitter Bot für tägliche Updates:
 <a href="https://twitter.com/vaccc19de" target="_blank">vaccc19de</a>
