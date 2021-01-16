@@ -17,6 +17,7 @@ Baden-Württemberg,BW,2021-01-12T10:00:00Z,--
 Baden-Württemberg,BW,2021-01-13T10:00:00Z,--
 Baden-Württemberg,BW,2021-01-14T10:00:00Z,--
 Baden-Württemberg,BW,2021-01-15T10:00:00Z,--
+Baden-Württemberg,BW,2021-01-16T10:00:00Z,--
 Bayern,BY,2020-12-28T15:15:00Z,--
 Bayern,BY,2020-12-29T07:00:00Z,--
 Bayern,BY,2020-12-30T10:00:00Z,--
@@ -35,6 +36,7 @@ Bayern,BY,2021-01-12T10:00:00Z,--
 Bayern,BY,2021-01-13T10:00:00Z,--
 Bayern,BY,2021-01-14T10:00:00Z,--
 Bayern,BY,2021-01-15T10:00:00Z,--
+Bayern,BY,2021-01-16T10:00:00Z,--
 Berlin,BE,2020-12-28T15:15:00Z,--
 Berlin,BE,2020-12-29T07:00:00Z,--
 Berlin,BE,2020-12-30T10:00:00Z,--
@@ -53,6 +55,7 @@ Berlin,BE,2021-01-12T10:00:00Z,--
 Berlin,BE,2021-01-13T10:00:00Z,--
 Berlin,BE,2021-01-14T10:00:00Z,--
 Berlin,BE,2021-01-15T10:00:00Z,--
+Berlin,BE,2021-01-16T10:00:00Z,--
 Brandenburg,BB,2020-12-28T15:15:00Z,--
 Brandenburg,BB,2020-12-29T07:00:00Z,einschl. Korrekturmeldung vom 27.12.20.
 Brandenburg,BB,2020-12-30T10:00:00Z,--
@@ -71,6 +74,7 @@ Brandenburg,BB,2021-01-12T10:00:00Z,--
 Brandenburg,BB,2021-01-13T10:00:00Z,--
 Brandenburg,BB,2021-01-14T10:00:00Z,--
 Brandenburg,BB,2021-01-15T10:00:00Z,--
+Brandenburg,BB,2021-01-16T10:00:00Z,--
 Bremen,HB,2020-12-28T15:15:00Z,in einigen Bundesländern werden nicht alle der in der Tabelle aufgeführten Indikationen einzeln ausgewiesen.
 Bremen,HB,2020-12-29T07:00:00Z,einschl. Korrekturmeldung vom 27.12.20.
 Bremen,HB,2020-12-30T10:00:00Z,--
@@ -89,6 +93,7 @@ Bremen,HB,2021-01-12T10:00:00Z,--
 Bremen,HB,2021-01-13T10:00:00Z,--
 Bremen,HB,2021-01-14T10:00:00Z,--
 Bremen,HB,2021-01-15T10:00:00Z,--
+Bremen,HB,2021-01-16T10:00:00Z,--
 Hamburg,HH,2020-12-28T15:15:00Z,--
 Hamburg,HH,2020-12-29T07:00:00Z,--
 Hamburg,HH,2020-12-30T10:00:00Z,--
@@ -107,6 +112,7 @@ Hamburg,HH,2021-01-12T10:00:00Z,--
 Hamburg,HH,2021-01-13T10:00:00Z,--
 Hamburg,HH,2021-01-14T10:00:00Z,--
 Hamburg,HH,2021-01-15T10:00:00Z,--
+Hamburg,HH,2021-01-16T10:00:00Z,--
 Hessen,HE,2020-12-28T15:15:00Z,--
 Hessen,HE,2020-12-29T07:00:00Z,--
 Hessen,HE,2020-12-30T10:00:00Z,--
@@ -125,6 +131,7 @@ Hessen,HE,2021-01-12T10:00:00Z,--
 Hessen,HE,2021-01-13T10:00:00Z,--
 Hessen,HE,2021-01-14T10:00:00Z,--
 Hessen,HE,2021-01-15T10:00:00Z,--
+Hessen,HE,2021-01-16T10:00:00Z,--
 Mecklenburg-Vorpommern,MV,2020-12-28T15:15:00Z,in einigen Bundesländern werden nicht alle der in der Tabelle aufgeführten Indikationen einzeln ausgewiesen.
 Mecklenburg-Vorpommern,MV,2020-12-29T07:00:00Z,--
 Mecklenburg-Vorpommern,MV,2020-12-30T10:00:00Z,--
@@ -143,6 +150,7 @@ Mecklenburg-Vorpommern,MV,2021-01-12T10:00:00Z,--
 Mecklenburg-Vorpommern,MV,2021-01-13T10:00:00Z,--
 Mecklenburg-Vorpommern,MV,2021-01-14T10:00:00Z,--
 Mecklenburg-Vorpommern,MV,2021-01-15T10:00:00Z,--
+Mecklenburg-Vorpommern,MV,2021-01-16T10:00:00Z,--
 Niedersachsen,NI,2020-12-28T15:15:00Z,--
 Niedersachsen,NI,2020-12-29T07:00:00Z,--
 Niedersachsen,NI,2020-12-30T10:00:00Z,--
@@ -161,6 +169,7 @@ Niedersachsen,NI,2021-01-12T10:00:00Z,--
 Niedersachsen,NI,2021-01-13T10:00:00Z,--
 Niedersachsen,NI,2021-01-14T10:00:00Z,--
 Niedersachsen,NI,2021-01-15T10:00:00Z,--
+Niedersachsen,NI,2021-01-16T10:00:00Z,--
 Nordrhein-Westfalen,NW,2020-12-28T15:15:00Z,in einigen Bundesländern werden nicht alle der in der Tabelle aufgeführten Indikationen einzeln ausgewiesen.
 Nordrhein-Westfalen,NW,2020-12-29T07:00:00Z,--
 Nordrhein-Westfalen,NW,2020-12-30T10:00:00Z,--
@@ -179,6 +188,7 @@ Nordrhein-Westfalen,NW,2021-01-12T10:00:00Z,--
 Nordrhein-Westfalen,NW,2021-01-13T10:00:00Z,--
 Nordrhein-Westfalen,NW,2021-01-14T10:00:00Z,--
 Nordrhein-Westfalen,NW,2021-01-15T10:00:00Z,--
+Nordrhein-Westfalen,NW,2021-01-16T10:00:00Z,--
 Rheinland-Pfalz,RP,2020-12-28T15:15:00Z,in einigen Bundesländern werden nicht alle der in der Tabelle aufgeführten Indikationen einzeln ausgewiesen.
 Rheinland-Pfalz,RP,2020-12-29T07:00:00Z,--
 Rheinland-Pfalz,RP,2020-12-30T10:00:00Z,--
@@ -197,6 +207,7 @@ Rheinland-Pfalz,RP,2021-01-12T10:00:00Z,--
 Rheinland-Pfalz,RP,2021-01-13T10:00:00Z,--
 Rheinland-Pfalz,RP,2021-01-14T10:00:00Z,--
 Rheinland-Pfalz,RP,2021-01-15T10:00:00Z,--
+Rheinland-Pfalz,RP,2021-01-16T10:00:00Z,--
 Saarland,SL,2020-12-28T15:15:00Z,--
 Saarland,SL,2020-12-29T07:00:00Z,--
 Saarland,SL,2020-12-30T10:00:00Z,--
@@ -215,6 +226,7 @@ Saarland,SL,2021-01-12T10:00:00Z,--
 Saarland,SL,2021-01-13T10:00:00Z,--
 Saarland,SL,2021-01-14T10:00:00Z,--
 Saarland,SL,2021-01-15T10:00:00Z,--
+Saarland,SL,2021-01-16T10:00:00Z,--
 Sachsen,SN,2020-12-28T15:15:00Z,--
 Sachsen,SN,2020-12-29T07:00:00Z,--
 Sachsen,SN,2020-12-30T10:00:00Z,--
@@ -233,6 +245,7 @@ Sachsen,SN,2021-01-12T10:00:00Z,--
 Sachsen,SN,2021-01-13T10:00:00Z,--
 Sachsen,SN,2021-01-14T10:00:00Z,--
 Sachsen,SN,2021-01-15T10:00:00Z,--
+Sachsen,SN,2021-01-16T10:00:00Z,--
 Sachsen-Anhalt,ST,2020-12-28T15:15:00Z,In Sachsen-Anhalt wurde bereits am 26.12.2020 mit den Impfungen begonnen..
 Sachsen-Anhalt,ST,2020-12-29T07:00:00Z,--
 Sachsen-Anhalt,ST,2020-12-30T10:00:00Z,--
@@ -251,6 +264,7 @@ Sachsen-Anhalt,ST,2021-01-12T10:00:00Z,--
 Sachsen-Anhalt,ST,2021-01-13T10:00:00Z,--
 Sachsen-Anhalt,ST,2021-01-14T10:00:00Z,--
 Sachsen-Anhalt,ST,2021-01-15T10:00:00Z,--
+Sachsen-Anhalt,ST,2021-01-16T10:00:00Z,--
 Schleswig-Holstein,SH,2020-12-28T15:15:00Z,--
 Schleswig-Holstein,SH,2020-12-29T07:00:00Z,--
 Schleswig-Holstein,SH,2020-12-30T10:00:00Z,--
@@ -269,6 +283,7 @@ Schleswig-Holstein,SH,2021-01-12T10:00:00Z,--
 Schleswig-Holstein,SH,2021-01-13T10:00:00Z,--
 Schleswig-Holstein,SH,2021-01-14T10:00:00Z,--
 Schleswig-Holstein,SH,2021-01-15T10:00:00Z,--
+Schleswig-Holstein,SH,2021-01-16T10:00:00Z,--
 Thüringen,TH,2020-12-28T15:15:00Z,--
 Thüringen,TH,2020-12-29T07:00:00Z,--
 Thüringen,TH,2020-12-30T10:00:00Z,--
@@ -287,6 +302,8 @@ Thüringen,TH,2021-01-12T10:00:00Z,--
 Thüringen,TH,2021-01-13T10:00:00Z,--
 Thüringen,TH,2021-01-14T10:00:00Z,--
 Thüringen,TH,2021-01-15T10:00:00Z,--
+Thüringen,TH,2021-01-16T10:00:00Z,--
+Deutschland,NA,NA,--
 Deutschland,NA,NA,--
 Deutschland,NA,NA,--
 Deutschland,NA,NA,--
