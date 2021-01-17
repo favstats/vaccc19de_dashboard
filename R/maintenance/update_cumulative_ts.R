@@ -11,4 +11,4 @@ cumulative_ts <- xlsxs %>%
 diffs_ts <- rki_extract_diffs(cumulative_ts)
 
 readr::write_csv(cumulative_ts, "data/cumulative_time_series.csv")
-readr::write_csv(cumulative_ts, "data/diffs_time_series.csv")
+readr::write_csv(diffs_ts, "data/diffs_time_series.csv")
