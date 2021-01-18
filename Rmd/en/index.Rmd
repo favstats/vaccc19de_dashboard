@@ -46,7 +46,7 @@ Population data for the federal states is taken from the [Federal Statistics Off
 
 The graphics in this dashboard show the *vaccination date* which is usually the day before the reporting date. However, sometimes there are delays and federal states do not report data until later. Therefore, please note the comments in the tooltips of the graphics (notes are in German). A dataset with all previous comments can be viewed [here](https://github.com/favstats/vaccc19de_dashboard/blob/main/data/notes_dat.csv){target="_blank"}.
 
-> Note: The RKI does not (yet) differentiate between first and second vaccination in its data.
+> `r emo::ji("warning")` Note: The RKI started to differentiate between first and seccond vaccination in its data on 2021-01-18. This resulted in a couple of changes in the structure of their Excel file (namely, more columns, multi-row column headers) which might not look drastic to the human eye but are significant to the code that we have written to read in the excel and put it into a better, more consistent format. Hence, we currently can't update the dashboard. We are working on fixing [this issue](https://github.com/favstats/vaccc19de_dashboard/issues/26). `r emo::ji("warning")`
 
 Authors: [Frie Preu](https://twitter.com/ameisen_strasse){target="_blank"} &  [Fabio Votta](https://twitter.com/favstats){target="_blank"}.
 
@@ -180,7 +180,7 @@ infobox2
 
 
 
-*Last Update: `r datenstand`*
+*Last Update: `r datenstand`* (please see `r emo::ji("warning")` above)
 
 **Recent notes (in German):**
 

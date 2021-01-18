@@ -5,8 +5,8 @@
 
 Ziel dieses Repository ist es den Fortschritt von COVID-19 Impfungen in
 Deutschland zu
-[dokumentieren](https://github.com/friep/vaccc19de_rki_data) und
-[visualisieren](https://favstats.github.io/vaccc19de_dashboard/).
+[dokumentieren](https://github.com/favstats/vaccc19de_dashboard/data/)
+und [visualisieren](https://favstats.github.io/vaccc19de_dashboard/).
 
 Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf
 dieser
@@ -17,6 +17,20 @@ heruntergeladen und mit Hilfe des [{vaccc19de} R
 
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen
 Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
+
+⚠️ Hinweis: Das RKI hat am 18.01.2021 angefangen, in seinen Daten nach
+erster und zweiter Impfung sowie nach Impfstoff (Moderna und Biontech)
+zu unterscheiden. Dies resultierte in einigen Veränderungen in der
+Struktur der Excel-Datei (z.B. mehr Spalten, mehrzeilige Spaltennamen),
+die zwar für das menschliche Auge gut und schnell zu verarbeiten sind,
+aber für den Code, den wir geschrieben haben, um das Excel einzulesen
+und in ein einheitlicheres Format zu bringen, Probleme darstellen. Wir
+arbeiten an einer Lösung des Problems, bitten aber an dieser Stelle um
+Geduld - wir machen dies beide in unserer Freizeit als
+[\#OpenSource](https://de.wikipedia.org/wiki/Open_Source) Projekt. Eine
+Google Suche “Corona Impfungen Dashboard” wird einige Alternativen zu
+unserem Dashboard zutage fördern. :) Wir hoffen, dass wir Sie/euch bald
+wieder mit den täglichen Updates versorgen können. ⚠️
 
 ![](img/infobox1_de.png) ![](img/infobox2_de.png)
 

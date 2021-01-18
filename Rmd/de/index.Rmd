@@ -46,7 +46,7 @@ Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen Bundesamt](
 Die Grafiken in diesem Dashboard zeigen das *Impfdatum* das heißt in der Regel ist das jeweils der Tag vor dem Meldedatum. Manchmal gibt es allerdings Verzögerungen und Bundesländer melden Daten erst später. Daher bitte die Anmerkungen in den Tooltips der Grafiken beachten. Ein Datensatz mit allen bisherigen Anmerkungen kann [hier](https://github.com/favstats/vaccc19de_dashboard/blob/main/data/notes_dat.csv){target="_blank"} eingesehen werden.
 
 
-> Hinweis: Das RKI unterscheidet in seinen Daten (noch) nicht zwischen erster und zweiter Impfung. 
+> `r emo::ji("warning")` Hinweis: Das RKI hat am 18.01.2021 angefangen, in seinen Daten nach erster und zweiter Impfung sowie nach Impfstoff (Moderna und Biontech) zu unterscheiden. Dies resultierte in einigen Veränderungen in der Struktur der Excel-Datei (z.B. mehr Spalten, mehrzeilige Spaltennamen), die zwar für das menschliche Auge gut und schnell zu verarbeiten sind, aber für den Code, den wir geschrieben haben, um das Excel einzulesen und in ein einheitlicheres Format zu bringen, Probleme darstellen. Wir arbeiten an einer Lösung des Problems, bitten aber an dieser Stelle um Geduld - wir machen dies beide in unserer Freizeit als [#OpenSource](https://de.wikipedia.org/wiki/Open_Source) Projekt. Eine Google Suche "Corona Impfungen Dashboard" wird einige Alternativen zu unserem Dashboard zutage fördern. :) Wir hoffen, dass wir Sie/euch bald wieder mit den täglichen Updates versorgen können. `r emo::ji("warning")`
 
 Autoren: [Frie Preu](https://twitter.com/ameisen_strasse){target="_blank"} &  [Fabio Votta](https://twitter.com/favstats){target="_blank"}.
 
@@ -192,7 +192,7 @@ ggsave(filename = "../../img/infobox2_de.png", plot = infobox2,
 
 
 
-*Letzter Datenstand: `r datenstand`*
+*Letzter Datenstand: `r datenstand`* (siehe `r emo::ji("warning")` oben)
 
 **Aktuelle Anmerkungen:**
 
