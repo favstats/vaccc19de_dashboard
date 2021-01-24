@@ -26,9 +26,6 @@ jobs:
           r-version: 'release'
       - name: Setup - Install vaccc19de
         run: |
-          install.packages('remotes')
-          remotes::install_github("friep/vaccc19de")
-          remotes::install_github("hadley/emo")
           install.packages('glue')
           install.packages('readr')
         shell: Rscript {0}
@@ -60,6 +57,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: "Setup - Install Packages"
         run: |
+          install.packages('remotes')
+          remotes::install_github("hadley/emo")
           install.packages('tidyverse')
           install.packages('highcharter')
           install.packages('emojifont')
