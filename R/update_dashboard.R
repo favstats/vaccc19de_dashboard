@@ -67,9 +67,9 @@ rmarkdown::render("README.Rmd")
 ## for some reason it always generates an HTML too so delete it
 file.remove("README.html")
 
-file.copy("icon/favicon.svg", to = "docs/favicon.svg", overwrite = T)
-file.copy("icon/favicon.svg", to = "docs/en/favicon.svg", overwrite = T)
-file.copy("icon/favicon.svg", to = "docs/de/favicon.svg", overwrite = T)
+# file.copy("icon/favicon.svg", to = "docs/favicon.svg", overwrite = T)
+# file.copy("icon/favicon.svg", to = "docs/en/favicon.svg", overwrite = T)
+# file.copy("icon/favicon.svg", to = "docs/de/favicon.svg", overwrite = T)
 
 
 # notes_dat <- rki_dat %>%
