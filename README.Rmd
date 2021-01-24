@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 Ziel dieses Repository ist es den Fortschritt von COVID-19 Impfungen in Deutschland zu [dokumentieren](https://github.com/favstats/vaccc19de_dashboard/data/) und [visualisieren](https://favstats.github.io/vaccc19de_dashboard/).
 
-Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Seite](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html) bereitgestellt. Die hier dargestellten Daten werden nach jedem Update heruntergeladen und mit Hilfe des [{vaccc19de} R :package:](https://github.com/friep/vaccc19de) aufbereitet.
+Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Seite](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html) bereitgestellt.  Die hier dargestellten Daten werden von diesem öffentlichen [ARD Data GitHub repository](https://github.com/ard-data/2020-rki-impf-archive){target="_blank"} bezogen. 
 
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
 

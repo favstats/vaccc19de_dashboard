@@ -11,14 +11,14 @@ und [visualisieren](https://favstats.github.io/vaccc19de_dashboard/).
 Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf
 dieser
 Seite](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html)
-bereitgestellt. Die hier dargestellten Daten werden nach jedem Update
-heruntergeladen und mit Hilfe des [{vaccc19de} R
-:package:](https://github.com/friep/vaccc19de) aufbereitet.
+bereitgestellt. Die hier dargestellten Daten werden von diesem
+öffentlichen [ARD Data GitHub
+repository](https://github.com/ard-data/2020-rki-impf-archive) bezogen.
 
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen
 Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
 
-💷 Hinweis: Das RKI hat am 18.01.2021 angefangen, in seinen Daten nach
+💸 Hinweis: Das RKI hat am 18.01.2021 angefangen, in seinen Daten nach
 erster und zweiter Impfung sowie nach Impfstoff (Moderna und Biontech)
 zu unterscheiden. Dies resultierte in einigen Veränderungen in der
 Struktur der Excel-Datei (z.B. mehr Spalten, mehrzeilige Spaltennamen),
@@ -27,7 +27,7 @@ aber für den Code, den wir geschrieben haben, um das Excel einzulesen
 und in ein einheitlicheres Format zu bringen, Probleme darstellen. Seit
 dem 24.01.2021 beziehen wir nun die Impfdaten von diesem öffentlichen
 [GitHub repository von ARD
-Data](https://github.com/ard-data/2020-rki-impf-archive) 📝
+Data](https://github.com/ard-data/2020-rki-impf-archive) 🗒
 
 ![](img/infobox1_de.png) ![](img/infobox2_de.png)
 
