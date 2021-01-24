@@ -28,6 +28,7 @@ jobs:
         run: |
           install.packages('glue')
           install.packages('readr')
+          install.packages('fs')
         shell: Rscript {0}
       - name: Setup - Checkout repo
         uses: actions/checkout@v2
