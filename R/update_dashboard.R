@@ -6,7 +6,7 @@ source("R/utils.R")
 
 # raw_dat <- read_csv("data/cumulative_time_series.csv")
 
-raw_dat <- read_csv("https://raw.githubusercontent.com/ard-data/2020-rki-impf-archive/master/data/2_csv/all.csv")
+raw_dat <- read_csv("data/ard_data.csv")
 
 rki_dat <- raw_dat %>%
   filter(metric %in% c("impfungen_kumulativ", "differenz_zum_vortag")) %>%
@@ -18,6 +18,8 @@ rki_dat <- raw_dat %>%
 
 ## population data (see get_pop_dar.R)
 pop_dat <- readRDS("data/pop_dat.RDS")
+
+notes_dat <- read_csv("data/notes_dat.csv")
 
 ## join in pop_dat
 rki_dat <- rki_dat %>%

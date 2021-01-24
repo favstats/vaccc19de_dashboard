@@ -45,7 +45,8 @@ The vaccination data is provided by the [Robert Koch Institute (RKI)](https://ww
 
 Population data for the federal states is taken from the [Federal Statistics Office (Statistisches Bundesamt)](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html){target="_blank"}.
 
-The graphics in this dashboard show the *vaccination date* which is usually the day before the reporting date. However, sometimes there are delays and federal states do not report data until later. Therefore, please note the comments in the tooltips of the graphics (notes are in German). A dataset with all previous comments can be viewed [here](https://github.com/favstats/vaccc19de_dashboard/blob/main/data/notes_dat.csv){target="_blank"}.
+The graphics in this dashboard show the *vaccination date* which is usually the day before the reporting date. However, sometimes there are delays and federal states do not report data until later. Therefore, please note the comments in the tooltips of the graphics (notes are in German) **NOTE: The notes are currently not being updated! Check the raw .xlsx files if you want to look at them: [ARD Data GitHub repository](https://github.com/ard-data/2020-rki-impf-archive){target="_blank"}.** 
+
 
 Authors: [Frie Preu](https://twitter.com/ameisen_strasse){target="_blank"} &  [Fabio Votta](https://twitter.com/favstats){target="_blank"}.
 
@@ -181,34 +182,34 @@ infobox2
 
 *Last Update: `r datenstand`*
 
-**Recent notes (in German):**
+<!-- **Recent notes (in German):** -->
 
-```{r, results = "asis"}
-notes_dat <- latest_dat %>% 
-  drop_na(notes)
-
-
-if(nrow(notes_dat)!=0){
-  notes_dat %>% 
-    mutate(notes = ifelse(stringi::stri_startswith_fixed(notes, "("),
-                          str_remove(notes, "\\("),
-                          notes),
-           notes = ifelse(stringi::stri_endswith_fixed(notes, ")") ,
-                          str_sub(notes, 1, str_length(notes)-1),
-                          notes),
-           notes = ifelse(!stringi::stri_endswith_fixed(notes, "\\.") ,
-                          paste0(notes, "."),
-                          notes)) %>% 
-    mutate(note_display = glue::glue("{bundesland}: *{notes}*")) %>% 
-    pull(note_display) %>% 
-    paste0(collapse = "\n\n")  %>% 
-    cat()
-} else {
-  cat("*No notes.*")
-}
+<!-- ```{r, results = "asis"} -->
+<!-- notes_dat <- latest_dat %>%  -->
+<!--   drop_na(notes) -->
 
 
-```
+<!-- if(nrow(notes_dat)!=0){ -->
+<!--   notes_dat %>%  -->
+<!--     mutate(notes = ifelse(stringi::stri_startswith_fixed(notes, "("), -->
+<!--                           str_remove(notes, "\\("), -->
+<!--                           notes), -->
+<!--            notes = ifelse(stringi::stri_endswith_fixed(notes, ")") , -->
+<!--                           str_sub(notes, 1, str_length(notes)-1), -->
+<!--                           notes), -->
+<!--            notes = ifelse(!stringi::stri_endswith_fixed(notes, "\\.") , -->
+<!--                           paste0(notes, "."), -->
+<!--                           notes)) %>%  -->
+<!--     mutate(note_display = glue::glue("{bundesland}: *{notes}*")) %>%  -->
+<!--     pull(note_display) %>%  -->
+<!--     paste0(collapse = "\n\n")  %>%  -->
+<!--     cat() -->
+<!-- } else { -->
+<!--   cat("*No notes.*") -->
+<!-- } -->
+
+
+<!-- ``` -->
 
 
 
