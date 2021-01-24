@@ -20,7 +20,8 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
 source("../../R/utils.R")
 
-rki_dat <- readRDS("../../data/rki_dat.RDS")
+rki_dat <- readRDS("../../data/rki_dat.RDS") %>% 
+  mutate(notes = NA)
 
 de_dat <- rki_dat %>% 
   filter(bundesland == "Deutschland")
