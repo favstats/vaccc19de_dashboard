@@ -328,14 +328,14 @@ $(document).ready(function () {
 <p>Ziel dieses <a href="https://favstats.github.io/vaccc19de_dashboard/" target="_blank">Dashboards</a> ist es den Fortschritt von COVID-19 Impfungen in Deutschland zu dokumentieren und visualisieren.</p>
 <p>Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) <a href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html" target="_blank">auf dieser Seite</a> bereitgestellt. Die hier dargestellten Daten werden von diesem öffentlichen <a href="https://github.com/ard-data/2020-rki-impf-archive" target="_blank">ARD Data GitHub repository</a> bezogen.</p>
 <p>Bevölkerungsdaten für die Bundesländer stammen vom <a href="https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html" target="_blank">Statistischen Bundesamt</a>.</p>
-<p>Die Grafiken in diesem Dashboard zeigen das <em>Impfdatum</em> das heißt in der Regel ist das jeweils der Tag vor dem Meldedatum. Manchmal gibt es allerdings Verzögerungen und Bundesländer melden Daten erst später. Daher bitte die Anmerkungen in den Tooltips der Grafiken beachten. Ein Datensatz mit allen bisherigen Anmerkungen kann <a href="https://github.com/favstats/vaccc19de_dashboard/blob/main/data/notes_dat.csv" target="_blank">hier</a> eingesehen werden.</p>
+<p>Die Grafiken in diesem Dashboard zeigen das <em>Impfdatum</em> das heißt in der Regel ist das jeweils der Tag vor dem Meldedatum. Manchmal gibt es allerdings Verzögerungen und Bundesländer melden Daten erst später. Daher bitte die Anmerkungen in den Tooltips der Grafiken beachten. <strong>NOTE: Die Notizen werden derzeit nicht aktualisiert! Überprüfe die die XLSX-Rohdateien, wenn du an den Notizen interessiert bist: <a href="https://github.com/ard-data/2020-rki-impf-archive" target="_blank">ARD Data GitHub repository</a>.</strong></p>
 <blockquote>
 <p>📝 Hinweis: Das RKI hat am 18.01.2021 angefangen, in seinen Daten nach erster und zweiter Impfung sowie nach Impfstoff (Moderna und Biontech) zu unterscheiden. Dies resultierte in einigen Veränderungen in der Struktur der Excel-Datei (z.B. mehr Spalten, mehrzeilige Spaltennamen), die zwar für das menschliche Auge gut und schnell zu verarbeiten sind, aber für den Code, den wir geschrieben haben, um das Excel einzulesen und in ein einheitlicheres Format zu bringen, Probleme darstellen. Seit dem 24.01.2021 beziehen wir nun die Impfdaten von diesem öffentlichen <a href="https://github.com/ard-data/2020-rki-impf-archive">ARD Data GitHub repository</a> 📝</p>
 </blockquote>
 <p>Autoren: <a href="https://twitter.com/ameisen_strasse" target="_blank">Frie Preu</a> &amp; <a href="https://twitter.com/favstats" target="_blank">Fabio Votta</a>.</p>
 <center>
 <p><img src="index_files/figure-html/infobox-1.png" width="100%" style="display: block; margin: auto;" /><img src="index_files/figure-html/infobox-2.png" width="100%" style="display: block; margin: auto;" /></p>
-<p><em>Letzter Datenstand: 23.01.2021 11:00:00</em> (siehe ⚠️ oben)</p>
+<p><em>Letzter Datenstand: 23.01.2021 11:00:00</em></p>
 <!-- **Aktuelle Anmerkungen:** -->
 <!-- ```{r, results = "asis"} -->
 <!-- notes_dat <- latest_dat %>%  -->
