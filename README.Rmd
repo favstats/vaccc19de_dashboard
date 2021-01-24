@@ -20,7 +20,7 @@ Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Sei
 
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
 
-`r emo::ji("warning")` Hinweis: Das RKI hat am 18.01.2021 angefangen, in seinen Daten nach erster und zweiter Impfung sowie nach Impfstoff (Moderna und Biontech) zu unterscheiden. Dies resultierte in einigen Veränderungen in der Struktur der Excel-Datei (z.B. mehr Spalten, mehrzeilige Spaltennamen), die zwar für das menschliche Auge gut und schnell zu verarbeiten sind, aber für den Code, den wir geschrieben haben, um das Excel einzulesen und in ein einheitlicheres Format zu bringen, Probleme darstellen. Wir arbeiten an einer Lösung des Problems, bitten aber an dieser Stelle um Geduld - wir machen dies beide in unserer Freizeit als [#OpenSource](https://de.wikipedia.org/wiki/Open_Source) Projekt. Eine Google Suche "Corona Impfungen Dashboard" wird einige Alternativen zu unserem Dashboard zutage fördern. :) Wir hoffen, dass wir Sie/euch bald wieder mit den täglichen Updates versorgen können. `r emo::ji("warning")`
+`r emo::ji("note")` Hinweis: Das RKI hat am 18.01.2021 angefangen, in seinen Daten nach erster und zweiter Impfung sowie nach Impfstoff (Moderna und Biontech) zu unterscheiden. Dies resultierte in einigen Veränderungen in der Struktur der Excel-Datei (z.B. mehr Spalten, mehrzeilige Spaltennamen), die zwar für das menschliche Auge gut und schnell zu verarbeiten sind, aber für den Code, den wir geschrieben haben, um das Excel einzulesen und in ein einheitlicheres Format zu bringen, Probleme darstellen. Seit dem 24.01.2021 beziehen wir nun die Impfdaten von diesem öffentlichen [GitHub repository von ARD Data](https://github.com/ard-data/2020-rki-impf-archive) `r emo::ji("note")`
 
 ![](img/infobox1_de.png)
 ![](img/infobox2_de.png)
@@ -30,10 +30,14 @@ library(tidyverse)
 
 data <- readr::read_csv("data/cumulative_time_series.csv")
 
-latest_dat <- data %>% 
-  filter(ts_datenstand == max(ts_datenstand))
 
-datenstand <- unique(latest_dat$ts_datenstand) %>%  
+data <- readRDS(rki_dat, file = "data/rki_dat.RDS")
+
+latest_dat <- data %>% 
+  filter(publication_date == max(publication_date)) %>% 
+  mutate(notes = NA)
+
+datenstand <- unique(latest_dat$publication_date) %>%  
   lubridate::with_tz(tz = "Europe/Berlin") %>% 
   format("%d.%m.%Y %H:%M:%S")
 ```

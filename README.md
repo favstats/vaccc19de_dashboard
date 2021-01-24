@@ -18,55 +18,26 @@ heruntergeladen und mit Hilfe des [{vaccc19de} R
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen
 Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
 
-⚠️ Hinweis: Das RKI hat am 18.01.2021 angefangen, in seinen Daten nach
+💷 Hinweis: Das RKI hat am 18.01.2021 angefangen, in seinen Daten nach
 erster und zweiter Impfung sowie nach Impfstoff (Moderna und Biontech)
 zu unterscheiden. Dies resultierte in einigen Veränderungen in der
 Struktur der Excel-Datei (z.B. mehr Spalten, mehrzeilige Spaltennamen),
 die zwar für das menschliche Auge gut und schnell zu verarbeiten sind,
 aber für den Code, den wir geschrieben haben, um das Excel einzulesen
-und in ein einheitlicheres Format zu bringen, Probleme darstellen. Wir
-arbeiten an einer Lösung des Problems, bitten aber an dieser Stelle um
-Geduld - wir machen dies beide in unserer Freizeit als
-[\#OpenSource](https://de.wikipedia.org/wiki/Open_Source) Projekt. Eine
-Google Suche “Corona Impfungen Dashboard” wird einige Alternativen zu
-unserem Dashboard zutage fördern. :) Wir hoffen, dass wir Sie/euch bald
-wieder mit den täglichen Updates versorgen können. ⚠️
+und in ein einheitlicheres Format zu bringen, Probleme darstellen. Seit
+dem 24.01.2021 beziehen wir nun die Impfdaten von diesem öffentlichen
+[GitHub repository von ARD
+Data](https://github.com/ard-data/2020-rki-impf-archive) 📝
 
 ![](img/infobox1_de.png) ![](img/infobox2_de.png)
 
 <center>
 
-*Letzter Datenstand: 18.01.2021 11:00:00*
+*Letzter Datenstand: 23.01.2021 11:00:00*
 
 **Aktuelle Anmerkungen:**
 
-Baden-Württemberg: *114954 0 5352 1.0355848630237809 0.*
-
-Bayern: *213837 0 5296 1.6292669331202598 0.*
-
-Berlin: *52162 460 1571 1.4340408519873737 1933.*
-
-Brandenburg: *38474 0 0 1.5256000155438791 0.*
-
-Bremen: *11845 0 394 1.7388381126303212 0.*
-
-Hamburg: *24468 0 1184 1.3245613892628676 425.*
-
-Hessen: *72816 0 926 1.1580005343443467 1736.*
-
-Mecklenburg-Vorpommern: *37444 120 0 2.3358691853559832 0.*
-
-Niedersachsen: *88766 1239 813 1.1259621437528586 335.*
-
-Nordrhein-Westfalen: *211779 0 5728 1.180009985947128 906.*
-
-Rheinland-Pfalz: *81905 905 2879 2.0227640957785273 350.*
-
-Saarland: *15711 0 250 1.5919755757244751 0.*
-
-Sachsen: *50002 0 3019 1.2279557000774317 155.*
-
-Sachsen-Anhalt: *33148 0 21 1.5103094521460445 624.*
+*Keine Anmerkungen.*
 
 Twitter Bot für tägliche Updates:
 [vaccc19de](https://twitter.com/vaccc19de)
@@ -116,20 +87,20 @@ Read in directly from GitHub using R:
 cumulative_ts <- readr::read_csv("https://raw.githubusercontent.com/favstats/vaccc19de_dashboard/main/data/cumulative_time_series.csv")
 ```
 
-| col                               | type      | description                                                                                                                      |
-| :-------------------------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------------- |
-| ts\_datenstand                    | datetime  | datetime until which data is included (‘Datenstand’) as specified in the Excel file. Given in UTC                                |
-| ts\_download                      | datetime  | datetime when data was downloaded from RKI website. Given in UTC                                                                 |
-| bundesland                        | character | full name of Bundesland                                                                                                          |
-| bundesland\_iso                   | character | ISO 3166-2 of Bundesland                                                                                                         |
-| impfungen\_kumulativ              | double    | Cumulative total number of vaccinations in the Bundesland                                                                        |
-| differenz\_zum\_vortag            | double    | Difference to previous day (\~roughly corresponds to people vaccinated since then although delays in reporting could be the case |
-| indikation\_nach\_alter           | double    | Total number of people vaccinated because of their age so far (cumulative)                                                       |
-| berufliche\_indikation            | double    | Total number of people vaccinated because of their profession so far (cumulative)                                                |
-| medizinische\_indikation          | double    | Total number of people vaccinated because of medical reasons so far (cumulative)                                                 |
-| pflegeheim\_bewohner\_in          | double    | Total number of people in nursing homes so far (cumulative)                                                                      |
-| notes                             | character | Notes as indicated by \* at the bottom of the Excel sheet and stored in unnamed columns.                                         |
-| impfungen\_pro\_1\_000\_einwohner | character | vaccinations per 1000 inhabitants                                                                                                |
+| col                         | type      | description                                                                                                                      |
+| :-------------------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| bundesland                  | datetime  | datetime until which data is included (‘Datenstand’) as specified in the Excel file. Given in UTC                                |
+| colors                      | datetime  | datetime when data was downloaded from RKI website. Given in UTC                                                                 |
+| day                         | character | full name of Bundesland                                                                                                          |
+| publication\_date           | character | ISO 3166-2 of Bundesland                                                                                                         |
+| bundesland\_iso             | double    | Cumulative total number of vaccinations in the Bundesland                                                                        |
+| impfungen\_kumulativ        | double    | Difference to previous day (\~roughly corresponds to people vaccinated since then although delays in reporting could be the case |
+| differenz\_zum\_vortag      | double    | Total number of people vaccinated because of their age so far (cumulative)                                                       |
+| insgesamt                   | double    | Total number of people vaccinated because of their profession so far (cumulative)                                                |
+| prozent\_geimpft            | double    | Total number of people vaccinated because of medical reasons so far (cumulative)                                                 |
+| prozent\_geimpft\_label     | double    | Total number of people in nursing homes so far (cumulative)                                                                      |
+| impfungen\_kumulativ\_label | character | Notes as indicated by \* at the bottom of the Excel sheet and stored in unnamed columns.                                         |
+| NA                          | character | vaccinations per 1000 inhabitants                                                                                                |
 
 ### `data/diffs_time_series.csv`
 
