@@ -7,12 +7,13 @@ source("R/utils.R")
 # raw_dat <- read_csv("data/cumulative_time_series.csv")
 
 raw_dat <- read_csv("data/ard_data.csv")
+load("data/BUNDESLAND_TO_ISO.rda")
 
 rki_dat <- raw_dat %>%
   filter(metric %in% c("impfungen_kumulativ", "differenz_zum_vortag")) %>%
   pivot_wider(names_from = metric, values_from = value) %>%
   rename(bundesland_iso = region) %>%
-  left_join(vaccc19de::BUNDESLAND_TO_ISO) %>%
+  left_join(BUNDESLAND_TO_ISO) %>%
   mutate(bundesland = ifelse(bundesland_iso == "DE", "Deutschland", bundesland))
 
 

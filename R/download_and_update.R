@@ -1,5 +1,4 @@
 library(readr)
-library(vaccc19de)
 
 ts_download <- Sys.time()
 
