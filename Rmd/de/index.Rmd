@@ -39,25 +39,24 @@ prelatest_dat <- rki_dat %>%
 
 Ziel dieses [Dashboards](https://favstats.github.io/vaccc19de_dashboard/){target="_blank"} ist es den Fortschritt von COVID-19 Impfungen in Deutschland zu dokumentieren und visualisieren. 
 
-Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Seite](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html){target="_blank"} bereitgestellt. Die hier dargestellten Daten wurden mit Hilfe des R packages [vaccc19de](https://github.com/friep/vaccc19de){target="_blank"} aufbereitet.
+Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf dieser Seite](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html){target="_blank"} bereitgestellt. Die hier dargestellten Daten werden von diesem öffentlichen [ARD Data GitHub repository](https://github.com/ard-data/2020-rki-impf-archive){target="_blank"} bezogen. 
 
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html){target="_blank"}.
 
-Die Grafiken in diesem Dashboard zeigen das *Impfdatum* das heißt in der Regel ist das jeweils der Tag vor dem Meldedatum. Manchmal gibt es allerdings Verzögerungen und Bundesländer melden Daten erst später. Daher bitte die Anmerkungen in den Tooltips der Grafiken beachten. Ein Datensatz mit allen bisherigen Anmerkungen kann [hier](https://github.com/favstats/vaccc19de_dashboard/blob/main/data/notes_dat.csv){target="_blank"} eingesehen werden.
+Die Grafiken in diesem Dashboard zeigen das *Impfdatum* das heißt in der Regel ist das jeweils der Tag vor dem Meldedatum. Manchmal gibt es allerdings Verzögerungen und Bundesländer melden Daten erst später. Daher bitte die Anmerkungen in den Tooltips der Grafiken beachten. **NOTE: Die Notizen werden derzeit nicht aktualisiert! Überprüfe die die XLSX-Rohdateien, wenn du an den Notizen interessiert bist: [ARD Data GitHub repository](https://github.com/ard-data/2020-rki-impf-archive){target="_blank"}.** 
 
-
-> `r emo::ji("warning")` Hinweis: Das RKI hat am 18.01.2021 angefangen, in seinen Daten nach erster und zweiter Impfung sowie nach Impfstoff (Moderna und Biontech) zu unterscheiden. Dies resultierte in einigen Veränderungen in der Struktur der Excel-Datei (z.B. mehr Spalten, mehrzeilige Spaltennamen), die zwar für das menschliche Auge gut und schnell zu verarbeiten sind, aber für den Code, den wir geschrieben haben, um das Excel einzulesen und in ein einheitlicheres Format zu bringen, Probleme darstellen. Wir arbeiten an einer Lösung des Problems, bitten aber an dieser Stelle um Geduld - wir machen dies beide in unserer Freizeit als [#OpenSource](https://de.wikipedia.org/wiki/Open_Source) Projekt. Eine Google Suche "Corona Impfungen Dashboard" wird einige Alternativen zu unserem Dashboard zutage fördern. :) Wir hoffen, dass wir Sie/euch bald wieder mit den täglichen Updates versorgen können. `r emo::ji("warning")`
+> `r emo::ji("memo")` Hinweis: Das RKI hat am 18.01.2021 angefangen, in seinen Daten nach erster und zweiter Impfung sowie nach Impfstoff (Moderna und Biontech) zu unterscheiden. Dies resultierte in einigen Veränderungen in der Struktur der Excel-Datei (z.B. mehr Spalten, mehrzeilige Spaltennamen), die zwar für das menschliche Auge gut und schnell zu verarbeiten sind, aber für den Code, den wir geschrieben haben, um das Excel einzulesen und in ein einheitlicheres Format zu bringen, Probleme darstellen. Seit dem 24.01.2021 beziehen wir nun die Impfdaten von diesem öffentlichen [ARD Data GitHub repository](https://github.com/ard-data/2020-rki-impf-archive) `r emo::ji("memo")`
 
 Autoren: [Frie Preu](https://twitter.com/ameisen_strasse){target="_blank"} &  [Fabio Votta](https://twitter.com/favstats){target="_blank"}.
 
 <center>
 
 ```{r}
-datenstand <- unique(latest_dat$ts_datenstand) %>% 
+datenstand <- unique(latest_dat$publication_date) %>% 
   lubridate::with_tz(tz = "Europe/Berlin") %>% 
   format("%d.%m.%Y %H:%M:%S")
 
-datenstand_day <- unique(latest_dat$ts_datenstand) %>% 
+datenstand_day <- unique(latest_dat$publication_date) %>% 
   lubridate::with_tz(tz = "Europe/Berlin") %>% 
   format("%d.%m.%Y")
 ```
@@ -192,27 +191,27 @@ ggsave(filename = "../../img/infobox2_de.png", plot = infobox2,
 
 
 
-*Letzter Datenstand: `r datenstand`* (siehe `r emo::ji("warning")` oben)
+*Letzter Datenstand: `r datenstand`* 
 
-**Aktuelle Anmerkungen:**
+<!-- **Aktuelle Anmerkungen:** -->
 
-```{r, results = "asis"}
-notes_dat <- latest_dat %>% 
-  drop_na(notes)
-
-
-if(nrow(notes_dat)!=0){
-  notes_dat %>% 
-    mutate(note_display = glue::glue("{bundesland}: *{notes}*")) %>% 
-    pull(note_display) %>% 
-    paste0(collapse = "\n\n")  %>% 
-    cat()
-} else {
-  cat("*Keine Anmerkungen.*")
-}
+<!-- ```{r, results = "asis"} -->
+<!-- notes_dat <- latest_dat %>%  -->
+<!--   drop_na(notes) -->
 
 
-```
+<!-- if(nrow(notes_dat)!=0){ -->
+<!--   notes_dat %>%  -->
+<!--     mutate(note_display = glue::glue("{bundesland}: *{notes}*")) %>%  -->
+<!--     pull(note_display) %>%  -->
+<!--     paste0(collapse = "\n\n")  %>%  -->
+<!--     cat() -->
+<!-- } else { -->
+<!--   cat("*Keine Anmerkungen.*") -->
+<!-- } -->
+
+
+<!-- ``` -->
 
 
 
@@ -253,7 +252,7 @@ ggsave(filename = "../../img/total-zeit_de.png", plot = gg_bv,
 ```
 
 
-```{r}
+```{r, eval = F}
 ## download buttons
 cumulative_time_series <- read_csv("../../data/cumulative_time_series.csv")
 diffs_time_series <- read_csv("../../data/diffs_time_series.csv")

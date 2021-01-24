@@ -1,39 +1,25 @@
 library(readr)
-library(vaccc19de)
 
-# download
-xlsx_path <- rki_download_xlsx("data/raw")
+ts_download <- Sys.time()
 
-# store raw data
-csv_paths <- rki_extract_sheet_csvs(xlsx_path, "data/raw")
+rki_data <- read_csv("https://raw.githubusercontent.com/ard-data/2020-rki-impf-archive/master/data/2_csv/all.csv")
 
-# extract
-rki_data <- rki_extract_cumulative_data(xlsx_path)
 
 # update time series
 # read in existing data
-cumulative <- readr::read_csv("data/cumulative_time_series.csv")
+historic <- readr::read_csv("data/ard_data.csv")
 
 # check whether the new Datenstand is already in the time series data
-if (unique(rki_data$ts_datenstand) == max(cumulative$ts_datenstand)) {
+if (max(rki_data$publication_date) == max(historic$publication_date)) {
   # no new data
   print(glue::glue("No new data. Skipping update."))
   readr::write_lines("no_update", "/tmp/ts_datenstand.txt")
   readr::write_lines("no_update", "/tmp/ts_download.txt")
-  fs::file_delete(c(xlsx_path, csv_paths))
   quit(status = 0, save = "no")
 }
 
-# append
-cumulative <- cumulative %>%
-  dplyr::bind_rows(rki_data)
-
-# calculate diffs
-diffs <- rki_extract_diffs(cumulative)
-
-cumulative %>% readr::write_csv("data/cumulative_time_series.csv")
-diffs %>% readr::write_csv("data/diffs_time_series.csv")
+readr::write_csv(rki_data, "data/ard_data.csv")
 
 # write out ts_download and ts_datenstand for gh actions
-readr::write_lines(format(unique(rki_data$ts_datenstand), "%Y-%m-%dT%H%M%S", tz = "Europe/Berlin"), "/tmp/ts_datenstand.txt")
-readr::write_lines(format(unique(rki_data$ts_download), "%Y-%m-%dT%H%M%S", tz = "Europe/Berlin"), "/tmp/ts_download.txt")
+readr::write_lines(format(max(rki_data$publication_date), "%Y-%m-%dT%H%M%S", tz = "Europe/Berlin"), "/tmp/ts_datenstand.txt")
+readr::write_lines(format(ts_download, "%Y-%m-%dT%H%M%S", tz = "Europe/Berlin"), "/tmp/ts_download.txt")
