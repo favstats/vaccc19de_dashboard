@@ -28,6 +28,7 @@ jobs:
         run: |
           install.packages('remotes')
           remotes::install_github("friep/vaccc19de")
+          remotes::install_github("hadley/emo")
           install.packages('glue')
           install.packages('readr')
         shell: Rscript {0}

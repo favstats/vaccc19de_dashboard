@@ -1,6 +1,8 @@
 name: "Dashboard: COVID-19 Impfungen"
 output_dir: "../../docs"
 navbar:
+  logo:
+    image: icon/dose.png
   title: "COVID-19 Impfungsdaten des RKI"
   left:
     - text: "Info"
