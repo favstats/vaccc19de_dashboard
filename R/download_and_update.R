@@ -15,7 +15,6 @@ if (max(rki_data$publication_date) == max(historic$publication_date)) {
   print(glue::glue("No new data. Skipping update."))
   readr::write_lines("no_update", "/tmp/ts_datenstand.txt")
   readr::write_lines("no_update", "/tmp/ts_download.txt")
-  fs::file_delete(c(xlsx_path, csv_paths))
   quit(status = 0, save = "no")
 }
 
