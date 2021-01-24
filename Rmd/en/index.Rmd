@@ -55,10 +55,10 @@ Authors: [Frie Preu](https://twitter.com/ameisen_strasse){target="_blank"} &  [F
 
 
 ```{r}
-datenstand <- unique(latest_dat$ts_datenstand) %>% 
+datenstand <- unique(latest_dat$publication_date) %>% 
   lubridate::with_tz(tz = "Europe/Berlin") 
 
-datenstand_day <- unique(latest_dat$ts_datenstand) %>% 
+datenstand_day <- unique(latest_dat$publication_date) %>% 
   lubridate::with_tz(tz = "Europe/Berlin") %>% lubridate::as_date()
 ```
 
@@ -180,7 +180,7 @@ infobox2
 
 
 
-*Last Update: `r datenstand`* (please see `r emo::ji("warning")` above)
+*Last Update: `r datenstand`*
 
 **Recent notes (in German):**
 

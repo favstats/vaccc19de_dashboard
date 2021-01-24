@@ -8,7 +8,7 @@ pop_dat <- read_html("https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevo
   html_table(fill = T) %>%
   .[[1]] %>%
   janitor::clean_names() %>%
-  slice(4:19) %>%
+  slice(3:19) %>%
   select(1:2) %>%
   rowwise() %>%
   mutate(insgesamt = str_extract_all(insgesamt, "\\d") %>% unlist %>% paste0(collapse = "") %>% as.numeric) %>%

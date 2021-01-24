@@ -19,7 +19,8 @@ library(highcharter)
 knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
 rki_dat <- readRDS("../../data/rki_dat.RDS") %>% 
-  mutate(notes = ifelse(is.na(notes), "--", notes))
+  # mutate(notes = ifelse(is.na(notes), "--", notes))
+  mutate(notes = "--")
 
 source("../../R/utils.R")
 
@@ -194,40 +195,11 @@ The following graphs show the number of vaccinations administered each day.
 
 
 ```{r}
-bundesland_colors <- c(colorspace::qualitative_hcl(16, palette = "Dark 3", rev = T), "#000000")
-
-
-
-## create German total data
-de_dat_diffs <- diffs %>%
-  group_by(day) %>%
-  summarise(impfungen_neu = sum(impfungen_neu, na.rm = T)) %>%
-  mutate(bundesland = "Deutschland") %>% 
-  ungroup()
-
-
- diffs <- diffs %>% 
-  bind_rows(de_dat_diffs)
- 
- first_dat <- rki_dat %>% 
-  filter(ts_datenstand == min(ts_datenstand, na.rm = T)) %>%
-  select(bundesland, impfungen_kumulativ)
-
-##combine color dat with rki_dat
-diffs_dat <- diffs %>% 
-  bind_rows(de_dat_diffs) %>%
-  distinct(bundesland) %>%
-  mutate(colors = bundesland_colors) %>%
-  right_join(diffs)  %>% 
-  left_join(first_dat) %>% 
-  mutate(impfungen_neu = case_when(
-    ts_datenstand == min(ts_datenstand, na.rm = T) ~ impfungen_kumulativ,
-    is.na(impfungen_neu) ~ 0, 
-    T ~ impfungen_neu))%>%
-  mutate(impfungen_neu_label = scales::label_number()(impfungen_neu) %>% str_remove_all("\\.0"))  %>% 
-  mutate(notes = ifelse(is.na(notes), "--", notes))%>% 
+diffs_dat <- rki_dat %>% 
+  rename(impfungen_neu = differenz_zum_vortag)%>%
+  mutate(impfungen_neu_label = scales::label_number()(impfungen_neu) %>% str_remove_all("\\.0"))  %>%
+  mutate(notes = ifelse(is.na(notes), "--", notes))%>%
   mutate(bundesland = fct_relevel(bundesland, "Deutschland"))
-
 
 
 ```
@@ -238,23 +210,10 @@ diffs_dat <- diffs %>%
 
 ```{r}
 
-
-
- # %>% 
- #  group_by(iso_code, continent, location) %>% 
- #  mutate(
- #    new_deaths_7day_rollmean = RcppRoll::roll_meanr(new_deaths, n = 7),
- #    new_deaths_7day_rollmean = ifelse(is.na(new_deaths_7day_rollmean), 0, new_deaths_7day_rollmean),
- #    new_deaths_7day_rollmean = round(new_deaths_7day_rollmean)
- #    ) %>% 
- #  ungroup()
-
-# diffs_dat
-
-diffs_dat %>% 
-  group_split(bundesland) %>% 
-  map(~hc_daily_stats(.x)) %>% 
-  hw_grid(ncol = 3) 
+diffs_dat %>%
+  group_split(bundesland) %>%
+  map(~hc_daily_stats(.x)) %>%
+  hw_grid(ncol = 3)
 ```
 
 

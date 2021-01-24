@@ -53,11 +53,11 @@ Autoren: [Frie Preu](https://twitter.com/ameisen_strasse){target="_blank"} &  [F
 <center>
 
 ```{r}
-datenstand <- unique(latest_dat$ts_datenstand) %>% 
+datenstand <- unique(latest_dat$publication_date) %>% 
   lubridate::with_tz(tz = "Europe/Berlin") %>% 
   format("%d.%m.%Y %H:%M:%S")
 
-datenstand_day <- unique(latest_dat$ts_datenstand) %>% 
+datenstand_day <- unique(latest_dat$publication_date) %>% 
   lubridate::with_tz(tz = "Europe/Berlin") %>% 
   format("%d.%m.%Y")
 ```
@@ -194,25 +194,25 @@ ggsave(filename = "../../img/infobox2_de.png", plot = infobox2,
 
 *Letzter Datenstand: `r datenstand`* (siehe `r emo::ji("warning")` oben)
 
-**Aktuelle Anmerkungen:**
+<!-- **Aktuelle Anmerkungen:** -->
 
-```{r, results = "asis"}
-notes_dat <- latest_dat %>% 
-  drop_na(notes)
-
-
-if(nrow(notes_dat)!=0){
-  notes_dat %>% 
-    mutate(note_display = glue::glue("{bundesland}: *{notes}*")) %>% 
-    pull(note_display) %>% 
-    paste0(collapse = "\n\n")  %>% 
-    cat()
-} else {
-  cat("*Keine Anmerkungen.*")
-}
+<!-- ```{r, results = "asis"} -->
+<!-- notes_dat <- latest_dat %>%  -->
+<!--   drop_na(notes) -->
 
 
-```
+<!-- if(nrow(notes_dat)!=0){ -->
+<!--   notes_dat %>%  -->
+<!--     mutate(note_display = glue::glue("{bundesland}: *{notes}*")) %>%  -->
+<!--     pull(note_display) %>%  -->
+<!--     paste0(collapse = "\n\n")  %>%  -->
+<!--     cat() -->
+<!-- } else { -->
+<!--   cat("*Keine Anmerkungen.*") -->
+<!-- } -->
+
+
+<!-- ``` -->
 
 
 
