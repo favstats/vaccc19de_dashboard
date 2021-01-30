@@ -12,9 +12,8 @@ Die Impfungsdaten werden täglich vom Robert-Koch-Institut (RKI) [auf
 dieser
 Seite](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html)
 bereitgestellt. Die hier dargestellten Daten werden von diesem
-öffentlichen
-<a href="https://github.com/ard-data/2020-rki-impf-archive" target="_blank">ARD Data GitHub repository</a>
-bezogen.
+öffentlichen [ARD Data GitHub
+repository](https://github.com/ard-data/2020-rki-impf-archive) bezogen.
 
 Bevölkerungsdaten für die Bundesländer stammen vom [Statistischen
 Bundesamt](https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/Tabellen/bevoelkerung-nichtdeutsch-laender.html).
@@ -34,34 +33,56 @@ Data](https://github.com/ard-data/2020-rki-impf-archive) 📝
 
 <center>
 
-*Letzter Datenstand: 27.01.2021 11:00:00*
+*Letzter Datenstand: 29.01.2021 11:00:00*
 
 <!-- **Aktuelle Anmerkungen:** -->
+
 <!-- ```{r, results = "asis", echo = F} -->
+
 <!-- notes_dat <- latest_dat %>%  -->
+
 <!--   drop_na(notes) -->
+
 <!-- if(nrow(notes_dat)!=0){ -->
+
 <!--   notes_dat %>%  -->
+
 <!--     mutate(notes = ifelse(stringi::stri_startswith_fixed(notes, "("), -->
+
 <!--                           str_remove(notes, "\\("), -->
+
 <!--                           notes), -->
+
 <!--            notes = ifelse(stringi::stri_endswith_fixed(notes, ")") , -->
+
 <!--                           str_sub(notes, 1, str_length(notes)-1), -->
+
 <!--                           notes), -->
+
 <!--            notes = ifelse(!stringi::stri_endswith_fixed(notes, "\\.") , -->
+
 <!--                           paste0(notes, "."), -->
+
 <!--                           notes)) %>%  -->
+
 <!--     mutate(note_display = glue::glue("{bundesland}: *{notes}*")) %>%  -->
+
 <!--     pull(note_display) %>%  -->
+
 <!--     paste0(collapse = "\n\n")  %>%  -->
+
 <!--     cat() -->
+
 <!-- } else { -->
+
 <!--   cat("*Keine Anmerkungen.*") -->
+
 <!-- } -->
+
 <!-- ``` -->
 
 Twitter Bot für tägliche Updates:
-<a href="https://twitter.com/vaccc19de" target="_blank">vaccc19de</a>
+[vaccc19de](https://twitter.com/vaccc19de)
 
 </center>
 
@@ -69,14 +90,13 @@ Twitter Bot für tägliche Updates:
 
 Contributions are very welcome. Depending on where you want to add
 features, please open an issue here or on
-<a href="https://github.com/friep/vaccc19de" target="_blank">{vaccc19de}</a>:
+[{vaccc19de}](https://github.com/friep/vaccc19de):
 
--   features relating to GitHub Action and daily updates of the data
-    –&gt; this repository
--   features relating to the dashboard –&gt; this repository
--   features relating to data wrangling, data cleaning of the original
-    excel file –&gt;
-    <a href="https://github.com/friep/vaccc19de" target="_blank">{vaccc19de}</a>
+  - features relating to GitHub Action and daily updates of the data –\>
+    this repository
+  - features relating to the dashboard –\> this repository
+  - features relating to data wrangling, data cleaning of the original
+    excel file –\> [{vaccc19de}](https://github.com/friep/vaccc19de)
 
 Of course, features might require changes in both repositories. Please
 still open issues in both repositories and then link them to each other.
