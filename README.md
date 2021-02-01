@@ -34,7 +34,7 @@ Data](https://github.com/ard-data/2020-rki-impf-archive) 📝
 
 <center>
 
-*Letzter Datenstand: 30.01.2021 11:00:00*
+*Letzter Datenstand: 01.02.2021 11:00:00*
 
 <!-- **Aktuelle Anmerkungen:** -->
 <!-- ```{r, results = "asis", echo = F} -->
