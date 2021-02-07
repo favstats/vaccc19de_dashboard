@@ -5,7 +5,22 @@ output:
     theme: yeti
 ---
 
+`r emo :: ji (" warning ")` We have stopped developing the dashboard and the [R Package] (https://github.com/friep/vaccc19de). `r emo :: ji (" warning ")`
 
+** Why is the dashboard no longer available? **
+
+This project was a relatively spontaneous collaboration between us ([Fabio] (https://github.com/favstats) and [Frie] (https://github.com/friep)) after we independently determined that
+
+1) no time series data were published by the RKI, but the data were overwritten daily (-> data loss for the public)
+2) there was no public dashboard / visualization
+
+However, there are now better solutions than ours for both problems:
+
+Regarding 1) there is the [RKI vaccination archive] (https://github.com/ard-data/2020-rki-impf-archive), which we have also used for our dashboard over the past few weeks.
+
+Regarding 2) Even if some important analyzes are missing in the [official dashboard] (https://impfdashboard.de/) (e.g. there is no breakdown at federal state level) (eg no federal state level analyzes), it is, however, a good one , official source of information.
+
+In the end - in view of the constantly changing data format of the Excel file, which requires constant adjustments to the code - we cannot realistically guarantee the integrity and correctness of the visualizations, especially since we started and pursued this project in our spare time.
 
 <!-- # ```{r} -->
 ```{r setup, include=FALSE}
