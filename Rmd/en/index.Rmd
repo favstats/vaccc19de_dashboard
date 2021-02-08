@@ -5,7 +5,7 @@ output:
     theme: yeti
 ---
 
-`r emo :: ji (" warning ")` We have stopped developing the dashboard and the [R Package] (https://github.com/friep/vaccc19de). `r emo :: ji (" warning ")`
+`r emo::ji("warning")` We have stopped developing the dashboard and the [R Package] (https://github.com/friep/vaccc19de). `r emo::ji("warning")`
 
 ** Why is the dashboard no longer available? **
 
