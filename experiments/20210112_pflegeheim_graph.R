@@ -49,3 +49,5 @@ pflegeheim_share<-ggplot(cumulative_ts_aktuell, aes(x=reorder(bundesland_iso, sh
        caption="Daten zu den Pflegeheimen sind der Tabelle 22411-01-01-4-B der Regionalstatistik \nentnommen. Sie geben die Zahl der verfügbaren stationären Plätze in Pflegeheimen wieder.") +
   theme_bw()
 pflegeheim_share
+
+ggsave("/Users/rzepka/Documents/Correlaid/vaccc19de_dashboard/experiments/pflegeheim_share.pdf")
